@@ -3690,7 +3690,7 @@
         <value>額外要求</value>
     </data>
     <data name="PromptCreate_AdditionalRequirementsPlaceholder" xml:space="preserve">
-        <value>（可選）補充此提示詞需要遵守的限制、參考資料或偏好。</value>
+        <value>(可選) 補充此提示詞需要遵守的限制、參考資料或偏好。</value>
     </data>
     <data name="PromptCreate_LivePreviewTitle" xml:space="preserve">
         <value>實時預覽</value>
@@ -3988,5 +3988,53 @@
     </data>
     <data name="SettingsItemControl_OpenDocumentHyperlinkButton_Content" xml:space="preserve">
         <value>檢視文件</value>
+    </data>
+    <data name="PresetModelProvider_Google" xml:space="preserve">
+        <value>Google</value>
+    </data>
+    <data name="PresetModelProvider_Anthropic" xml:space="preserve">
+        <value>Anthropic</value>
+    </data>
+    <data name="PresetModelProvider_MiniMaxInternational" xml:space="preserve">
+        <value>MiniMax</value>
+    </data>
+    <data name="PresetModelProvider_ZhipuChina" xml:space="preserve">
+        <value>Zhipu AI (中國)</value>
+    </data>
+    <data name="PresetModelProvider_Mistral" xml:space="preserve">
+        <value>Mistral AI</value>
+    </data>
+    <data name="PresetModelSelector_Unlisted" xml:space="preserve">
+        <value>此模型未列於目前的目錄中。其已儲存的設定會保留。</value>
+    </data>
+    <data name="PresetModelProvider_OpenAI" xml:space="preserve">
+        <value>OpenAI</value>
+    </data>
+    <data name="PresetModelProvider_SiliconFlowChina" xml:space="preserve">
+        <value>SiliconFlow (中國)</value>
+    </data>
+    <data name="PresetModelProvider_Ollama" xml:space="preserve">
+        <value>Ollama</value>
+    </data>
+    <data name="PresetModelProvider_OpenRouter" xml:space="preserve">
+        <value>OpenRouter</value>
+    </data>
+    <data name="PresetModelProvider_ZhipuInternational" xml:space="preserve">
+        <value>Z.AI</value>
+    </data>
+    <data name="PresetModelProvider_SiliconFlowInternational" xml:space="preserve">
+        <value>SiliconFlow</value>
+    </data>
+    <data name="PresetModelProvider_MiniMaxChina" xml:space="preserve">
+        <value>MiniMax (中國)</value>
+    </data>
+    <data name="PresetModelProvider_MoonshotChina" xml:space="preserve">
+        <value>Moonshot AI (中國)</value>
+    </data>
+    <data name="PresetModelProvider_DeepSeek" xml:space="preserve">
+        <value>DeepSeek</value>
+    </data>
+    <data name="PresetModelProvider_MoonshotInternational" xml:space="preserve">
+        <value>Moonshot AI</value>
     </data>
 </root>

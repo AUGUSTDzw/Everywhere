@@ -3690,7 +3690,7 @@
         <value>额外要求</value>
     </data>
     <data name="PromptCreate_AdditionalRequirementsPlaceholder" xml:space="preserve">
-        <value>（可选）补充此提示词需要遵守的限制、参考资料或偏好。</value>
+        <value>(可选) 补充此提示词需要遵守的限制、参考资料或偏好。</value>
     </data>
     <data name="PromptCreate_LivePreviewTitle" xml:space="preserve">
         <value>实时预览</value>
@@ -3979,16 +3979,16 @@
         <value>DeepSeek</value>
     </data>
     <data name="PresetModelProvider_MoonshotChina" xml:space="preserve">
-        <value>Moonshot AI（中国站）</value>
+        <value>Moonshot AI (中国)</value>
     </data>
     <data name="PresetModelProvider_MiniMaxChina" xml:space="preserve">
-        <value>MiniMax（中国站）</value>
+        <value>MiniMax (中国)</value>
     </data>
     <data name="PresetModelProvider_OpenRouter" xml:space="preserve">
         <value>OpenRouter</value>
     </data>
     <data name="PresetModelProvider_SiliconFlowChina" xml:space="preserve">
-        <value>硅基流动（中国站）</value>
+        <value>硅基流动 (中国)</value>
     </data>
     <data name="PresetModelProvider_Ollama" xml:space="preserve">
         <value>Ollama</value>
@@ -4003,7 +4003,7 @@
         <value>硅基流动</value>
     </data>
     <data name="PresetModelProvider_ZhipuChina" xml:space="preserve">
-        <value>智谱（中国站）</value>
+        <value>智谱 (中国)</value>
     </data>
     <data name="PresetModelProvider_ZhipuInternational" xml:space="preserve">
         <value>Z.AI</value>

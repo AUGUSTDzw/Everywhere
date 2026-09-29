@@ -58,7 +58,7 @@
                 Content="{TemplateBinding Content}"
                 TabIndex="1"/>
               <Button
-                x:Name="PART_IncreaseButton" Classes="Ghost Compact Uniform"
+                x:Name="PART_IncreaseButton" Classes="Ghost Compact"
                 Grid.Column="2"
                 Content="{LucideIconContent ChevronRight, Size=18}"
                 Focusable="False"

@@ -10,7 +10,7 @@
       HorizontalSpacing="8">
       <!--  Back Button  -->
       <Button
-        Classes="Ghost Compact Uniform" DockPanel.Dock="Left"
+        Classes="Ghost Compact" DockPanel.Dock="Left"
         Width="36" Height="36"
         Margin="-10,0,0,0" VerticalAlignment="Center"
         Command="{Binding $parent[v:MainView].ViewModel.NavigateToTypeCommand}"
@@ -19,7 +19,7 @@
       </Button>
 
       <TextBlock
-        Classes="h4" VerticalAlignment="Center"
+        Classes="h1" VerticalAlignment="Center"
         Text="{Binding #Self.TitleKey^}"/>
     </DockPanel>
 

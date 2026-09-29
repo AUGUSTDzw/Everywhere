@@ -80,7 +80,7 @@
               HorizontalOffset="-24" Placement="TopEdgeAlignedLeft">
               <v:ConditionalContentControl
                 x:Name="TransitioningContentControl" x:DataType="v:ChatCustomAssistantSelector"
-                AnimateContentSize="True" ClipToBounds="False"
+                AnimateContentSize="True"
                 Condition="{Binding SelectedSettingsItem, Converter={x:Static ObjectConverters.IsNotNull}}"
                 ContentDataBinding="{Binding SelectedSettingsItem}"
                 ContentSizeTransitionDuration="0:0:0.4"
@@ -102,19 +102,20 @@
                   <DataTemplate>
                     <DockPanel
                       Width="300" MaxHeight="400"
-                      VerticalSpacing="4">
+                      Margin="6" VerticalSpacing="4">
                       <Button
-                        Classes="Ghost Uniform" DockPanel.Dock="Bottom"
+                        Classes="Ghost" DockPanel.Dock="Bottom"
                         HorizontalContentAlignment="Left"
-                        Command="{Binding OpenAssistantsSettingsCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                        CornerRadius="12">
+                        Command="{Binding $parent[v:ChatCustomAssistantSelector].OpenAssistantsSettingsCommand}"
+                        CornerRadius="{DynamicResource XlCornerRadius}">
                         <DockPanel>
                           <Border
                             DockPanel.Dock="Left"
-                            Width="{DynamicResource LineHeightXl}">
+                            Width="{DynamicResource LineHeightXl}"
+                            VerticalAlignment="Center">
                             <LucideIcon
-                              VerticalAlignment="Center" Kind="Settings"
-                              Size="{DynamicResource FontSizeL}"/>
+                              Kind="Settings"
+                              Size="{DynamicResource FontSizeXl}"/>
                           </Border>
                           <TextBlock
                             Margin="6,0,0,0" VerticalAlignment="Center"
@@ -153,7 +154,8 @@
                                   Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch"
                                   Command="{Binding $parent[v:ChatCustomAssistantSelector].SetSelectedItemCommand}"
                                   CommandParameter="{Binding}"
-                                  CornerRadius="12" Focusable="False">
+                                  CornerRadius="{DynamicResource XlCornerRadius}"
+                                  Focusable="False">
                                   <Classes.Selected>
                                     <MultiBinding Converter="{x:Static vc:CommonConverters.AllEquals}">
                                       <Binding Path="."/>
@@ -271,18 +273,11 @@
                   <DataTemplate x:DataType="ai:CustomAssistant">
                     <StackPanel
                       MinWidth="240" MaxWidth="300"
-                      Margin="2,4" Grid.IsSharedSizeScope="True"
+                      Margin="8,12" Grid.IsSharedSizeScope="True"
                       Spacing="8">
                       <Grid
-                        Margin="6,0" ColumnSpacing="12"
-                        RowDefinitions="Auto,12,Auto,Auto">
-                        <Grid.ColumnDefinitions>
-                          <ColumnDefinition Width="Auto"/>
-                          <ColumnDefinition Width="*"/>
-                          <ColumnDefinition
-                            Width="Auto" SharedSizeGroup="Chevron"/>
-                        </Grid.ColumnDefinitions>
-
+                        Margin="6,0" ColumnDefinitions="Auto,*"
+                        ColumnSpacing="12" RowDefinitions="Auto,12,Auto,Auto">
                         <DockPanel
                           Grid.Row="0" Grid.Column="0"
                           Grid.ColumnSpan="2" HorizontalSpacing="4">
@@ -432,7 +427,7 @@
                           DefaultReasoningEffortValues="{Binding Configuration.DefaultReasoningEffortValues}"
                           Options="{Binding EffectiveReasoningOptions}">
                           <v:ReasoningEffortSlider.Margin>
-                            <exp:ExpressionBinding Expression="thickness(A / 2 - 12, 0, 0, 0)">
+                            <exp:ExpressionBinding Expression="thickness(A / 2 - 11, 0, 0, 0)">
                               <DynamicResource ResourceKey="FontSizeXl"/>
                             </exp:ExpressionBinding>
                           </v:ReasoningEffortSlider.Margin>
@@ -494,6 +489,7 @@
                             <Flyout
                               HorizontalOffset="2" Placement="Right">
                               <v:CustomAssistantToolSettingsView
+                                Margin="6"
                                 Assistant="{Binding}"
                                 Theme="{StaticResource AssistantToolSettingsCompactTheme}"/>
                             </Flyout>
@@ -537,7 +533,7 @@
                         <Button.Flyout>
                           <Flyout Placement="Right">
                             <StackPanel
-                              Margin="8" Spacing="8">
+                              Margin="12" Spacing="8">
                               <StackPanel
                                 Orientation="Vertical" Spacing="4">
                                 <DockPanel HorizontalSpacing="6">

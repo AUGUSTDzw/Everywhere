@@ -27,7 +27,7 @@
           </v:KeyboardShortcutInputBox>
 
           <Button
-            Classes="Ghost Compact Uniform"
+            Classes="Ghost Compact"
             shadui:ButtonAssist.Icon="{LucideIconContent Keyboard}"
             shadui:ButtonAssist.IconSize="{DynamicResource FontSizeL}"
             Command="{Binding #PART_AlternativeKeyInputBox.EnterRecordingModeCommand}"

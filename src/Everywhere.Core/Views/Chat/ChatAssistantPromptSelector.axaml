@@ -54,7 +54,7 @@
             <Flyout Placement="Right">
               <DockPanel
                 Width="320" MaxHeight="440"
-                Margin="2" VerticalSpacing="8">
+                Margin="8" VerticalSpacing="8">
                 <shadui:Toast
                   Title="{I18N {x:Static LocaleKey.ChatAssistantPromptSelector_ChangeWarning}}"
                   DockPanel.Dock="Top" Padding="6,4"

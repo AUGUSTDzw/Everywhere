@@ -164,7 +164,7 @@
                             shadui:BindingAssist.Classes="{Binding Classes, Mode=OneTime}"
                             HorizontalSpacing="8" LastChildFill="True">
                             <Button
-                              Classes="Ghost Compact Uniform" DockPanel.Dock="Right"
+                              Classes="Ghost Compact" DockPanel.Dock="Right"
                               Command="{Binding ResetCommand}"
                               ToolTip.Tip="{I18N {x:Static LocaleKey.Common_Reset}}">
                               <LucideIcon

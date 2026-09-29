@@ -7,7 +7,7 @@
     MaxWidth="1000" LastChildFill="True"
     VerticalSpacing="16">
     <TextBlock
-      Classes="h4" DockPanel.Dock="Top"
+      Classes="h1" DockPanel.Dock="Top"
       VerticalAlignment="Center" ClipToBounds="False"
       Text="{I18N {x:Static LocaleKey.SettingsPage_Title}}"/>
 

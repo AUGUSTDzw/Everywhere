@@ -248,6 +248,48 @@ ul, ol { padding-left: 2em; }
       <Setter Property="SelectionBrush" Value="#0078D7"/>
       <Setter Property="SelectionForegroundBrush" Value="#E5E5E5"/>
     </Style>
+
+    <Style Selector="^ Border.Heading1Block">
+      <Style Selector="^ md|MarkdownTextBlock">
+        <Setter Property="Margin" Value="0,6"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeXl}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+      </Style>
+    </Style>
+
+    <Style Selector="^ Border.Heading2Block">
+      <Style Selector="^ md|MarkdownTextBlock">
+        <Setter Property="Margin" Value="0,4"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeL}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+      </Style>
+    </Style>
+
+    <Style Selector="^ Border.Heading3Block">
+      <Style Selector="^ md|MarkdownTextBlock">
+        <Setter Property="Margin" Value="0,2"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeL}"/>
+      </Style>
+    </Style>
+
+    <Style Selector="^ Border.Heading4Block">
+      <Style Selector="^ md|MarkdownTextBlock">
+        <Setter Property="Margin" Value="0,2"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeM}"/>
+      </Style>
+    </Style>
+
+    <Style Selector="^ Border.Heading5Block">
+      <Style Selector="^ md|MarkdownTextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeM}"/>
+      </Style>
+    </Style>
+
+    <Style Selector="^ Border.Heading6Block">
+      <Style Selector="^ md|MarkdownTextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeS}"/>
+      </Style>
+    </Style>
   </Style>
 
   <Style Selector="md|CodeBlock">

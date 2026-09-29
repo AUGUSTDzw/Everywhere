@@ -43,7 +43,7 @@
       DockPanel.Dock="Top" Height="36"
       ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="8">
       <Button
-        Classes="Ghost Compact Uniform" Width="36"
+        Classes="Ghost Compact" Width="36"
         Height="36" Margin="-10,0,0,0"
         VerticalAlignment="Center"
         Command="{Binding CancelCommand}">
@@ -51,7 +51,7 @@
       </Button>
 
       <TextBlock
-        Classes="h4" Grid.Column="1"
+        Classes="h1" Grid.Column="1"
         VerticalAlignment="Center"
         Text="{Binding TitleKey^}"
         TextTrimming="CharacterEllipsis"/>
@@ -402,7 +402,7 @@
         <StackPanel
           DockPanel.Dock="Top" Spacing="4">
           <TextBlock
-            Classes="h4"
+            Classes="h1"
             Text="{I18N {x:Static LocaleKey.PromptCreate_LivePreviewTitle}}"/>
           <TextBlock
             Classes="Muted Caption"

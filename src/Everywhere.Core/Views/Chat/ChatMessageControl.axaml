@@ -112,14 +112,14 @@
                       Minimum="1"
                       Value="{Binding Parent.ChoiceIndex, FallbackValue=1, Converter={x:Static vc:Int32Converters.Plus}, ConverterParameter=1}"/>
                     <Button
-                      Classes="Ghost Compact Uniform"
+                      Classes="Ghost Compact"
                       Command="{Binding $parent[v:ChatMessageItemsControl].EditMessageNodeCommand}"
                       CommandParameter="{Binding Mode=OneTime}"
                       Content="{LucideIconContent SquarePen}"
                       Focusable="False"
                       ToolTip.Tip="{I18N {x:Static LocaleKey.ChatMessageControl_EditButton_Content}}"/>
                     <Button
-                      Classes="Ghost Compact Uniform"
+                      Classes="Ghost Compact"
                       Command="{Binding $parent[v:ChatMessageItemsControl].CopyMessageCommand}"
                       CommandParameter="{Binding Message, Mode=OneTime}"
                       Content="{LucideIconContent Copy}"
@@ -180,14 +180,14 @@
                       Minimum="1"
                       Value="{Binding Parent.ChoiceIndex, FallbackValue=1, Converter={x:Static vc:Int32Converters.Plus}, ConverterParameter=1}"/>
                     <Button
-                      Classes="Ghost Compact Uniform"
+                      Classes="Ghost Compact"
                       Command="{Binding $parent[v:ChatMessageItemsControl].EditMessageNodeCommand, Mode=OneTime}"
                       CommandParameter="{Binding Mode=OneTime}"
                       Content="{LucideIconContent SquarePen}"
                       Focusable="False"
                       ToolTip.Tip="{I18N {x:Static LocaleKey.ChatMessageControl_EditButton_Content}}"/>
                     <Button
-                      Classes="Ghost Compact Uniform"
+                      Classes="Ghost Compact"
                       Command="{Binding $parent[v:ChatMessageItemsControl].CopyMessageCommand, Mode=OneTime}"
                       CommandParameter="{Binding Message, Mode=OneTime}"
                       Content="{LucideIconContent Copy}"

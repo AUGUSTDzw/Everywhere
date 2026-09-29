@@ -546,7 +546,7 @@
                               </Button>
 
                               <Button
-                                Classes="Compact Uniform" VerticalAlignment="Center"
+                                Classes="Compact" VerticalAlignment="Center"
                                 Content="{LucideIconContent Ellipsis}">
                                 <Button.Flyout>
                                   <MenuFlyout>
@@ -643,14 +643,22 @@
 
                         <TextBlock
                           Grid.Row="0" Grid.Column="1"
-                          FontWeight="SemiBold"
                           Text="{Binding NameKey^}"
-                          TextWrapping="Wrap"/>
+                          TextTrimming="CharacterEllipsis">
+                          <Interaction.Behaviors>
+                            <shadui:TextTrimmedToolTipBehavior/>
+                          </Interaction.Behaviors>
+                        </TextBlock>
                         <TextBlock
                           Classes="Muted Caption" Grid.Row="1"
                           Grid.Column="0" Grid.ColumnSpan="2"
+                          MaxLines="2"
                           Text="{Binding DescriptionKey^}"
-                          TextWrapping="Wrap"/>
+                          TextTrimming="CharacterEllipsis" TextWrapping="Wrap">
+                          <Interaction.Behaviors>
+                            <shadui:TextTrimmedToolTipBehavior/>
+                          </Interaction.Behaviors>
+                        </TextBlock>
                       </Grid>
                     </Button>
                   </DataTemplate>
@@ -706,7 +714,7 @@
                       IsVisible="{Binding $parent[TextBox].Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                       Theme="{StaticResource ClearButtonTheme}"/>
                     <Button
-                      Classes="Ghost Compact Uniform"
+                      Classes="Ghost Compact"
                       Command="{Binding TextSearch.CycleSearchScopeCommand}"
                       Focusable="False"
                       ToolTip.Tip="{Binding TextSearch.SearchScopeToolTipKey^}">
@@ -745,7 +753,7 @@
               </v:ToggleBlock>
 
               <Button
-                Classes="Ghost Compact Uniform" Grid.Column="2"
+                Classes="Ghost Compact" Grid.Column="2"
                 Command="{Binding TextSearch.PreviousResultCommand}"
                 IsEnabled="{Binding TextSearch.HasMatches}"
                 ToolTip.Tip="{I18N {x:Static LocaleKey.ChatWindow_TextSearch_Previous_ToolTip}}">
@@ -754,7 +762,7 @@
                   Size="{DynamicResource FontSizeM}"/>
               </Button>
               <Button
-                Classes="Ghost Compact Uniform" Grid.Column="3"
+                Classes="Ghost Compact" Grid.Column="3"
                 Command="{Binding TextSearch.NextResultCommand}"
                 IsEnabled="{Binding TextSearch.HasMatches}"
                 ToolTip.Tip="{I18N {x:Static LocaleKey.ChatWindow_TextSearch_Next_ToolTip}}">
@@ -763,7 +771,7 @@
                   Size="{DynamicResource FontSizeM}"/>
               </Button>
               <Button
-                Classes="Ghost Compact Uniform" Grid.Column="4"
+                Classes="Ghost Compact" Grid.Column="4"
                 Command="{Binding TextSearch.CloseSearchCommand}"
                 ToolTip.Tip="{I18N {x:Static LocaleKey.ChatWindow_TextSearch_Close_ToolTip}}">
                 <LucideIcon
@@ -835,7 +843,7 @@
                   <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="se:Strategy">
                       <Button
-                        Classes="Outline Compact Uniform" Padding="6,4"
+                        Classes="Outline Compact" Padding="6,4"
                         Command="{Binding #Self.ViewModel.SelectStrategyCommand, Mode=OneTime}"
                         CommandParameter="{Binding Mode=OneTime}"
                         Focusable="False">
@@ -934,7 +942,7 @@
                         TextWrapping="Wrap"/>
 
                       <Button
-                        Classes="Ghost Compact Uniform" Grid.Column="2"
+                        Classes="Ghost Compact" Grid.Column="2"
                         Padding="4,1" VerticalAlignment="Center"
                         Command="{Binding ActionCommand, Mode=OneTime}"
                         Content="{Binding ActionButtonContentKey^, FallbackValue={x:Null}, Mode=OneTime}"
@@ -942,7 +950,7 @@
                         IsVisible="{Binding ActionCommand, Converter={x:Static ObjectConverters.IsNotNull}, Mode=OneTime}"/>
 
                       <Button
-                        Classes="Ghost Compact Uniform" Grid.Column="3"
+                        Classes="Ghost Compact" Grid.Column="3"
                         Padding="1" VerticalAlignment="Center"
                         Command="{Binding DismissCommand, Mode=OneTime}"
                         CommandParameter="{Binding Mode=OneTime}"
@@ -1047,7 +1055,7 @@
                 <DockPanel
                   Margin="0,4,0,2" LastChildFill="True">
                   <Button
-                    Classes="Ghost Compact Uniform" DockPanel.Dock="Right"
+                    Classes="Ghost Compact" DockPanel.Dock="Right"
                     Padding="1" VerticalAlignment="Center"
                     Command="{Binding #Self.ViewModel.CancelEditingCommand}"
                     CommandParameter="{Binding}"
@@ -1125,16 +1133,13 @@
                         ToolTip.Tip="{I18N {x:Static LocaleKey.ChatInputArea_AddAttachmentMenuItem_ToolTip}}">
                         <Button.Flyout>
                           <Flyout Placement="Top">
-                            <DockPanel VerticalSpacing="4">
+                            <DockPanel
+                              Margin="2,4" VerticalSpacing="4">
                               <TextBlock
                                 Classes="Muted" DockPanel.Dock="Top"
-                                Margin="12,0" HorizontalAlignment="Center">
+                                HorizontalAlignment="Center">
                                 <Run Text="{I18N {x:Static LocaleKey.ChatInputArea_AddAttachmentMenuItem_Header}}"/>
-                                <Run Text=" ("/>
-                                <Run Text="{Binding ChatAttachments.Count}"/>
-                                <Run Text="/"/>
-                                <Run Text="{Binding PersistentState.MaxChatAttachmentCount}"/>
-                                <Run Text=")"/>
+                                <Run Text="("/><Run Text="{Binding ChatAttachments.Count}"/><Run Text="/"/><Run Text="{Binding PersistentState.MaxChatAttachmentCount}"/><Run Text=")"/>
                               </TextBlock>
 
                               <ItemsControl>

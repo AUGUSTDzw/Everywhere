@@ -9,7 +9,9 @@
     <Setter Property="Template">
       <ControlTemplate>
         <shadui:ControlGroup
-          VerticalAlignment="Center" Orientation="Horizontal">
+          VerticalAlignment="Center"
+          CornerRadius="{DynamicResource FullCornerRadius}"
+          Orientation="Horizontal">
           <Button
             Classes="Outline"
             shadui:ButtonAssist.Icon="{LucideIconContent FileBraces}"

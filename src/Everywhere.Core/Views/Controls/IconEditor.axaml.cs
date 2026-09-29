@@ -1,5 +1,4 @@
-﻿using System.Reactive.Disposables;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
@@ -12,7 +11,6 @@ using FuzzySharp;
 using Lucide.Avalonia;
 using MessagePack;
 using Serilog;
-using ZLinq;
 
 namespace Everywhere.Views;
 
@@ -85,9 +83,6 @@ public sealed class IconEditor : TemplatedControl
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
         DisposeHelper.DisposeToDefault(ref _queryTextChangedSubscription);
-        DisposeHelper.DisposeToDefault(ref _iconTypeTabControlSelectionChangedSubscription);
-        _iconTypeTabControl = null;
-
         base.OnDetachedFromVisualTree(e);
     }
 

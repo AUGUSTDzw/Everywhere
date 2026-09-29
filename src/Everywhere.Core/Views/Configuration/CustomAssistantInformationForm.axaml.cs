@@ -91,6 +91,12 @@ public sealed class RadialGlow : Control
             var width = (float)Bounds.Width;
             var height = (float)Bounds.Height;
 
+            var currentOpacity = (float)lease.CurrentOpacity;
+            if (currentOpacity <= 0)
+            {
+                return;
+            }
+
             var save = canvas.Save();
 
             try
@@ -111,6 +117,8 @@ public sealed class RadialGlow : Control
                 uniforms["uSize"] = new[] { width, height };
                 // Control size in pixel units. This is used to compute the radial falloff.
                 uniforms["uPixelScale"] = new[] { scaleX, scaleY };
+                // The current opacity of the control. This is multiplied by the alpha in the shader.
+                uniforms["uOpacity"] = currentOpacity;
                 // Input color is normalized sRGB. The alpha is multiplied by MaxOpacity in the shader.
                 uniforms["uColor"] = new[]
                 {
@@ -156,6 +164,7 @@ public sealed class RadialGlow : Control
         """
         uniform float2 uSize;
         uniform float2 uPixelScale;
+        uniform float uOpacity;
         layout(color) uniform float4 uColor;
         
         float luminance(float3 c)
@@ -253,7 +262,7 @@ public sealed class RadialGlow : Control
             // This reaches exactly zero at t = 1 and has smooth derivatives at both ends.
             float fade = 1.0 - smootherstep01(t);
             float3 glowColor = clampGlowColor(uColor.rgb);
-            float alpha = pow(fade, FalloffPower) * MaxOpacity * uColor.a;
+            float alpha = pow(fade, FalloffPower) * MaxOpacity * uColor.a * uOpacity;
 
             // Fade dithering out near the edge so it does not create noisy speckles at the border.
             float edgeMask = 1.0 - smoothstep(0.94, 1.0, t);

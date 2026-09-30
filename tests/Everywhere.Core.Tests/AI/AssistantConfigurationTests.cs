@@ -88,7 +88,7 @@ public class AssistantConfigurationTests
         ] } }
         """)!.AsObject();
 
-        new _20260908231914_0_8_2_canary_20260908_22().Migrate(root);
+        new _20261001023708_0_9_0_canary_20261001_24().Migrate(root);
 
         var assistant = root["Model"]?["CustomAssistants"]?[0];
         var configuration = assistant?["Configuration"];
@@ -116,7 +116,7 @@ public class AssistantConfigurationTests
         ] } }
         """)!.AsObject();
 
-        new _20260908231914_0_8_2_canary_20260908_22().Migrate(root);
+        new _20261001023708_0_9_0_canary_20261001_24().Migrate(root);
 
         var configuration = root["Model"]?["CustomAssistants"]?[0]?["Configuration"];
         using (Assert.EnterMultipleScope())

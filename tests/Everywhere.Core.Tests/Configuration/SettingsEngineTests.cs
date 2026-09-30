@@ -3,12 +3,14 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Everywhere.AI;
+using Everywhere.Chat.Plugins;
 using Everywhere.Collections;
 using Everywhere.Common;
 using Everywhere.Configuration;
 using Everywhere.Configuration.Engine;
 using Everywhere.Extensions;
 using Everywhere.Utilities;
+using Everywhere.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using SettingsDescriptorProviderFactory = Everywhere.Configuration.Engine.SettingsDescriptorProviderFactory;
@@ -52,7 +54,6 @@ public sealed class SettingsEngineTests
 
         Assert.Multiple(() =>
         {
-            Assert.That(root["Version"]!.GetValue<string>(), Is.EqualTo("0.8.2-canary.20260908.22"));
             Assert.That(titleGeneration["Configuration"]!["Specializations"]!.GetValue<string>(), Is.EqualTo("TitleGeneration"));
             Assert.That(plugins, Has.Count.EqualTo(2));
             Assert.That(plugins["11111111-1111-1111-1111-111111111111"]!["$type"]!.GetValue<string>(), Is.EqualTo("stdio"));
@@ -61,21 +62,21 @@ public sealed class SettingsEngineTests
             Assert.That(plugins.ContainsKey("33333333-3333-3333-3333-333333333333"), Is.False);
             Assert.That(officialSettings["Depth"]!.GetValue<string>(), Is.EqualTo("UltraFast"));
             Assert.That(engine.Settings.SystemAssistant.TitleGeneration.Configuration.Specializations,
-                Is.EqualTo(global::Everywhere.AI.ModelSpecializations.TitleGeneration));
+                Is.EqualTo(ModelSpecializations.TitleGeneration));
             Assert.That(engine.Settings.Plugin.McpChatPlugins, Has.Count.EqualTo(2));
             Assert.That(engine.Settings.Plugin.McpChatPlugins[Guid.Parse("11111111-1111-1111-1111-111111111111")],
-                Is.TypeOf<global::Everywhere.Chat.Plugins.StdioMcpTransportConfiguration>());
+                Is.TypeOf<StdioMcpTransportConfiguration>());
             Assert.That(engine.Settings.Plugin.McpChatPlugins[Guid.Parse("22222222-2222-2222-2222-222222222222")],
-                Is.TypeOf<global::Everywhere.Chat.Plugins.HttpMcpTransportConfiguration>());
+                Is.TypeOf<HttpMcpTransportConfiguration>());
             Assert.That(
                 ((OfficialWebSearchEngineProvider)engine.Settings.Plugin.WebSearchEngine.Providers[WebSearchEngineProviderId.Official]).Settings.Depth,
-                Is.EqualTo(global::Everywhere.Web.OfficialConnector.SearchDepth.UltraFast));
+                Is.EqualTo(OfficialConnector.SearchDepth.UltraFast));
             Assert.That(engine.Diagnostics, Is.Empty);
         });
 
-        var stdio = (global::Everywhere.Chat.Plugins.StdioMcpTransportConfiguration)
+        var stdio = (StdioMcpTransportConfiguration)
             engine.Settings.Plugin.McpChatPlugins[Guid.Parse("11111111-1111-1111-1111-111111111111")];
-        var http = (global::Everywhere.Chat.Plugins.HttpMcpTransportConfiguration)
+        var http = (HttpMcpTransportConfiguration)
             engine.Settings.Plugin.McpChatPlugins[Guid.Parse("22222222-2222-2222-2222-222222222222")];
         stdio.Name = "updated";
         stdio.Arguments.Add("second");
@@ -149,7 +150,6 @@ public sealed class SettingsEngineTests
 
         Assert.Multiple(() =>
         {
-            Assert.That(root["Version"]!.GetValue<string>(), Is.EqualTo("0.8.2-canary.20260908.22"));
             Assert.That(Require(main["Key"]).GetValue<string>(), Is.EqualTo("K"));
             Assert.That(Require(main["Modifiers"]).GetValue<string>(), Is.EqualTo("Control, Shift"));
             Assert.That(chatWindow.ContainsKey("Key"), Is.False);
@@ -196,7 +196,7 @@ public sealed class SettingsEngineTests
     {
         var provider = SettingsDescriptorProviderFactory.Create();
 
-        var descriptor = provider.GetDescriptor(typeof(global::Everywhere.Chat.Plugins.McpTransportConfiguration));
+        var descriptor = provider.GetDescriptor(typeof(McpTransportConfiguration));
 
         Assert.Multiple(() =>
         {

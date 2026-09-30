@@ -21,6 +21,7 @@ SetWindowPos
 SetActiveWindow
 IsWindowEnabled
 GetWindow
+IsWindow
 IsIconic
 IsZoomed
 IsWindowArranged

@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.Graphics.Dwm;
@@ -12,6 +13,7 @@ using Avalonia.Threading;
 using Everywhere.Patches.Contracts.Interop;
 using Everywhere.Utilities;
 using Everywhere.Views;
+using Serilog;
 using SkiaSharp;
 
 namespace Everywhere.Windows.Interop;
@@ -103,11 +105,17 @@ internal sealed class ChatWindowShadow
         }
 
         var borderColor = DwmColorNone;
-        PInvoke.DwmSetWindowAttribute(
+        var result = PInvoke.DwmSetWindowAttribute(
             _owner,
             DWMWINDOWATTRIBUTE.DWMWA_BORDER_COLOR,
             &borderColor,
             sizeof(uint));
+        if (result.Failed)
+        {
+            Log.ForContext<ChatWindowShadow>().Warning(
+                "Failed to disable the native ChatWindow border: {ErrorCode}",
+                result.Value);
+        }
     }
 
     private void ApplyNativeBehaviorStyles()
@@ -119,18 +127,21 @@ internal sealed class ChatWindowShadow
             PInvoke.SetWindowLong(_owner, WINDOW_LONG_PTR_INDEX.GWL_STYLE, updatedStyle);
         }
 
-        PInvoke.SetWindowPos(
-            _owner,
-            HWND.Null,
-            0,
-            0,
-            0,
-            0,
-            SET_WINDOW_POS_FLAGS.SWP_FRAMECHANGED |
-            SET_WINDOW_POS_FLAGS.SWP_NOMOVE |
-            SET_WINDOW_POS_FLAGS.SWP_NOSIZE |
-            SET_WINDOW_POS_FLAGS.SWP_NOZORDER |
-            SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE);
+        if (!PInvoke.SetWindowPos(
+                _owner,
+                HWND.Null,
+                0,
+                0,
+                0,
+                0,
+                SET_WINDOW_POS_FLAGS.SWP_FRAMECHANGED |
+                SET_WINDOW_POS_FLAGS.SWP_NOMOVE |
+                SET_WINDOW_POS_FLAGS.SWP_NOSIZE |
+                SET_WINDOW_POS_FLAGS.SWP_NOZORDER |
+                SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
+        {
+            LogWin32Failure("apply the ChatWindow native frame styles", _owner);
+        }
     }
 
     private static (uint style, uint exStyle) WindowStylesCallback(uint style, uint exStyle) =>
@@ -282,7 +293,19 @@ internal sealed class ChatWindowShadow
 
     private bool TryGetClientBounds(out RECT frame)
     {
-        if (!PInvoke.GetClientRect(_owner, out var clientRect) || clientRect is not { Width: > 0, Height: > 0 })
+        if (!PInvoke.GetClientRect(_owner, out var clientRect))
+        {
+            var errorCode = Marshal.GetLastPInvokeError();
+            if (PInvoke.IsWindow(_owner) && PInvoke.IsWindowVisible(_owner) && !PInvoke.IsIconic(_owner))
+            {
+                LogWin32Failure("read the ChatWindow client bounds", _owner, errorCode);
+            }
+
+            frame = default;
+            return false;
+        }
+
+        if (clientRect is not { Width: > 0, Height: > 0 })
         {
             frame = default;
             return false;
@@ -291,6 +314,7 @@ internal sealed class ChatWindowShadow
         var origin = new Point(clientRect.left, clientRect.top);
         if (!PInvoke.ClientToScreen(_owner, ref origin))
         {
+            LogWin32Failure("map the ChatWindow client bounds to the screen", _owner);
             frame = default;
             return false;
         }
@@ -316,6 +340,20 @@ internal sealed class ChatWindowShadow
         DisposeHelper.DisposeToDefault(ref _cornerRadiusOverride);
         DisposeHelper.DisposeToDefault(ref _borderThicknessOverride);
         _renderer.Dispose();
+    }
+
+    private static void LogWin32Failure(string operation, HWND window)
+    {
+        LogWin32Failure(operation, window, Marshal.GetLastPInvokeError());
+    }
+
+    private static void LogWin32Failure(string operation, HWND window, int errorCode)
+    {
+        Log.ForContext<ChatWindowShadow>().Error(
+            "Failed to {Operation} for HWND {WindowHandle}: Win32 error {ErrorCode}",
+            operation,
+            window,
+            errorCode);
     }
 
     private readonly record struct WindowFramePresentation(
@@ -365,6 +403,7 @@ internal sealed class ChatWindowShadow
 
             if (window.IsNull)
             {
+                LogWin32Failure("create the ChatWindow shadow", owner);
                 return null;
             }
 
@@ -372,7 +411,10 @@ internal sealed class ChatWindowShadow
             {
                 // Keep the auxiliary HWND visible to desktop composition while hiding it from UIA-
                 // based window discovery, so capture tools can resolve the owner as the real window.
-                PInvoke.SetProp(window, new PCWSTR(propertyName), new HANDLE(2));
+                if (!PInvoke.SetProp(window, new PCWSTR(propertyName), new HANDLE(2)))
+                {
+                    LogWin32Failure("mark the ChatWindow shadow as hidden from UI Automation", window);
+                }
             }
 
             return new Renderer(window);
@@ -429,6 +471,7 @@ internal sealed class ChatWindowShadow
                          height,
                          SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER))
             {
+                LogWin32Failure("position the ChatWindow shadow", _window);
                 return false;
             }
 
@@ -443,7 +486,7 @@ internal sealed class ChatWindowShadow
 
         public void Hide()
         {
-            if (!_isVisible || _window.IsNull)
+            if (_window.IsNull)
             {
                 return;
             }
@@ -459,8 +502,24 @@ internal sealed class ChatWindowShadow
                 return;
             }
 
-            PInvoke.DestroyWindow(_window);
-            _window = HWND.Null;
+            Hide();
+            if (PInvoke.DestroyWindow(_window))
+            {
+                _window = HWND.Null;
+            }
+            else
+            {
+                var errorCode = Marshal.GetLastPInvokeError();
+                if (!PInvoke.IsWindow(_window))
+                {
+                    _window = HWND.Null;
+                }
+                else
+                {
+                    LogWin32Failure("destroy the ChatWindow shadow", _window, errorCode);
+                }
+            }
+
             _isVisible = false;
         }
 
@@ -477,12 +536,14 @@ internal sealed class ChatWindowShadow
             var screenDc = PInvoke.GetDC(HWND.Null);
             if (screenDc.IsNull)
             {
+                LogWin32Failure("acquire a screen device context for the ChatWindow shadow", _window);
                 return false;
             }
 
             var memoryDc = PInvoke.CreateCompatibleDC(screenDc);
             if (memoryDc.IsNull)
             {
+                LogWin32Failure("create a memory device context for the ChatWindow shadow", _window);
                 PInvoke.ReleaseDC(HWND.Null, screenDc);
                 return false;
             }
@@ -514,6 +575,7 @@ internal sealed class ChatWindowShadow
 
                 if (bitmap.IsNull || pixels is null)
                 {
+                    LogWin32Failure("create the ChatWindow shadow bitmap", _window);
                     return false;
                 }
 
@@ -524,6 +586,9 @@ internal sealed class ChatWindowShadow
                     width * 4);
                 if (surface is null)
                 {
+                    Log.ForContext<Renderer>().Error(
+                        "Failed to create the Skia surface for ChatWindow shadow HWND {WindowHandle}",
+                        _window);
                     return false;
                 }
 
@@ -554,16 +619,22 @@ internal sealed class ChatWindowShadow
                     AlphaFormat = 1
                 };
 
-                return PInvoke.UpdateLayeredWindow(
-                    _window,
-                    screenDc,
-                    &destination,
-                    &size,
-                    memoryDc,
-                    &source,
-                    default,
-                    &blend,
-                    UPDATE_LAYERED_WINDOW_FLAGS.ULW_ALPHA);
+                if (PInvoke.UpdateLayeredWindow(
+                        _window,
+                        screenDc,
+                        &destination,
+                        &size,
+                        memoryDc,
+                        &source,
+                        default,
+                        &blend,
+                        UPDATE_LAYERED_WINDOW_FLAGS.ULW_ALPHA))
+                {
+                    return true;
+                }
+
+                LogWin32Failure("render the ChatWindow shadow", _window);
+                return false;
             }
             finally
             {

@@ -6,7 +6,6 @@ using Everywhere.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using ZLinq;
 
 namespace Everywhere.Configuration.Engine;
 
@@ -173,7 +172,7 @@ public sealed class SettingsEngine : IAsyncInitializer, IDisposable
 
         var failures = binder.Diagnostics
             .AsValueEnumerable()
-            .Where(static diagnostic => diagnostic.Severity != SettingsEngineDiagnosticSeverity.Info)
+            .Where(static diagnostic => diagnostic.Severity >= SettingsEngineDiagnosticSeverity.Error)
             .Select(static diagnostic => $"{diagnostic.Kind} at '{diagnostic.Path}'")
             .ToArray();
 

@@ -1,6 +1,6 @@
 ﻿<v:ReactiveUserControl
   x:Class="Everywhere.Views.MainView" xmlns="https://github.com/avaloniaui"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
   xmlns:v="clr-namespace:Everywhere.Views" xmlns:vm="clr-namespace:Everywhere.ViewModels"
   x:DataType="vm:MainViewModel" x:TypeArguments="vm:MainViewModel">
 
@@ -11,7 +11,7 @@
       </Style>
 
       <Style Selector="^.narrow">
-        <Style Selector="^ > shadui|NavigationBar">
+        <Style Selector="^ &gt; shadui|NavigationBar">
           <Setter Property="DockPanel.Dock" Value="Bottom"/>
           <Setter Property="Orientation" Value="Horizontal"/>
           <Setter Property="Margin" Value="0,8"/>

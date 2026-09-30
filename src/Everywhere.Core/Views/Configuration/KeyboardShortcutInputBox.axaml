@@ -1,19 +1,19 @@
 ﻿<ResourceDictionary
   xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:v="clr-namespace:Everywhere.Views">
+  xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI" xmlns:v="clr-namespace:Everywhere.Views">
   <ControlTheme
     x:Key="{x:Type v:KeyboardShortcutInputBox}"
     TargetType="v:KeyboardShortcutInputBox">
     <Setter Property="Focusable" Value="True"/>
     <Setter Property="Template">
       <ControlTemplate TargetType="v:KeyboardShortcutInputBox">
-        <Border
+        <shadui:SmoothBorder
           x:Name="PART_InputBox" MinHeight="36"
-          Padding="12,4"
+          Padding="8,4"
           Background="{DynamicResource SelectionColor}"
           BorderBrush="{DynamicResource BorderColor}"
           BorderThickness="1"
-          CornerRadius="{DynamicResource LgCornerRadius}"
+          CornerRadius="{DynamicResource 2XlCornerRadius}"
           Cursor="Hand">
           <Grid ColumnDefinitions="*, Auto">
             <Panel
@@ -21,14 +21,14 @@
 
               <!--  Watermarks Container  -->
               <Panel
-                IsHitTestVisible="False"
+                HorizontalAlignment="Center" IsHitTestVisible="False"
                 IsVisible="{Binding !ShortcutParts.Count, RelativeSource={RelativeSource TemplatedParent}}">
                 <TextBlock
-                  VerticalAlignment="Center"
+                  Classes="Muted" VerticalAlignment="Center"
                   IsVisible="{Binding !IsRecording, RelativeSource={RelativeSource TemplatedParent}}"
                   Text="{I18N {x:Static LocaleKey.KeyboardShortcutInputBox_PlaceholderText}}"/>
                 <TextBlock
-                  VerticalAlignment="Center"
+                  Classes="Muted" VerticalAlignment="Center"
                   IsVisible="{Binding IsRecording, RelativeSource={RelativeSource TemplatedParent}}"
                   Text="{I18N {x:Static LocaleKey.KeyboardShortcutInputBox_SettingWatermark}}"/>
               </Panel>
@@ -48,34 +48,26 @@
                     <ContentControl Content="{Binding}">
                       <ContentControl.DataTemplates>
                         <DataTemplate DataType="v:TextShortcutPart">
-                          <Border
+                          <shadui:SmoothBorder
                             Padding="6,2"
-                            Background="{DynamicResource PrimaryColor}"
-                            CornerRadius="4">
+                            Background="{DynamicResource LightCardBackgroundColor}"
+                            CornerRadius="8">
                             <TextBlock
                               FontSize="{DynamicResource FontSizeM}"
                               FontWeight="SemiBold"
-                              Text="{Binding Text}">
-                              <TextBlock.Foreground>
-                                <SolidColorBrush Color="{DynamicResource PrimaryForegroundColor}"/>
-                              </TextBlock.Foreground>
-                            </TextBlock>
-                          </Border>
+                              Text="{Binding Text}"/>
+                          </shadui:SmoothBorder>
                         </DataTemplate>
                         <DataTemplate DataType="v:IconShortcutPart">
-                          <Border
+                          <shadui:SmoothBorder
                             Padding="6,2"
-                            Background="{DynamicResource PrimaryColor}"
-                            CornerRadius="4">
+                            Background="{DynamicResource LightCardBackgroundColor}"
+                            CornerRadius="8">
                             <PathIcon
                               Width="{DynamicResource FontSizeM}"
                               Height="{DynamicResource LineHeightM}"
-                              Data="{Binding Icon}">
-                              <PathIcon.Foreground>
-                                <SolidColorBrush Color="{DynamicResource PrimaryForegroundColor}"/>
-                              </PathIcon.Foreground>
-                            </PathIcon>
-                          </Border>
+                              Data="{Binding Icon}"/>
+                          </shadui:SmoothBorder>
                         </DataTemplate>
                       </ContentControl.DataTemplates>
                     </ContentControl>
@@ -85,20 +77,22 @@
             </Panel>
 
             <Button
-              x:Name="PART_ClearButton" Classes="Ghost Compact"
-              Grid.Column="1" Margin="4,0,0,0"
-              Padding="2" Focusable="False"
+              x:Name="PART_ClearButton" Classes="Ghost"
+              Grid.Column="1" Margin="4,0,-2,0"
+              Padding="2" VerticalAlignment="Center"
+              Focusable="False"
               IsVisible="{Binding !!ShortcutParts.Count, RelativeSource={RelativeSource TemplatedParent}}">
               <LucideIcon
-                Foreground="{DynamicResource ForegroundColor}"
-                Kind="X" Size="18"/>
+                Foreground="{DynamicResource MutedColor}"
+                Kind="X"
+                Size="{DynamicResource FontSizeM}"/>
             </Button>
           </Grid>
-        </Border>
+        </shadui:SmoothBorder>
       </ControlTemplate>
     </Setter>
 
-    <Style Selector="^[IsRecording=True] /template/ Border#PART_InputBox">
+    <Style Selector="^[IsRecording=True] /template/ shadui|SmoothBorder#PART_InputBox">
       <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
     </Style>
   </ControlTheme>

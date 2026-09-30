@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
   xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:ai="clr-namespace:Everywhere.AI" xmlns:exp="clr-namespace:ExpressionBinding.Avalonia;assembly=ExpressionBinding.Avalonia"
-  xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI" xmlns:v="using:Everywhere.Views"
+  xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI" xmlns:v="using:Everywhere.Views"
   xmlns:vc="clr-namespace:Everywhere.ValueConverters">
   <ControlTheme
     x:Key="{x:Type v:ChatCustomAssistantSelector}"
@@ -311,8 +311,8 @@
                           Size="{DynamicResource LineHeight2Xl}"/>
 
                         <TextBlock
-                          Classes="p" Grid.Row="2"
-                          Grid.Column="1" TextTrimming="CharacterEllipsis">
+                          Grid.Row="2" Grid.Column="1"
+                          TextTrimming="CharacterEllipsis">
                           <Interaction.Behaviors>
                             <shadui:TextTrimmedToolTipBehavior/>
                           </Interaction.Behaviors>

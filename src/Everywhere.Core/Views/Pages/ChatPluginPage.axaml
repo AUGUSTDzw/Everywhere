@@ -2,7 +2,7 @@
   x:Class="Everywhere.Views.Pages.ChatPluginPage" xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:in="clr-namespace:Everywhere.Interactions"
   xmlns:md="clr-namespace:LiveMarkdown.Avalonia;assembly=LiveMarkdown.Avalonia" xmlns:p="clr-namespace:Everywhere.Chat.Plugins"
-  xmlns:permissions="clr-namespace:Everywhere.Chat.Permissions" xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI"
+  xmlns:permissions="clr-namespace:Everywhere.Chat.Permissions" xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
   xmlns:v="clr-namespace:Everywhere.Views" xmlns:vc="clr-namespace:Everywhere.ValueConverters"
   xmlns:vm="clr-namespace:Everywhere.ViewModels" x:Name="Self"
   x:DataType="vm:ChatPluginPageViewModel">
@@ -35,7 +35,6 @@
               Grid.Column="1" VerticalAlignment="Center"
               Spacing="4">
               <TextBlock
-                Classes="p"
                 Text="{Binding Plugin.HeaderKey^}"
                 TextTrimming="CharacterEllipsis">
                 <Interaction.Behaviors>
@@ -43,7 +42,7 @@
                 </Interaction.Behaviors>
               </TextBlock>
               <TextBlock
-                Classes="Muted"
+                Classes="Muted Caption"
                 IsVisible="{Binding $self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                 MaxLines="2"
                 Text="{Binding Plugin.DescriptionKey^}"
@@ -147,7 +146,6 @@
 
         <shadui:ControlGroup
           HorizontalAlignment="Right" VerticalAlignment="Center"
-          CornerRadius="{DynamicResource FullCornerRadius}"
           IsVisible="{Binding #McpTabItem.IsSelected}"
           Orientation="Horizontal">
           <Button
@@ -170,38 +168,6 @@
 
     <shadui:NavigationView.PaneContent>
       <TabControl>
-        <TabControl.Template>
-          <ControlTemplate TargetType="TabControl">
-            <Grid
-              RowDefinitions="Auto,*" RowSpacing="12">
-              <DockPanel
-                Grid.Row="0" HorizontalSpacing="8"
-                LastChildFill="True">
-                <LayoutTransformControl
-                  Name="LayoutTransform" DockPanel.Dock="Top"
-                  HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
-                  <Border
-                    Padding="2,4,2,0" HorizontalAlignment="Left"
-                    Background="{DynamicResource CardBackgroundColor}"
-                    CornerRadius="{DynamicResource LgCornerRadius}">
-                    <ItemsPresenter
-                      Name="PART_ItemsPresenter"
-                      ItemsPanel="{TemplateBinding ItemsPanel}"/>
-                  </Border>
-                </LayoutTransformControl>
-              </DockPanel>
-
-              <ContentPresenter
-                Name="PART_SelectedContentHost" Grid.Row="1"
-                Margin="0,4,0,0"
-                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                Content="{TemplateBinding SelectedContent}"
-                ContentTemplate="{TemplateBinding SelectedContentTemplate}"/>
-            </Grid>
-          </ControlTemplate>
-        </TabControl.Template>
-
         <TabItem>
           <TabItem.Header>
             <StackPanel
@@ -254,7 +220,6 @@
             Command="{Binding StartMcpPluginCommand}"
             CommandParameter="{Binding SelectedMcpPlugin}"
             Content="{I18N {x:Static LocaleKey.ChatPluginPage_StartMcpPluginButton_Content}}"
-            CornerRadius="{DynamicResource FullCornerRadius}"
             Foreground="{DynamicResource SuccessColor}"
             IsVisible="{Binding !SelectedMcpPlugin?.IsRunning, TargetNullValue={x:False}}"/>
           <Button
@@ -264,7 +229,6 @@
             Command="{Binding StopMcpPluginCommand}"
             CommandParameter="{Binding SelectedMcpPlugin}"
             Content="{I18N {x:Static LocaleKey.ChatPluginPage_StopMcpPluginButton_Content}}"
-            CornerRadius="{DynamicResource FullCornerRadius}"
             Foreground="{DynamicResource WarningColor}"
             IsVisible="{Binding SelectedMcpPlugin?.IsRunning, TargetNullValue={x:False}}"/>
 
@@ -273,8 +237,7 @@
             shadui:ButtonAssist.Icon="{LucideIconContent Kind=SquarePen}"
             Command="{Binding EditMcpPluginCommand}"
             CommandParameter="{Binding SelectedMcpPlugin}"
-            Content="{I18N {x:Static LocaleKey.ChatPluginPage_EditMcpPluginButton_Content}}"
-            CornerRadius="{DynamicResource FullCornerRadius}"/>
+            Content="{I18N {x:Static LocaleKey.ChatPluginPage_EditMcpPluginButton_Content}}"/>
 
           <Button
             Classes="Secondary"
@@ -282,7 +245,6 @@
             Command="{Binding RemoveMcpPluginCommand}"
             CommandParameter="{Binding SelectedMcpPlugin}"
             Content="{I18N {x:Static LocaleKey.ChatPluginPage_RemoveMcpPluginButton_Content}}"
-            CornerRadius="{DynamicResource FullCornerRadius}"
             Foreground="{DynamicResource DestructiveColor}"/>
         </StackPanel>
       </Border>
@@ -362,8 +324,7 @@
 
             <TabControl.DataTemplates>
               <DataTemplate x:DataType="vm:ChatPluginPageViewModel+SettingsTabItem">
-                <ScrollViewer
-                  CornerRadius="8" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled">
                   <v:SettingsItemsControl ItemsSource="{Binding SettingsItems, FallbackValue={x:Null}}"/>
                 </ScrollViewer>
               </DataTemplate>
@@ -375,14 +336,13 @@
                     Padding="16,12"
                     Background="{DynamicResource LightCardBackgroundColor}"
                     BorderBrush="{DynamicResource BorderColor}"
-                    BorderThickness="1" CornerRadius="8"
+                    BorderThickness="1"
+                    CornerRadius="{DynamicResource 2XlCornerRadius}"
                     IsVisible="{Binding Plugin.Plugin, Converter={x:Static vc:CommonConverters.TypeEquals}, ConverterParameter={x:Type p:McpChatPlugin}}">
                     <Grid
                       ColumnDefinitions="*,Auto" ColumnSpacing="16">
                       <StackPanel>
-                        <TextBlock
-                          Classes="p"
-                          Text="{I18N {x:Static LocaleKey.ChatPluginPage_McpBypassApproval_Header}}"/>
+                        <TextBlock Text="{I18N {x:Static LocaleKey.ChatPluginPage_McpBypassApproval_Header}}"/>
                         <TextBlock
                           Classes="Muted Caption"
                           Text="{I18N {x:Static LocaleKey.ChatPluginPage_McpBypassApproval_Description}}"
@@ -401,7 +361,8 @@
                     BorderBrush="{DynamicResource BorderColor}"
                     BorderThickness="1" CanUserReorderColumns="False"
                     CanUserResizeColumns="True" CanUserSortColumns="True"
-                    CornerRadius="8" GridLinesVisibility="Horizontal"
+                    CornerRadius="{DynamicResource 2XlCornerRadius}"
+                    GridLinesVisibility="Horizontal"
                     ItemsSource="{Binding Plugin.Functions}">
                     <DataGrid.Columns>
                       <DataGridTemplateColumn Width="*">
@@ -417,7 +378,7 @@
                               <StackPanel
                                 Orientation="Horizontal" Spacing="6">
                                 <TextBlock
-                                  Classes="p" VerticalAlignment="Center"
+                                  VerticalAlignment="Center"
                                   Text="{Binding Function.HeaderKey^}"
                                   TextWrapping="Wrap"/>
                                 <shadui:Badge
@@ -488,7 +449,6 @@
                       Height="128" HorizontalAlignment="Center"
                       Source="avares://Everywhere.Core/Assets/Images/EmptyList.png" Stretch="Uniform"/>
                     <TextBlock
-                      Classes="p"
                       Text="{I18N {x:Static LocaleKey.ChatPluginPage_McpFunctionsEmptyContent_EmptyListInstruction}}"
                       TextAlignment="Center" TextWrapping="Wrap"/>
                   </StackPanel>
@@ -496,11 +456,11 @@
               </DataTemplate>
 
               <DataTemplate x:DataType="vm:ChatPluginPageViewModel+LogsTabItem">
-                <Border
+                <shadui:SmoothBorder
                   Background="{DynamicResource CardBackgroundColor}"
                   BorderBrush="{DynamicResource BorderColor}"
                   BorderThickness="1" ClipToBounds="True"
-                  CornerRadius="8">
+                  CornerRadius="{DynamicResource 2XlCornerRadius}">
                   <DockPanel LastChildFill="True">
                     <Border
                       DockPanel.Dock="Top" Padding="6,4"
@@ -564,7 +524,7 @@
                       </ItemsControl>
                     </ScrollViewer>
                   </DockPanel>
-                </Border>
+                </shadui:SmoothBorder>
               </DataTemplate>
             </TabControl.DataTemplates>
           </TabControl>
@@ -580,7 +540,6 @@
           Height="128" HorizontalAlignment="Center"
           Source="avares://Everywhere.Core/Assets/Images/EmptyList.png" Stretch="Uniform"/>
         <TextBlock
-          Classes="p"
           Text="{I18N {x:Static LocaleKey.ChatPluginPage_EmptyContent_SelectInstruction}}"
           TextAlignment="Center" TextWrapping="Wrap"/>
       </StackPanel>

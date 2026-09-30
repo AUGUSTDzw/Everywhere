@@ -3343,21 +3343,6 @@ Yayın tarihi: {2}</value>
     <data name="HomePage_More" xml:space="preserve">
         <value>Daha Fazla</value>
     </data>
-    <data name="HomePage_Mcp" xml:space="preserve">
-        <value>MCP</value>
-    </data>
-    <data name="HomePage_BuiltInTools" xml:space="preserve">
-        <value>Yerleşik Araçlar</value>
-    </data>
-    <data name="HomePage_Skills" xml:space="preserve">
-        <value>Yetenekler</value>
-    </data>
-    <data name="HomePage_QuickConfiguration" xml:space="preserve">
-        <value>Hızlı Yapılandırma</value>
-    </data>
-    <data name="HomePage_Assistants" xml:space="preserve">
-        <value>Asistanlar</value>
-    </data>
     <data name="HomePage_TotalTokensToolTip" xml:space="preserve">
         <value>Model API'sinin raporladığı toplam Token: {0}</value>
     </data>

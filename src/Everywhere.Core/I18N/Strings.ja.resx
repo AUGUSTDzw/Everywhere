@@ -3343,21 +3343,6 @@
     <data name="HomePage_More" xml:space="preserve">
         <value>多</value>
     </data>
-    <data name="HomePage_Mcp" xml:space="preserve">
-        <value>MCP</value>
-    </data>
-    <data name="HomePage_BuiltInTools" xml:space="preserve">
-        <value>内蔵ツール</value>
-    </data>
-    <data name="HomePage_Skills" xml:space="preserve">
-        <value>スキル</value>
-    </data>
-    <data name="HomePage_QuickConfiguration" xml:space="preserve">
-        <value>クイック設定</value>
-    </data>
-    <data name="HomePage_Assistants" xml:space="preserve">
-        <value>アシスタント</value>
-    </data>
     <data name="HomePage_TotalTokensToolTip" xml:space="preserve">
         <value>モデル API が報告した総トークン: {0}</value>
     </data>

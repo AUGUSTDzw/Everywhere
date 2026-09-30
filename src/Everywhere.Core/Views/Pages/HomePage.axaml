@@ -1,7 +1,7 @@
 <UserControl
   x:Class="Everywhere.Views.Pages.HomePage" xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:common="clr-namespace:Everywhere.Common"
-  xmlns:notification="clr-namespace:Everywhere.Common.Notification;assembly=Everywhere.Abstractions" xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI"
+  xmlns:notification="clr-namespace:Everywhere.Common.Notification;assembly=Everywhere.Abstractions" xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
   xmlns:system="clr-namespace:System;assembly=System.Runtime" xmlns:v="clr-namespace:Everywhere.Views"
   xmlns:vc="clr-namespace:Everywhere.ValueConverters" xmlns:vm="clr-namespace:Everywhere.ViewModels"
   x:Name="Self" x:DataType="vm:HomePageViewModel">
@@ -17,17 +17,7 @@
       </Style>
     </Style>
 
-    <Style Selector="DockPanel#BottomCardsDockPanel">
-      <Style Selector="^.narrow &gt; Border#QuickConfigurationCard">
-        <Setter Property="DockPanel.Dock" Value="Bottom"/>
-      </Style>
-      <Style Selector="^.wide &gt; Border#QuickConfigurationCard">
-        <Setter Property="DockPanel.Dock" Value="Right"/>
-        <Setter Property="Width" Value="320"/>
-      </Style>
-    </Style>
-
-    <Style Selector="Border.HomeCard">
+    <Style Selector="shadui|SmoothBorder.HomeCard">
       <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
       <Setter Property="BorderBrush" Value="{DynamicResource BorderColor60}"/>
       <Setter Property="CornerRadius" Value="{DynamicResource 2XlCornerRadius}"/>
@@ -272,7 +262,7 @@
             </AdaptiveBehavior>
           </Interaction.Behaviors>
 
-          <Border Classes="HomeCard">
+          <shadui:SmoothBorder Classes="HomeCard">
             <StackPanel Spacing="8">
               <StackPanel
                 Orientation="Horizontal" Spacing="8">
@@ -297,9 +287,9 @@
                 </TextBlock.Text>
               </TextBlock>
             </StackPanel>
-          </Border>
+          </shadui:SmoothBorder>
 
-          <Border Classes="HomeCard">
+          <shadui:SmoothBorder Classes="HomeCard">
             <StackPanel Spacing="8">
               <StackPanel
                 Orientation="Horizontal" Spacing="8">
@@ -317,9 +307,9 @@
                 Classes="Muted Caption" HorizontalAlignment="Left"
                 Text="{Binding TurnAverageKey^}"/>
             </StackPanel>
-          </Border>
+          </shadui:SmoothBorder>
 
-          <Border Classes="HomeCard">
+          <shadui:SmoothBorder Classes="HomeCard">
             <StackPanel Spacing="8">
               <StackPanel
                 Orientation="Horizontal" Spacing="8">
@@ -408,9 +398,9 @@
                 </Grid>
               </Grid>
             </StackPanel>
-          </Border>
+          </shadui:SmoothBorder>
 
-          <Border Classes="HomeCard">
+          <shadui:SmoothBorder Classes="HomeCard">
             <StackPanel Spacing="8">
               <StackPanel
                 Orientation="Horizontal" Spacing="8">
@@ -443,165 +433,101 @@
                 </TextBlock.Text>
               </TextBlock>
             </StackPanel>
-          </Border>
+          </shadui:SmoothBorder>
         </UniformGrid>
 
-        <DockPanel
-          x:Name="BottomCardsDockPanel" HorizontalSpacing="12"
-          VerticalSpacing="8">
-          <Interaction.Behaviors>
-            <AdaptiveBehavior>
-              <AdaptiveClassSetter
-                MinWidth="0" MaxWidth="532"
-                ClassName="narrow" MaxWidthOperator="LessThan"
-                MinWidthOperator="GreaterThanOrEqual"/>
-              <AdaptiveClassSetter
-                MinWidth="532" MaxWidth="Infinity"
-                ClassName="wide" MaxWidthOperator="LessThan"
-                MinWidthOperator="GreaterThanOrEqual"/>
-            </AdaptiveBehavior>
-          </Interaction.Behaviors>
-
-          <Border
-            x:Name="QuickConfigurationCard" Classes="HomeCard">
-            <DockPanel VerticalSpacing="12">
-              <TextBlock
-                Classes="h1" DockPanel.Dock="Top"
-                Text="{I18N {x:Static LocaleKey.HomePage_QuickConfiguration}}"/>
-              <ItemsControl ItemsSource="{Binding QuickConfigurationCards}">
-                <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate>
-                    <UniformGrid
-                      Columns="1" RowSpacing="8"
-                      Rows="0"/>
-                  </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate x:DataType="vm:HomePageViewModel+QuickConfigurationCardItem">
-                    <Button
-                      Classes="Secondary" Padding="16"
-                      HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
-                      Command="{Binding #Self.ViewModel.NavigateToCommand}"
-                      CommandParameter="{Binding Route}">
-                      <Grid ColumnDefinitions="Auto,*,Auto">
-                        <Border
-                          Width="32" Height="32"
-                          Background="{DynamicResource PrimaryColor10}"
-                          CornerRadius="{DynamicResource FullCornerRadius}">
-                          <!--  TODO: MCP Icon  -->
-                          <LucideIcon
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Foreground="{DynamicResource PrimaryColor}"
-                            Kind="{Binding Icon}"
-                            Size="18"/>
-                        </Border>
-                        <TextBlock
-                          Grid.Column="1" Margin="12,0,0,0"
-                          VerticalAlignment="Center" FontWeight="SemiBold"
-                          Text="{Binding Name^}"/>
-                        <TextBlock
-                          Grid.Column="2" VerticalAlignment="Center"
-                          FontWeight="SemiBold"
-                          Text="{Binding CountText}"/>
-                      </Grid>
-                    </Button>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-            </DockPanel>
-          </Border>
-
-          <Border
-            Classes="HomeCard" MinHeight="360">
-            <StackPanel Spacing="12">
-              <StackPanel>
-                <StackPanel
-                  Orientation="Horizontal" Spacing="8">
-                  <TextBlock
-                    Classes="h1"
-                    Text="{I18N {x:Static LocaleKey.HomePage_AssistantActivity}}"/>
-                  <Border
-                    Padding="8,2" VerticalAlignment="Center"
-                    Background="{DynamicResource SecondaryCardBackgroundColor}"
-                    CornerRadius="{DynamicResource FullCornerRadius}">
-                    <TextBlock
-                      Classes="Muted Caption"
-                      Text="{Binding HeatmapRangeKey^}"/>
-                  </Border>
-                </StackPanel>
-                <TextBlock
-                  Classes="Muted Caption"
-                  Text="{Binding HeatmapSummaryKey^}"/>
-              </StackPanel>
-
-              <ListBox
-                MaxWidth="520" HorizontalAlignment="Left"
-                ItemsSource="{Binding HeatmapMetrics}"
-                SelectedItem="{Binding SelectedHeatmapMetricItem, Mode=TwoWay}">
-                <ListBox.ItemsPanel>
-                  <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                  </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                  <DataTemplate x:DataType="vm:HomePageViewModel+HeatmapMetricTabItem">
-                    <TextBlock
-                      Margin="6,2"
-                      Text="{Binding Name^}"/>
-                  </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.ItemContainerTheme>
-                  <ControlTheme
-                    BasedOn="{StaticResource TabListBoxItemTheme}"
-                    TargetType="ListBoxItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                    <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}"/>
-                    <Setter Property="Padding" Value="4,2"/>
-                  </ControlTheme>
-                </ListBox.ItemContainerTheme>
-              </ListBox>
-
-              <v:StatisticsHeatmap
-                Days="{Binding HeatmapDays}"
-                FontSize="{DynamicResource FontSizeS}"
-                HighBrush="{DynamicResource PrimaryColor}"
-                LowBrush="{DynamicResource LightCardBackgroundColor}"
-                Months="6"/>
-
+        <shadui:SmoothBorder
+          Classes="HomeCard" MinHeight="360">
+          <StackPanel Spacing="12">
+            <StackPanel>
               <StackPanel
-                HorizontalAlignment="Right" Orientation="Horizontal"
-                Spacing="6">
+                Orientation="Horizontal" Spacing="8">
                 <TextBlock
-                  Classes="Muted Caption"
-                  Text="{I18N {x:Static LocaleKey.HomePage_Less}}"/>
+                  Classes="h2"
+                  Text="{I18N {x:Static LocaleKey.HomePage_AssistantActivity}}"/>
                 <Border
-                  Width="10" Height="10"
-                  Background="{DynamicResource PrimaryColor}"
-                  CornerRadius="2" Opacity="0.2"/>
-                <Border
-                  Width="10" Height="10"
-                  Background="{DynamicResource PrimaryColor}"
-                  CornerRadius="2" Opacity="0.4"/>
-                <Border
-                  Width="10" Height="10"
-                  Background="{DynamicResource PrimaryColor}"
-                  CornerRadius="2" Opacity="0.6"/>
-                <Border
-                  Width="10" Height="10"
-                  Background="{DynamicResource PrimaryColor}"
-                  CornerRadius="2" Opacity="0.8"/>
-                <Border
-                  Width="10" Height="10"
-                  Background="{DynamicResource PrimaryColor}"
-                  CornerRadius="2"/>
-                <TextBlock
-                  Classes="Muted Caption"
-                  Text="{I18N {x:Static LocaleKey.HomePage_More}}"/>
+                  Padding="8,2" VerticalAlignment="Center"
+                  Background="{DynamicResource SecondaryCardBackgroundColor}"
+                  CornerRadius="{DynamicResource FullCornerRadius}">
+                  <TextBlock
+                    Classes="Muted Caption"
+                    Text="{Binding HeatmapRangeKey^}"/>
+                </Border>
               </StackPanel>
+              <TextBlock
+                Classes="Muted Caption"
+                Text="{Binding HeatmapSummaryKey^}"/>
             </StackPanel>
-          </Border>
-        </DockPanel>
+
+            <ListBox
+              MaxWidth="520" HorizontalAlignment="Left"
+              Background="{DynamicResource LightCardBackgroundColor}"
+              BorderThickness="0"
+              ItemsSource="{Binding HeatmapMetrics}"
+              SelectedItem="{Binding SelectedHeatmapMetricItem, Mode=TwoWay}">
+              <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+              </ListBox.ItemsPanel>
+              <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="vm:HomePageViewModel+HeatmapMetricTabItem">
+                  <TextBlock
+                    Margin="6,2"
+                    Text="{Binding Name^}"/>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+              <ListBox.ItemContainerTheme>
+                <ControlTheme
+                  BasedOn="{StaticResource TabListBoxItemTheme}"
+                  TargetType="ListBoxItem">
+                  <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                  <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                  <Setter Property="CornerRadius" Value="{DynamicResource XlCornerRadius}"/>
+                  <Setter Property="Padding" Value="4,2"/>
+                </ControlTheme>
+              </ListBox.ItemContainerTheme>
+            </ListBox>
+
+            <v:StatisticsHeatmap
+              Days="{Binding HeatmapDays}"
+              FontSize="{DynamicResource FontSizeS}"
+              HighBrush="{DynamicResource PrimaryColor}"
+              LowBrush="{DynamicResource LightCardBackgroundColor}"
+              Months="12"/>
+
+            <StackPanel
+              HorizontalAlignment="Right" Orientation="Horizontal"
+              Spacing="6">
+              <TextBlock
+                Classes="Muted Caption"
+                Text="{I18N {x:Static LocaleKey.HomePage_Less}}"/>
+              <Border
+                Width="10" Height="10"
+                Background="{DynamicResource PrimaryColor}"
+                CornerRadius="2" Opacity="0.2"/>
+              <Border
+                Width="10" Height="10"
+                Background="{DynamicResource PrimaryColor}"
+                CornerRadius="2" Opacity="0.4"/>
+              <Border
+                Width="10" Height="10"
+                Background="{DynamicResource PrimaryColor}"
+                CornerRadius="2" Opacity="0.6"/>
+              <Border
+                Width="10" Height="10"
+                Background="{DynamicResource PrimaryColor}"
+                CornerRadius="2" Opacity="0.8"/>
+              <Border
+                Width="10" Height="10"
+                Background="{DynamicResource PrimaryColor}"
+                CornerRadius="2"/>
+              <TextBlock
+                Classes="Muted Caption"
+                Text="{I18N {x:Static LocaleKey.HomePage_More}}"/>
+            </StackPanel>
+          </StackPanel>
+        </shadui:SmoothBorder>
       </StackPanel>
     </ScrollViewer>
   </DockPanel>

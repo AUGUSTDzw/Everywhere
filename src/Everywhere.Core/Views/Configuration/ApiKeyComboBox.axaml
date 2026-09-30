@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary
   xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:c="clr-namespace:Everywhere.Configuration" xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI"
+  xmlns:c="clr-namespace:Everywhere.Configuration" xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
   xmlns:system="clr-namespace:System;assembly=System.Runtime" xmlns:v="using:Everywhere.Views">
   <ControlTheme
     x:Key="{x:Type v:ApiKeyComboBox}"
@@ -24,8 +24,7 @@
                   Padding="12,6"
                   shadui:ButtonAssist.Icon="{LucideIconContent Plus}"
                   BorderThickness="0"
-                  Content="{I18N {x:Static LocaleKey.ApiKeyComboBox_AddApiKey}}"
-                  CornerRadius="6">
+                  Content="{I18N {x:Static LocaleKey.ApiKeyComboBox_AddApiKey}}">
                   <Interaction.Behaviors>
                     <ButtonClickEventTriggerBehavior>
                       <ButtonClickEventTriggerBehavior.Actions>
@@ -40,8 +39,7 @@
                   Padding="12,6"
                   shadui:ButtonAssist.Icon="{LucideIconContent Settings}"
                   BorderThickness="0"
-                  Content="{I18N {x:Static LocaleKey.ApiKeyComboBox_ManageApiKey}}"
-                  CornerRadius="6">
+                  Content="{I18N {x:Static LocaleKey.ApiKeyComboBox_ManageApiKey}}">
                   <Interaction.Behaviors>
                     <ButtonClickEventTriggerBehavior>
                       <ButtonClickEventTriggerBehavior.Actions>

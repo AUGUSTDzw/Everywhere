@@ -3343,21 +3343,6 @@
     <data name="HomePage_More" xml:space="preserve">
         <value>많음</value>
     </data>
-    <data name="HomePage_Mcp" xml:space="preserve">
-        <value>MCP</value>
-    </data>
-    <data name="HomePage_BuiltInTools" xml:space="preserve">
-        <value>내장 도구</value>
-    </data>
-    <data name="HomePage_Skills" xml:space="preserve">
-        <value>기술</value>
-    </data>
-    <data name="HomePage_QuickConfiguration" xml:space="preserve">
-        <value>빠른 설정</value>
-    </data>
-    <data name="HomePage_Assistants" xml:space="preserve">
-        <value>도우미</value>
-    </data>
     <data name="HomePage_TotalTokensToolTip" xml:space="preserve">
         <value>모델 API 보고서의 총 토큰: {0}</value>
     </data>

@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary
   xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI" xmlns:v="clr-namespace:Everywhere.Views"
+  xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI" xmlns:v="clr-namespace:Everywhere.Views"
   xmlns:vc="clr-namespace:Everywhere.ValueConverters">
   <ControlTheme
     x:Key="{x:Type v:CustomAssistantInformationForm}"
@@ -91,7 +91,7 @@
     </Setter>
 
     <Style Selector="^ /template/ StackPanel#PART_NamePanel">
-      <Style Selector="^ > Button">
+      <Style Selector="^ &gt; Button">
         <Setter Property="IsHitTestVisible" Value="False"/>
         <Setter Property="Opacity" Value="0"/>
       </Style>

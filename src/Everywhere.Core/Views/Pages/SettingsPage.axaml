@@ -1,8 +1,8 @@
 ﻿<UserControl
   x:Class="Everywhere.Views.Pages.SettingsPage" xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:pages="clr-namespace:Everywhere.Views.Pages"
-  xmlns:v="clr-namespace:Everywhere.Views" x:Name="Self"
-  Margin="0,20,0,0">
+  xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI" xmlns:v="clr-namespace:Everywhere.Views"
+  x:Name="Self" Margin="0,20,0,0">
   <DockPanel
     MaxWidth="1000" LastChildFill="True"
     VerticalSpacing="16">
@@ -27,8 +27,10 @@
             <Button
               Classes="SettingsItem NoScale" Padding="20,14"
               HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+              shadui:ButtonAssist.PressedBackground="{DynamicResource LightCardBackgroundColor}"
               Command="{Binding $parent[v:MainView].ViewModel.NavigateToCommand}"
-              CommandParameter="{Binding Page}">
+              CommandParameter="{Binding Page}"
+              CornerRadius="{DynamicResource 2XlCornerRadius}">
               <Grid
                 ColumnDefinitions="Auto,*,Auto" ColumnSpacing="18"
                 RowDefinitions="Auto,*" RowSpacing="4">

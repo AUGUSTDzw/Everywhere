@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary
   xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI" xmlns:v="using:Everywhere.Views">
+  xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI" xmlns:v="using:Everywhere.Views">
   <ControlTheme
     x:Key="{x:Type v:CompositeKeyboardShortcutInputBox}"
     TargetType="v:CompositeKeyboardShortcutInputBox">
@@ -27,7 +27,7 @@
           </v:KeyboardShortcutInputBox>
 
           <Button
-            Classes="Ghost Compact"
+            Classes="Ghost Compact" VerticalAlignment="Center"
             shadui:ButtonAssist.Icon="{LucideIconContent Keyboard}"
             shadui:ButtonAssist.IconSize="{DynamicResource FontSizeL}"
             Command="{Binding #PART_AlternativeKeyInputBox.EnterRecordingModeCommand}"

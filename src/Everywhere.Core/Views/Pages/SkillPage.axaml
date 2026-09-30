@@ -1,7 +1,7 @@
 <UserControl
   x:Class="Everywhere.Views.Pages.SkillPage" xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:md="clr-namespace:LiveMarkdown.Avalonia;assembly=LiveMarkdown.Avalonia"
-  xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI" xmlns:skills="clr-namespace:Everywhere.Skills;assembly=Everywhere.Abstractions"
+  xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI" xmlns:skills="clr-namespace:Everywhere.Skills;assembly=Everywhere.Abstractions"
   xmlns:v="clr-namespace:Everywhere.Views" xmlns:vm="clr-namespace:Everywhere.ViewModels"
   x:Name="Self" x:DataType="vm:SkillPageViewModel">
   <UserControl.Styles>
@@ -23,7 +23,7 @@
               Grid.Column="0" VerticalAlignment="Center"
               Spacing="3">
               <TextBlock
-                Classes="p" IsHitTestVisible="False"
+                IsHitTestVisible="False"
                 Text="{Binding Skill.Name}"
                 TextTrimming="CharacterEllipsis"
                 ToolTip.Tip="{Binding Skill.Name}"/>
@@ -132,14 +132,14 @@
 
               <ItemsControl.Styles>
                 <Style Selector="Expander">
-                  <Setter Property="CornerRadius" Value="0,0,12,12"/>
+                  <Setter Property="CornerRadius" Value="0,0,16,16"/>
                 </Style>
                 <Style Selector="ContentPresenter:nth-last-child(n+2) Expander">
                   <Setter Property="CornerRadius" Value="0"/>
                   <Setter Property="BorderThickness" Value="1,1,1,0"/>
                 </Style>
                 <Style Selector="ContentPresenter:nth-child(1) Expander">
-                  <Setter Property="CornerRadius" Value="12,12,0,0"/>
+                  <Setter Property="CornerRadius" Value="16,16,0,0"/>
                   <Setter Property="BorderThickness" Value="1,1,1,0"/>
                 </Style>
               </ItemsControl.Styles>
@@ -154,8 +154,7 @@
                         Margin="12,4,0,4" ColumnDefinitions="Auto,Auto,*"
                         ColumnSpacing="6">
                         <TextBlock
-                          Classes="p" Grid.Column="0"
-                          VerticalAlignment="Center"
+                          Grid.Column="0" VerticalAlignment="Center"
                           Text="{Binding Name}"
                           TextTrimming="CharacterEllipsis"/>
                         <Button
@@ -199,12 +198,10 @@
                 Height="96" HorizontalAlignment="Center"
                 Source="avares://Everywhere.Core/Assets/Images/EmptyList.png" Stretch="Uniform"/>
               <TextBlock
-                Classes="p"
                 IsVisible="{Binding HasAnySkills}"
                 Text="{I18N {x:Static LocaleKey.SkillPage_NoMatchingSkills}}"
                 TextAlignment="Center" TextWrapping="Wrap"/>
               <TextBlock
-                Classes="p"
                 IsVisible="{Binding !HasAnySkills}"
                 Text="{I18N {x:Static LocaleKey.SkillPage_NoSkillsFound}}"
                 TextAlignment="Center" TextWrapping="Wrap"/>
@@ -291,11 +288,9 @@
                   Background="{DynamicResource LightCardBackgroundColor}"
                   BorderBrush="{DynamicResource BorderColor}"
                   BorderThickness="1"
-                  CornerRadius="{DynamicResource MdCornerRadius}">
+                  CornerRadius="{DynamicResource 2XlCornerRadius}">
                   <StackPanel Spacing="8">
-                    <TextBlock
-                      Classes="p"
-                      Text="{I18N {x:Static LocaleKey.SkillPage_BasicInformationCard_Title}}"/>
+                    <TextBlock Text="{I18N {x:Static LocaleKey.SkillPage_BasicInformationCard_Title}}"/>
                     <ItemsControl
                       Grid.IsSharedSizeScope="True"
                       ItemsSource="{Binding #Self.ViewModel.SelectedSkillInformationFields}">
@@ -337,10 +332,10 @@
                   Background="{DynamicResource LightCardBackgroundColor}"
                   BorderBrush="{DynamicResource BorderColor}"
                   BorderThickness="1"
-                  CornerRadius="{DynamicResource MdCornerRadius}">
+                  CornerRadius="{DynamicResource 2XlCornerRadius}">
                   <StackPanel Spacing="8">
                     <TextBlock
-                      Classes="p" Margin="0,4,0,0"
+                      Margin="0,4,0,0"
                       Text="{I18N {x:Static LocaleKey.SkillPage_DescriptionCard_Title}}"/>
                     <TextBlock TextWrapping="Wrap">
                       <TextBlock.Text>
@@ -360,7 +355,7 @@
                 Background="{DynamicResource CardBackgroundColor}"
                 BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="1" ClipToBounds="True"
-                CornerRadius="{DynamicResource MdCornerRadius}">
+                CornerRadius="{DynamicResource 2XlCornerRadius}">
                 <DockPanel LastChildFill="True">
                   <Border
                     DockPanel.Dock="Top" Padding="8,6"
@@ -437,7 +432,6 @@
           Height="128" HorizontalAlignment="Center"
           Source="avares://Everywhere.Core/Assets/Images/EmptyList.png" Stretch="Uniform"/>
         <TextBlock
-          Classes="p"
           Text="{I18N {x:Static LocaleKey.SkillPage_EmptyContent_SelectInstruction}}"
           TextAlignment="Center" TextWrapping="Wrap"/>
       </StackPanel>

@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
   xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:common="clr-namespace:Everywhere.Common;assembly=Everywhere.Abstractions" xmlns:mcp="clr-namespace:ModelContextProtocol.Client;assembly=ModelContextProtocol.Core"
-  xmlns:plugins="clr-namespace:Everywhere.Chat.Plugins" xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI"
+  xmlns:plugins="clr-namespace:Everywhere.Chat.Plugins" xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
   xmlns:sys="clr-namespace:System;assembly=System.Runtime" xmlns:v="using:Everywhere.Views"
   xmlns:vc="clr-namespace:Everywhere.ValueConverters">
   <ControlTheme
@@ -66,7 +66,9 @@
 
                           <LucideIcon
                             Grid.Column="0" VerticalAlignment="Center"
-                            Kind="GripVertical"/>
+                            Foreground="{DynamicResource MutedColor}"
+                            Kind="GripVertical"
+                            Size="{DynamicResource FontSizeL}"/>
                           <TextBox
                             Grid.Column="1"
                             PlaceholderText="{I18N {x:Static LocaleKey.McpTransportConfigurationForm_ValueTextBox_PlaceholderText}}"
@@ -86,12 +88,10 @@
                     TextWrapping="Wrap">
                     <TextBox.InnerRightContent>
                       <Button
-                        Classes="Ghost"
-                        Command="{Binding $parent[v:McpTransportConfigurationForm].BrowseWorkingDirectory}">
-                        <LucideIcon
-                          Kind="FolderPen"
-                          Size="{DynamicResource FontSizeL}"/>
-                      </Button>
+                        Classes="Ghost Compact"
+                        shadui:ButtonAssist.Icon="{LucideIconContent FolderPen}"
+                        shadui:ButtonAssist.IconSize="{DynamicResource FontSizeL}"
+                        Command="{Binding $parent[v:McpTransportConfigurationForm].BrowseWorkingDirectory}"/>
                     </TextBox.InnerRightContent>
                   </TextBox>
                   <TextBlock

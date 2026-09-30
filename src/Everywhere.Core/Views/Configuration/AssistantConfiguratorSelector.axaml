@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary
   xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:v="using:Everywhere.Views">
+  xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI" xmlns:v="using:Everywhere.Views">
   <ControlTheme
     x:Key="{x:Type v:AssistantConfiguratorSelector}"
     TargetType="v:AssistantConfiguratorSelector">
@@ -11,7 +11,7 @@
           <ListBox
             DockPanel.Dock="Top"
             Background="{DynamicResource LightCardBackgroundColor}"
-            CornerRadius="{DynamicResource XlCornerRadius}"
+            CornerRadius="{DynamicResource 3XlCornerRadius}"
             ItemsSource="{Binding ConfiguratorModels, RelativeSource={RelativeSource TemplatedParent}}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
             SelectedItem="{Binding SelectedConfiguratorModel, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
@@ -29,25 +29,24 @@
                 <Setter Property="Padding" Value="13"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}"/>
+                <Setter Property="CornerRadius" Value="20"/>
               </ControlTheme>
             </ListBox.ItemContainerTheme>
 
             <ListBox.DataTemplates>
               <DataTemplate DataType="v:AssistantConfiguratorSelector+OfficialConfiguratorModel">
                 <Panel>
-                  <Border
-                    Margin="-13"
-                    CornerRadius="{DynamicResource LgCornerRadius}">
-                    <Border.Background>
+                  <shadui:SmoothBorder
+                    Margin="-13" CornerRadius="20">
+                    <shadui:SmoothBorder.Background>
                       <ConicGradientBrush Center="0%,-50%">
-                        <GradientStop Offset="0.25" Color="#FF4EADFC"/>
-                        <GradientStop Offset="0.35" Color="#FFEE4BB5"/>
-                        <GradientStop Offset="0.48" Color="#FFDFDF62"/>
+                        <GradientStop Offset="0.25" Color="#AA4EADFC"/>
+                        <GradientStop Offset="0.35" Color="#AAEE4BB5"/>
+                        <GradientStop Offset="0.48" Color="#AADFDF62"/>
                       </ConicGradientBrush>
-                    </Border.Background>
+                    </shadui:SmoothBorder.Background>
 
-                    <Border.OpacityMask>
+                    <shadui:SmoothBorder.OpacityMask>
                       <!--  <DrawingBrush  -->
                       <!--  Stretch="Fill" Transform="scale(1, 0.6)">  -->
                       <!--   <DrawingBrush.Drawing> -->
@@ -67,8 +66,8 @@
                         <GradientStop Offset="0.0" Color="#FFFFFFFF"/>
                         <GradientStop Offset="1.0" Color="#00FFFFFF"/>
                       </RadialGradientBrush>
-                    </Border.OpacityMask>
-                  </Border>
+                    </shadui:SmoothBorder.OpacityMask>
+                  </shadui:SmoothBorder>
 
                   <StackPanel
                     Orientation="Vertical" Spacing="4">

@@ -3343,21 +3343,6 @@
     <data name="HomePage_More" xml:space="preserve">
         <value>多</value>
     </data>
-    <data name="HomePage_Mcp" xml:space="preserve">
-        <value>MCP</value>
-    </data>
-    <data name="HomePage_BuiltInTools" xml:space="preserve">
-        <value>内置工具</value>
-    </data>
-    <data name="HomePage_Skills" xml:space="preserve">
-        <value>技能</value>
-    </data>
-    <data name="HomePage_QuickConfiguration" xml:space="preserve">
-        <value>快速配置</value>
-    </data>
-    <data name="HomePage_Assistants" xml:space="preserve">
-        <value>助手</value>
-    </data>
     <data name="HomePage_TotalTokensToolTip" xml:space="preserve">
         <value>模型 API 报告的总 Token: {0}</value>
     </data>

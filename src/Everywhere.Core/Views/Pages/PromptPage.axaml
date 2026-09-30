@@ -1,7 +1,7 @@
 <UserControl
   x:Class="Everywhere.Views.Pages.PromptPage" xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:prompts="clr-namespace:Everywhere.AI.Prompts"
-  xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI" xmlns:v="clr-namespace:Everywhere.Views"
+  xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI" xmlns:v="clr-namespace:Everywhere.Views"
   xmlns:vm="clr-namespace:Everywhere.ViewModels" x:Name="Self"
   x:DataType="vm:PromptPageViewModel" ClipToBounds="False">
   <UserControl.Styles>
@@ -54,8 +54,7 @@
         </DockPanel>
 
         <TextBox
-          Classes="Clearable" CornerRadius="6"
-          FontWeight="Normal"
+          Classes="Clearable" FontWeight="Normal"
           PlaceholderText="{I18N {x:Static LocaleKey.PromptPage_SearchBox_PlaceholderText}}"
           Text="{Binding SearchText, Mode=TwoWay, Delay=500}"/>
       </StackPanel>
@@ -82,7 +81,7 @@
                     Grid.Column="0" VerticalAlignment="Center"
                     Spacing="3">
                     <TextBlock
-                      Classes="p" IsHitTestVisible="False"
+                      IsHitTestVisible="False"
                       Text="{Binding DisplayNameKey^}"
                       TextTrimming="CharacterEllipsis"
                       ToolTip.Tip="{Binding DisplayNameKey^}"/>
@@ -112,7 +111,6 @@
               Height="96" HorizontalAlignment="Center"
               Source="avares://Everywhere.Core/Assets/Images/EmptyList.png" Stretch="Uniform"/>
             <TextBlock
-              Classes="p"
               Text="{I18N {x:Static LocaleKey.PromptPage_NoMatchingPrompts}}"
               TextAlignment="Center" TextWrapping="Wrap"/>
           </StackPanel>
@@ -216,8 +214,7 @@
             <DockPanel
               x:Name="PromptReferencesPanel" LastChildFill="True">
               <TextBlock
-                Classes="p" DockPanel.Dock="Top"
-                Margin="4,4,0,8">
+                DockPanel.Dock="Top" Margin="4,4,0,8">
                 <TextBlock.Text>
                   <I18N Key="{x:Static LocaleKey.PromptPage_AssistantsUsingPromptTitle}">
                     <Binding Path="#Self.ViewModel.SelectedPromptReferences.Count"/>
@@ -250,13 +247,12 @@
 
                           <StackPanel VerticalAlignment="Center">
                             <TextBlock
-                              Classes="p"
                               Text="{Binding Name}"
                               TextTrimming="CharacterEllipsis"
                               ToolTip.Tip="{Binding $self.Text}"/>
 
                             <TextBlock
-                              Classes="Muted"
+                              Classes="Muted Caption"
                               IsVisible="{Binding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                               Text="{Binding Description}"
                               TextTrimming="CharacterEllipsis"
@@ -313,7 +309,6 @@
           Height="128" HorizontalAlignment="Center"
           Source="avares://Everywhere.Core/Assets/Images/EmptyList.png" Stretch="Uniform"/>
         <TextBlock
-          Classes="p"
           Text="{I18N {x:Static LocaleKey.PromptPage_EmptyContent_SelectInstruction}}"
           TextAlignment="Center" TextWrapping="Wrap"/>
       </StackPanel>

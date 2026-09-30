@@ -3343,21 +3343,6 @@ Release date: {2}</value>
     <data name="HomePage_More" xml:space="preserve">
         <value>More</value>
     </data>
-    <data name="HomePage_Mcp" xml:space="preserve">
-        <value>MCP</value>
-    </data>
-    <data name="HomePage_BuiltInTools" xml:space="preserve">
-        <value>Built-in Tools</value>
-    </data>
-    <data name="HomePage_Skills" xml:space="preserve">
-        <value>Skills</value>
-    </data>
-    <data name="HomePage_QuickConfiguration" xml:space="preserve">
-        <value>Quick Configuration</value>
-    </data>
-    <data name="HomePage_Assistants" xml:space="preserve">
-        <value>Assistants</value>
-    </data>
     <data name="HomePage_TotalTokensToolTip" xml:space="preserve">
         <value>Total provider-reported tokens: {0}</value>
     </data>

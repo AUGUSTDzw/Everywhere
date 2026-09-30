@@ -1,7 +1,7 @@
 ﻿<UserControl
   x:Class="Everywhere.Views.Pages.CustomAssistantPage" xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ai="clr-namespace:Everywhere.AI"
-  xmlns:c="clr-namespace:Everywhere.Configuration;assembly=Everywhere.Abstractions" xmlns:shadui="clr-namespace:ShadUI.Controls;assembly=ShadUI"
+  xmlns:c="clr-namespace:Everywhere.Configuration;assembly=Everywhere.Abstractions" xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
   xmlns:v="clr-namespace:Everywhere.Views" xmlns:vm="clr-namespace:Everywhere.ViewModels"
   x:DataType="vm:CustomAssistantPageViewModel" ClipToBounds="False">
   <shadui:NavigationView
@@ -66,13 +66,12 @@
 
               <StackPanel VerticalAlignment="Center">
                 <TextBlock
-                  Classes="p"
                   Text="{Binding Name}"
                   TextTrimming="CharacterEllipsis"
                   ToolTip.Tip="{Binding $self.Text}"/>
 
                 <TextBlock
-                  Classes="Muted"
+                  Classes="Muted Caption"
                   IsVisible="{Binding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                   Text="{Binding Description}"
                   TextTrimming="CharacterEllipsis"
@@ -175,12 +174,10 @@
           Height="128" HorizontalAlignment="Center"
           Source="avares://Everywhere.Core/Assets/Images/EmptyList.png" Stretch="Uniform"/>
         <TextBlock
-          Classes="p"
           IsVisible="{Binding !!CustomAssistants.Count}"
           Text="{I18N {x:Static LocaleKey.CustomAssistantPage_EmptyContent_SelectInstruction}}"
           TextAlignment="Center" TextWrapping="Wrap"/>
         <TextBlock
-          Classes="p"
           IsVisible="{Binding !CustomAssistants.Count}"
           Text="{I18N {x:Static LocaleKey.CustomAssistantPage_EmptyContent_EmptyListInstruction}}"
           TextAlignment="Center" TextWrapping="Wrap"/>

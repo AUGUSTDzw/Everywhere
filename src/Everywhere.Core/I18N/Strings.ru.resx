@@ -3343,21 +3343,6 @@
     <data name="HomePage_More" xml:space="preserve">
         <value>Больше</value>
     </data>
-    <data name="HomePage_Mcp" xml:space="preserve">
-        <value>MCP</value>
-    </data>
-    <data name="HomePage_BuiltInTools" xml:space="preserve">
-        <value>Встроенные инструменты</value>
-    </data>
-    <data name="HomePage_Skills" xml:space="preserve">
-        <value>Навыки</value>
-    </data>
-    <data name="HomePage_QuickConfiguration" xml:space="preserve">
-        <value>Быстрая настройка</value>
-    </data>
-    <data name="HomePage_Assistants" xml:space="preserve">
-        <value>Ассистенты</value>
-    </data>
     <data name="HomePage_TotalTokensToolTip" xml:space="preserve">
         <value>Всего токенов по отчету API модели: {0}</value>
     </data>

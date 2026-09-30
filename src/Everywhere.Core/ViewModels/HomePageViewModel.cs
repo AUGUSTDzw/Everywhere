@@ -1,22 +1,15 @@
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Globalization;
-using System.Reactive.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Everywhere.Chat.Plugins;
 using Everywhere.Cloud;
 using Everywhere.Collections;
-using Everywhere.Common;
 using Everywhere.Common.Notification;
-using Everywhere.Configuration;
 using Everywhere.Messages;
-using Everywhere.Skills;
 using Everywhere.Statistics;
 using Everywhere.Utilities;
 using Everywhere.Views;
-using Lucide.Avalonia;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Everywhere.ViewModels;
@@ -26,7 +19,7 @@ namespace Everywhere.ViewModels;
 /// </summary>
 public sealed partial class HomePageViewModel : ReactiveViewModelBase
 {
-    private const int HeatmapMonths = 6;
+    private const int HeatmapMonths = 12;
 
     [ObservableProperty] public partial string? TodayText { get; set; }
 
@@ -53,8 +46,6 @@ public sealed partial class HomePageViewModel : ReactiveViewModelBase
 
     [ObservableProperty] public partial IReadOnlyList<IStatisticsHeatmapDay>? HeatmapDays { get; private set; }
 
-    [ObservableProperty] public partial IReadOnlyList<QuickConfigurationCardItem>? QuickConfigurationCards { get; private set; }
-
     public ICloudClient CloudClient { get; }
 
     public IReadOnlyBindableList<DynamicNotification> Notifications { get; }
@@ -63,9 +54,6 @@ public sealed partial class HomePageViewModel : ReactiveViewModelBase
 
     private readonly IStatisticsService _statisticsService;
     private readonly IServiceProvider _serviceProvider;
-    private readonly Lock _syncLock = new();
-
-    private QuickConfigurationProvider? _quickConfigurationProvider;
 
     public HomePageViewModel(
         ICloudClient cloudClient,
@@ -87,17 +75,6 @@ public sealed partial class HomePageViewModel : ReactiveViewModelBase
         Task.Run(() => InitializeAsync(cancellationToken), cancellationToken).Detach(ToastExceptionHandler);
 
         return base.ViewLoaded(cancellationToken);
-    }
-
-    protected internal override Task ViewUnloaded()
-    {
-        lock (_syncLock)
-        {
-            QuickConfigurationCards = null;
-            DisposeHelper.DisposeToDefault(ref _quickConfigurationProvider);
-        }
-
-        return base.ViewUnloaded();
     }
 
     partial void OnSelectedHeatmapMetricItemChanged(HeatmapMetricTabItem? value)
@@ -132,18 +109,6 @@ public sealed partial class HomePageViewModel : ReactiveViewModelBase
                 overview.TopicCount > 0 ? ((double)overview.TurnCount / overview.TopicCount).ToString("0.#", CultureInfo.CurrentCulture) : "0"));
 
         await RefreshHeatmapAsync(SelectedHeatmapMetricItem, cancellationToken);
-
-        lock (_syncLock)
-        {
-            if (_quickConfigurationProvider is null)
-            {
-                _quickConfigurationProvider = new QuickConfigurationProvider(
-                    _serviceProvider.GetRequiredService<Settings>(),
-                    _serviceProvider.GetRequiredService<IChatPluginManager>(),
-                    _serviceProvider.GetRequiredService<ISkillManager>());
-                QuickConfigurationCards = _quickConfigurationProvider.Cards;
-            }
-        }
     }
 
     [RelayCommand]
@@ -252,160 +217,4 @@ public sealed partial class HomePageViewModel : ReactiveViewModelBase
     /// <param name="Name"></param>
     /// <param name="Metric"></param>
     public sealed record HeatmapMetricTabItem(IDynamicLocaleKey Name, StatisticsHeatmapMetric Metric);
-
-    /// <summary>
-    /// Bindable quick configuration card shown on the home dashboard.
-    /// </summary>
-    public sealed partial class QuickConfigurationCardItem(IDynamicLocaleKey name, LucideIconKind icon, string route) : ObservableObject
-    {
-        public IDynamicLocaleKey Name { get; } = name;
-
-        public LucideIconKind Icon { get; } = icon;
-
-        public string Route { get; } = route;
-
-        [ObservableProperty] public partial string? CountText { get; set; }
-    }
-
-    /// <summary>
-    /// Recomputes the four quick configuration cards whenever assistants, plugins, functions, or skills change.
-    /// </summary>
-    private sealed class QuickConfigurationProvider : IDisposable
-    {
-        public IReadOnlyList<QuickConfigurationCardItem> Cards { get; } =
-        [
-            new(
-                new DynamicLocaleKey(LocaleKey.HomePage_Assistants),
-                LucideIconKind.Bot,
-                MainViewNavigateMessage.CustomAssistantPageRoute),
-            new(
-                new DynamicLocaleKey(LocaleKey.HomePage_BuiltInTools),
-                LucideIconKind.Hammer,
-                MainViewNavigateMessage.ChatPluginPageRoute),
-            new(
-                new DynamicLocaleKey(LocaleKey.HomePage_Mcp),
-                LucideIconKind.Unplug,
-                MainViewNavigateMessage.ChatPluginPageRoute),
-            new(
-                new DynamicLocaleKey(LocaleKey.HomePage_Skills),
-                LucideIconKind.Box,
-                MainViewNavigateMessage.SkillPageRoute)
-        ];
-
-        private readonly Settings _settings;
-        private readonly IChatPluginManager _chatPluginManager;
-        private readonly ISkillManager _skillManager;
-        private readonly CompositeDisposable _disposables = new();
-
-        public QuickConfigurationProvider(
-            Settings settings,
-            IChatPluginManager chatPluginManager,
-            ISkillManager skillManager)
-        {
-            _settings = settings;
-            _chatPluginManager = chatPluginManager;
-            _skillManager = skillManager;
-
-            var subscription = Observable
-                .Merge(
-                    CreateAssistantChanges(),
-                    CreateMcpChanges(),
-                    CreateBuiltInToolChanges(),
-                    CreateToolSettingsChanges(),
-                    CreateSkillChanges())
-                .StartWith(0)
-                .ObserveOnAvaloniaDispatcher()
-                .Subscribe(_ => RefreshCards());
-            _disposables.Add(subscription);
-        }
-
-        private IObservable<int> CreateAssistantChanges() =>
-            _settings.Model.CustomAssistants
-                .ToObservableChangeSet()
-                .ToCollection()
-                .Select(static _ => 0);
-
-        private IObservable<int> CreateMcpChanges() =>
-            _chatPluginManager.McpPlugins
-                .ToObservableChangeSet<IReadOnlyBindableList<McpChatPlugin>, McpChatPlugin>()
-                .ToCollection()
-                .Select(static _ => 0);
-
-        private IObservable<int> CreateBuiltInToolChanges()
-        {
-            var pluginChanges = _chatPluginManager.BuiltInPlugins
-                .ToObservableChangeSet<IReadOnlyBindableList<BuiltInChatPlugin>, BuiltInChatPlugin>()
-                .ToCollection()
-                .Select(static _ => 0);
-
-            var functionChanges = _chatPluginManager.BuiltInPlugins
-                .ToObservableChangeSet<IReadOnlyBindableList<BuiltInChatPlugin>, BuiltInChatPlugin>()
-                .MergeMany(static plugin => plugin.Functions
-                    .ToObservableChangeSet<IReadOnlyBindableList<ChatFunction>, ChatFunction>()
-                    .ToCollection()
-                    .Select(static _ => 0));
-
-            return pluginChanges.Merge(functionChanges);
-        }
-
-        private IObservable<int> CreateToolSettingsChanges() =>
-            Observable
-                .FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(
-                    handler => _settings.Plugin.ToolEnablementRulesets.CollectionChanged += handler,
-                    handler => _settings.Plugin.ToolEnablementRulesets.CollectionChanged -= handler)
-                .Select(static _ => 0);
-
-        private IObservable<int> CreateSkillChanges()
-        {
-            var groupChanges = _skillManager.SourceGroups
-                .ToObservableChangeSet<IReadOnlyBindableList<SkillSourceGroup>, SkillSourceGroup>()
-                .ToCollection()
-                .Select(static _ => 0);
-
-            var skillChanges = _skillManager.SourceGroups
-                .ToObservableChangeSet<IReadOnlyBindableList<SkillSourceGroup>, SkillSourceGroup>()
-                .MergeMany(static group => group.Skills
-                    .ToObservableChangeSet<IReadOnlyBindableList<SkillDescriptor>, SkillDescriptor>()
-                    .AutoRefresh(static skill => skill.IsEnabled)
-                    .ToCollection()
-                    .Select(static _ => 0));
-
-            return groupChanges.Merge(skillChanges);
-        }
-
-        private void RefreshCards()
-        {
-            var assistantsCount = _settings.Model.CustomAssistants.Count;
-            var mcpTotal = _chatPluginManager.McpPlugins.Count;
-            var mcpEnabled = _chatPluginManager.McpPlugins.Count(plugin =>
-                _settings.Plugin.ToolEnablementRulesets.GetPluginRule(plugin) ?? plugin.IsDefaultEnabled);
-
-            var builtInFunctions = _chatPluginManager.BuiltInPlugins
-                .SelectMany(static plugin => plugin.GetChatFunctions())
-                .Where(static function => function.IsVisible)
-                .ToArray();
-
-            var skills = _skillManager.SourceGroups
-                .SelectMany(static group => group.Skills)
-                .Where(static skill => skill.IsValid)
-                .ToArray();
-
-            Cards[0].CountText = assistantsCount.ToString("N0", CultureInfo.CurrentCulture);
-            Cards[1].CountText = FormatCapabilityCount(
-                builtInFunctions.Length,
-                _chatPluginManager.BuiltInPlugins.Sum(plugin => plugin.GetChatFunctions().Count(function =>
-                    function.IsVisible &&
-                    (_settings.Plugin.ToolEnablementRulesets.GetFunctionRule(plugin, function) ?? function.IsDefaultEnabled))));
-            Cards[2].CountText = FormatCapabilityCount(mcpTotal, mcpEnabled);
-            Cards[3].CountText = FormatCapabilityCount(skills.Length, skills.Count(static x => x.IsEnabled));
-        }
-
-        private static string FormatCapabilityCount(int totalCount, int enabledCount) =>
-            $"{enabledCount.ToString("N0", CultureInfo.CurrentCulture)}/{totalCount.ToString("N0", CultureInfo.CurrentCulture)}";
-
-        public void Dispose()
-        {
-            _disposables.Dispose();
-        }
-    }
 }

@@ -3343,21 +3343,6 @@ Fecha de lanzamiento: {2}</value>
     <data name="HomePage_More" xml:space="preserve">
         <value>Más</value>
     </data>
-    <data name="HomePage_Mcp" xml:space="preserve">
-        <value>MCP</value>
-    </data>
-    <data name="HomePage_BuiltInTools" xml:space="preserve">
-        <value>Herramientas Integradas</value>
-    </data>
-    <data name="HomePage_Skills" xml:space="preserve">
-        <value>Habilidades</value>
-    </data>
-    <data name="HomePage_QuickConfiguration" xml:space="preserve">
-        <value>Configuración Rápida</value>
-    </data>
-    <data name="HomePage_Assistants" xml:space="preserve">
-        <value>Asistentes</value>
-    </data>
     <data name="HomePage_TotalTokensToolTip" xml:space="preserve">
         <value>Total de Tokens reportados por la API del modelo: {0}</value>
     </data>

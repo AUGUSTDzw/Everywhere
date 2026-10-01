@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <RootNamespace>Everywhere</RootNamespace>
     <EverywhereI18NNamespace>Everywhere.Core.I18N</EverywhereI18NNamespace>
@@ -30,6 +31,7 @@
     <PackageReference Include="LiveMarkdown.Avalonia.Math"/>
     <PackageReference Include="LiveMarkdown.Avalonia.Mermaid"/>
     <PackageReference Include="LiveMarkdown.Avalonia.Svg.Skia"/>
+    <PackageReference Include="MessagePackAnalyzer" PrivateAssets="all"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite"/>
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Microsoft.EntityFrameworkCore.Tools">
@@ -60,7 +62,7 @@
     <PackageReference Include="Serilog.Sinks.Console"/>
     <PackageReference Include="Serilog.Sinks.File"/>
     <PackageReference Include="SharpYaml"/>
-    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3"/>
     <PackageReference Include="Svg.Controls.Skia.Avalonia"/>
     <PackageReference Include="Sylinko.CSharpMath.Avalonia"/>
     <PackageReference Include="System.Drawing.Common"/>
@@ -69,8 +71,7 @@
 
   <ItemGroup>
     <ProjectReference Condition="'$(Configuration)' == 'Debug'" Include="..\..\3rd\ClassicDiagnostics.Avalonia\src\ClassicDiagnostics.Avalonia.csproj"/>
-    <ProjectReference Include="..\..\3rd\ExpressionBinding.Avalonia\src\ExpressionBinding.Avalonia\ExpressionBinding.Avalonia.csproj" />
-    <ProjectReference Include="..\..\3rd\MessagePack-CSharp\src\MessagePack.SourceGenerator\MessagePack.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
+    <ProjectReference Include="..\..\3rd\ExpressionBinding.Avalonia\src\ExpressionBinding.Avalonia\ExpressionBinding.Avalonia.csproj"/>
     <ProjectReference Include="..\..\3rd\semantic-kernel-patch\Connectors.Google\Connectors.Google.csproj"/>
     <ProjectReference Include="..\..\3rd\semantic-kernel-patch\Connectors.MistralAI\Connectors.MistralAI.csproj"/>
     <ProjectReference Include="..\..\3rd\Motion.Avalonia\src\Motion.Avalonia\Motion.Avalonia.csproj"/>
@@ -80,11 +81,11 @@
     <ProjectReference Include="..\Everywhere.Configuration.SourceGenerator\Everywhere.Configuration.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
     <ProjectReference Include="..\Everywhere.I18N.Abstractions\Everywhere.I18N.Abstractions.csproj"/>
     <ProjectReference Include="..\Everywhere.I18N.SourceGenerator\Everywhere.I18N.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
-    <ProjectReference Include="..\Everywhere.ProcessIsolation\Everywhere.ProcessIsolation.csproj" />
-    <ProjectReference Include="..\Everywhere.ProcessIsolation.SourceGenerator\Everywhere.ProcessIsolation.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
-    <ProjectReference Include="..\Everywhere.Prompting\Everywhere.Prompting.csproj" />
+    <ProjectReference Include="..\Everywhere.ProcessIsolation\Everywhere.ProcessIsolation.csproj"/>
+    <ProjectReference Include="..\Everywhere.ProcessIsolation.SourceGenerator\Everywhere.ProcessIsolation.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
+    <ProjectReference Include="..\Everywhere.Prompting\Everywhere.Prompting.csproj"/>
     <ProjectReference Include="..\Everywhere.Terminal\Everywhere.Terminal.csproj"/>
-    <ProjectReference Include="..\Everywhere.Automation\Everywhere.Automation.csproj" />
+    <ProjectReference Include="..\Everywhere.Automation\Everywhere.Automation.csproj"/>
 
   </ItemGroup>
 

@@ -139,7 +139,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
   </ItemGroup>
-  <ItemGroup Label="Local">
-    <PackageVersion Include="Porta.Pty.Native" Version="1.0.0" />
+  <ItemGroup Label="Sylinko forks">
+    <PackageVersion Include="OfficeCLI" Version="999.20261001.2" />
+    <PackageVersion Include="Porta.Pty" Version="999.20261001.1" />
+    <PackageVersion Include="Porta.Pty.Native" Version="999.20261001.1" />
+    <PackageVersion Include="EverythingNetCore" Version="999.20261001.3" />
+    <PackageVersion Include="MessagePack" Version="999.20261001.1" />
+    <PackageVersion Include="MessagePack.Annotations" Version="999.20261001.1" />
+    <PackageVersion Include="MessagePackAnalyzer" Version="999.20261001.1" />
   </ItemGroup>
 </Project>

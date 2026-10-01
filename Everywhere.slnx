@@ -16,25 +16,10 @@
     <File Path=".github/workflows/windows-release.yml" />
   </Folder>
   <Folder Name="/3rd/">
-    <File Path="3rd/Directory.Packages.props" />
     <Project Path="3rd/ClassicDiagnostics.Avalonia/src/ClassicDiagnostics.Avalonia.csproj" />
-    <Project Path="3rd/EverythingNetCore/EverythingNet/EverythingNet.csproj" />
     <Project Path="3rd/ExpressionBinding.Avalonia/src/ExpressionBinding.Avalonia/ExpressionBinding.Avalonia.csproj" />
     <Project Path="3rd/Motion.Avalonia/src/Motion.Avalonia/Motion.Avalonia.csproj" />
-    <Project Path="3rd/OfficeCLI/src/officecli/officecli.csproj" />
     <Project Path="3rd/shad-ui/src/ShadUI/ShadUI.csproj" />
-  </Folder>
-  <Folder Name="/3rd/MessagePack/">
-    <Project Path="3rd/MessagePack-CSharp/src/MessagePack.Analyzers.CodeFixes/MessagePack.Analyzers.CodeFixes.csproj" />
-    <Project Path="3rd/MessagePack-CSharp/src/MessagePack.Analyzers/MessagePack.Analyzers.csproj" />
-    <Project Path="3rd/MessagePack-CSharp/src/MessagePack.Annotations/MessagePack.Annotations.csproj" />
-    <Project Path="3rd/MessagePack-CSharp/src/MessagePack.SourceGenerator/MessagePack.SourceGenerator.csproj" />
-    <Project Path="3rd/MessagePack-CSharp/src/MessagePack/MessagePack.csproj" />
-  </Folder>
-  <Folder Name="/3rd/Porta.Pty/">
-    <Project Path="3rd/Porta.Pty/src/Porta.Pty.Native/Porta.Pty.Native.csproj" />
-    <Project Path="3rd/Porta.Pty/src/Porta.Pty.Tests/Porta.Pty.Tests.csproj" />
-    <Project Path="3rd/Porta.Pty/src/Porta.Pty/Porta.Pty.csproj" />
   </Folder>
   <Folder Name="/3rd/SemanticKernel/">
     <File Path="3rd/semantic-kernel-patch/README.md" />

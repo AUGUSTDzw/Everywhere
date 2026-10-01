@@ -13,11 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <WarningsAsErrors Condition="'$(MSBuildProjectName)' != 'officecli'">nullable</WarningsAsErrors>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <LocalPackageOutputPath>$(MSBuildThisFileDirectory)3rd/Porta.Pty/nuget</LocalPackageOutputPath>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>

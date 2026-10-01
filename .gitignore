@@ -472,3 +472,6 @@ tools/sync_i18n/i18n_validation_report.json
 .vscode/launch.json
 
 temp.md
+
+# Local build diagnostics and package validation
+.build/

@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Porta.Pty" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Everywhere.Abstractions\Everywhere.Abstractions.csproj" />
-    <ProjectReference Include="..\..\3rd\Porta.Pty\src\Porta.Pty\Porta.Pty.csproj"/>
   </ItemGroup>
   
   <ItemGroup>

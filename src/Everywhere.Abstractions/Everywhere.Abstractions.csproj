@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <IsDeploymentTarget>true</IsDeploymentTarget>
     <RootNamespace>Everywhere</RootNamespace>
@@ -8,19 +9,19 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm"/>
     <PackageReference Include="DynamicData"/>
+    <PackageReference Include="MessagePack"/>
+    <PackageReference Include="MessagePackAnalyzer" PrivateAssets="all"/>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
     <PackageReference Include="ObservableCollections"/>
     <PackageReference Include="ZLinq"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\3rd\MessagePack-CSharp\src\MessagePack.SourceGenerator\MessagePack.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
-    <ProjectReference Include="..\..\3rd\MessagePack-CSharp\src\MessagePack\MessagePack.csproj"/>
-    <ProjectReference Include="..\Everywhere.I18N.Abstractions\Everywhere.I18N.Abstractions.csproj" />
-    <ProjectReference Include="..\Everywhere.I18N.SourceGenerator\Everywhere.I18N.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\Everywhere.I18N.Abstractions\Everywhere.I18N.Abstractions.csproj"/>
+    <ProjectReference Include="..\Everywhere.I18N.SourceGenerator\Everywhere.I18N.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
   </ItemGroup>
 
   <Import Project="..\Build.I18N.targets"/>
-
   <Import Project="..\Build.Generate.Versioning.targets"/>
+
 </Project>

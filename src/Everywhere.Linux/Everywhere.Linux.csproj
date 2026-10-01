@@ -14,15 +14,15 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="GirCore.GObject-2.0" />
+    <PackageReference Include="OfficeCLI" />
     <PackageReference Include="SkiaSharp" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
     <PackageReference Include="Tmds.LibC" />
     <PackageReference Include="X11.Net" />
-    <PackageReference Include="GirCore.GObject-2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\3rd\OfficeCLI\src\officecli\officecli.csproj" />
     <ProjectReference Include="..\Everywhere.Core\Everywhere.Core.csproj" />
     <ProjectReference Include="..\Everywhere.I18N.Abstractions\Everywhere.I18N.Abstractions.csproj" />
     <ProjectReference Include="..\Everywhere.I18N.SourceGenerator\Everywhere.I18N.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />

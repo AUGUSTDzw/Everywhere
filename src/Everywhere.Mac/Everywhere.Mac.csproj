@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <AssemblyName>Everywhere</AssemblyName>
@@ -11,6 +12,8 @@
     <IsDeploymentTarget>true</IsDeploymentTarget>
     <UseAppHost>true</UseAppHost>
     <CreateAppBundle>true</CreateAppBundle>
+    <!-- The Apple SDK disables deps generation by default; OfficeCLI shares this graph. -->
+    <GenerateDependencyFile>true</GenerateDependencyFile>
     <BundleCreateDump>true</BundleCreateDump>
 
     <!-- The signing and packaging by SDK is broken for macOS, so we disable it and do it ourselves -->
@@ -176,19 +179,18 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop"/>
+    <PackageReference Include="OfficeCLI"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\3rd\OfficeCLI\src\officecli\officecli.csproj"/>
     <ProjectReference Include="..\Everywhere.Cloud\Everywhere.Cloud.csproj"/>
     <ProjectReference Include="..\Everywhere.Core\Everywhere.Core.csproj"/>
     <ProjectReference Include="..\Everywhere.I18N.Abstractions\Everywhere.I18N.Abstractions.csproj"/>
     <ProjectReference Include="..\Everywhere.I18N.SourceGenerator\Everywhere.I18N.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
-    <ProjectReference Include="..\Everywhere.ProcessIsolation\Everywhere.ProcessIsolation.csproj" />
+    <ProjectReference Include="..\Everywhere.ProcessIsolation\Everywhere.ProcessIsolation.csproj"/>
   </ItemGroup>
 
   <Import Project="..\Build.I18N.targets"/>
-
   <Import Project="..\Build.Watchdog.targets"/>
 
   <!--
@@ -199,13 +201,11 @@
   -->
   <Target Name="CopyOfficeCliAppHostToBundle"
           AfterTargets="_CreateAppBundle"
-          Inputs="$(TargetDir)officecli;$(TargetDir)officecli.deps.json;$(TargetDir)officecli.runtimeconfig.json"
+          Inputs="$(TargetDir)officecli;$(OfficeCliDepsFile);$(OfficeCliRuntimeConfig)"
           Outputs="$(IntermediateOutputPath)officecli-bundle-copy.stamp;$(AppBundleDir)/Contents/MonoBundle/officecli;$(AppBundleDir)/Contents/MonoBundle/officecli.deps.json;$(AppBundleDir)/Contents/MonoBundle/officecli.runtimeconfig.json"
           Condition="'$(IsMacEnabled)' == 'true'">
     <PropertyGroup>
       <OfficeCliAppHost>$(TargetDir)officecli</OfficeCliAppHost>
-      <OfficeCliDepsFile>$(TargetDir)officecli.deps.json</OfficeCliDepsFile>
-      <OfficeCliRuntimeConfig>$(TargetDir)officecli.runtimeconfig.json</OfficeCliRuntimeConfig>
       <OfficeCliBundleDir>$(AppBundleDir)/Contents/MonoBundle</OfficeCliBundleDir>
       <OfficeCliBundledAppHost>$(AppBundleDir)/Contents/MonoBundle/officecli</OfficeCliBundledAppHost>
     </PropertyGroup>
@@ -220,10 +220,6 @@
     <Touch Files="$(OfficeCliBundledAppHost);$(OfficeCliBundleDir)/officecli.deps.json;$(OfficeCliBundleDir)/officecli.runtimeconfig.json"/>
     <Touch Files="$(IntermediateOutputPath)officecli-bundle-copy.stamp" AlwaysCreate="true"/>
   </Target>
-
-  <ItemGroup>
-    <TrimmerRootAssembly Include="officecli"/>
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\img\Everywhere.ico">

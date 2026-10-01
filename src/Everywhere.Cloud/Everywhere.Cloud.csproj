@@ -6,8 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\3rd\MessagePack-CSharp\src\MessagePack.SourceGenerator\MessagePack.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
-    <ProjectReference Include="..\..\3rd\MessagePack-CSharp\src\MessagePack\MessagePack.csproj"/>
+    <PackageReference Include="MessagePack" />
+    <PackageReference Include="MessagePackAnalyzer" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Everywhere.Abstractions\Everywhere.Abstractions.csproj" />
     <ProjectReference Include="..\Everywhere.Core\Everywhere.Core.csproj" />
     <ProjectReference Include="..\Everywhere.I18N.Abstractions\Everywhere.I18N.Abstractions.csproj" />
@@ -15,7 +18,6 @@
   </ItemGroup>
 
   <Import Project="..\Build.I18N.targets"/>
-
   <Import Project="..\Build.Generate.Cloud.targets"/>
-  
+
 </Project>

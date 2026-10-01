@@ -1,24 +1,12 @@
 [submodule "3rd/shad-ui"]
 	path = 3rd/shad-ui
 	url = https://github.com/Sylinko/shad-ui
-[submodule "3rd/MessagePack-CSharp"]
-	path = 3rd/MessagePack-CSharp
-	url = https://github.com/Sylinko/MessagePack-CSharp
-[submodule "3rd/EverythingNetCore"]
-	path = 3rd/EverythingNetCore
-	url = https://github.com/Sylinko/EverythingNetCore
 [submodule "3rd/semantic-kernel"]
 	path = 3rd/semantic-kernel
 	url = https://github.com/microsoft/semantic-kernel
-[submodule "3rd/Porta.Pty"]
-	path = 3rd/Porta.Pty
-	url = https://github.com/Sylinko/Porta.Pty
 [submodule "3rd/ClassicDiagnostics.Avalonia"]
 	path = 3rd/ClassicDiagnostics.Avalonia
 	url = https://github.com/Sylinko/ClassicDiagnostics.Avalonia
-[submodule "3rd/OfficeCLI"]
-	path = 3rd/OfficeCLI
-	url = https://github.com/iOfficeAI/OfficeCLI
 [submodule "3rd/Motion.Avalonia"]
 	path = 3rd/Motion.Avalonia
 	url = https://github.com/Sylinko/Motion.Avalonia

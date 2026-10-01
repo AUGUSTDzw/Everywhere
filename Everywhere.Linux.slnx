@@ -3,17 +3,6 @@
     <Project Path="3rd/ClassicDiagnostics.Avalonia/src/ClassicDiagnostics.Avalonia.csproj" />
     <Project Path="3rd/shad-ui/src/ShadUI/ShadUI.csproj" />
   </Folder>
-  <Folder Name="/3rd/MessagePack/">
-    <Project Path="3rd/MessagePack-CSharp/src/MessagePack.Analyzers.CodeFixes/MessagePack.Analyzers.CodeFixes.csproj" />
-    <Project Path="3rd/MessagePack-CSharp/src/MessagePack.Analyzers/MessagePack.Analyzers.csproj" />
-    <Project Path="3rd/MessagePack-CSharp/src/MessagePack.Annotations/MessagePack.Annotations.csproj" />
-    <Project Path="3rd/MessagePack-CSharp/src/MessagePack.SourceGenerator/MessagePack.SourceGenerator.csproj" />
-    <Project Path="3rd/MessagePack-CSharp/src/MessagePack/MessagePack.csproj" />
-  </Folder>
-  <Folder Name="/3rd/Porta.Pty/">
-    <Project Path="3rd/Porta.Pty/src/Porta.Pty/Porta.Pty.csproj" />
-    <Project Path="3rd/Porta.Pty/src/Porta.Pty.Native/Porta.Pty.Native.csproj" />
-  </Folder>
   <Folder Name="/3rd/SemanticKernel/">
     <Project Path="3rd/semantic-kernel-patch/Connectors.Google/Connectors.Google.csproj" />
     <Project Path="3rd/semantic-kernel-patch/Connectors.MistralAI/Connectors.MistralAI.csproj" />

@@ -68,8 +68,8 @@ jobs:
         security import $RUNNER_TEMP/DeveloperIDG2CA.cer -k $KEYCHAIN_PATH -T /usr/bin/codesign -T /usr/bin/productbuild || echo "DeveloperIDG2CA import failed or already exists"
         security list-keychain -d user -s $KEYCHAIN_PATH
 
-    - name: Install Workloads
-      run: dotnet workload restore src/Everywhere.Mac/Everywhere.Mac.csproj
+    - name: Install macOS workload
+      run: dotnet workload install macos
 
     - name: Restore
       run: |

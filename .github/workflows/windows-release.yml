@@ -107,9 +107,6 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install Workloads
-      run: dotnet workload restore src/Everywhere.Windows/Everywhere.Windows.csproj
-
     - name: Restore
       shell: pwsh
       run: |

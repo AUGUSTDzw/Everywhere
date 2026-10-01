@@ -72,6 +72,11 @@ public sealed class OfficeCLIPlugin : BuiltInChatPlugin
                 RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
+                Environment =
+                {
+                    ["OFFICECLI_NO_AUTO_INSTALL"] = "1",
+                    ["OFFICECLI_SKIP_UPDATE"] = "1",
+                }
             });
 
         if (process is null)

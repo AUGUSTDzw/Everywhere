@@ -8,6 +8,9 @@ on:
 jobs:
   build-and-release:
     runs-on: windows-latest
+    env:
+      # Windows builds need no workloads; skip resolving the macOS workload-set pin in global.json.
+      MSBuildEnableWorkloadResolver: 'false'
 
     steps:
     - name: Enable long paths in git

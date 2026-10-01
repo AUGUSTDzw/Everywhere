@@ -207,9 +207,9 @@ public sealed class StatisticsHeatmap : UserControl
     {
         var labels = new[]
         {
-            (1, LocaleResolver.StatisticsHeatmap_MondayShort),
-            (3, LocaleResolver.StatisticsHeatmap_WednesdayShort),
-            (5, LocaleResolver.StatisticsHeatmap_FridayShort)
+            (1, LocaleKey.StatisticsHeatmap_MondayShort.I18N()),
+            (3, LocaleKey.StatisticsHeatmap_WednesdayShort.I18N()),
+            (5, LocaleKey.StatisticsHeatmap_FridayShort.I18N())
         };
         foreach (var (row, label) in labels.AsValueEnumerable())
         {

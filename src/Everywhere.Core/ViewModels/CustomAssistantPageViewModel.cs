@@ -43,7 +43,7 @@ public partial class CustomAssistantPageViewModel : ReactiveViewModelBase
             ClearSelectedAssistant();
             ToastHost
                 .CreateToast(
-                    LocaleResolver.Common_Warning,
+                    LocaleKey.Common_Warning.I18N(),
                     new FormattedDynamicLocaleKey(
                         LocaleKey.CustomAssistantPage_InvalidRouteAssistant_Content,
                         new DirectLocaleKey(assistantIdText)))
@@ -56,7 +56,7 @@ public partial class CustomAssistantPageViewModel : ReactiveViewModelBase
         {
             ToastHost
                 .CreateToast(
-                    LocaleResolver.Common_Warning,
+                    LocaleKey.Common_Warning.I18N(),
                     new FormattedDynamicLocaleKey(
                         LocaleKey.CustomAssistantPage_MissingRouteAssistant_Content,
                         new DirectLocaleKey(assistantId)))
@@ -100,7 +100,7 @@ public partial class CustomAssistantPageViewModel : ReactiveViewModelBase
     {
         var newAssistant = new CustomAssistant
         {
-            Name = LocaleResolver.CustomAssistant_Name_Default,
+            Name = LocaleKey.CustomAssistant_Name_Default.I18N(),
             Configuration = new PresetAssistantConfiguration(),
             Icon = new ColoredIcon(
                 ColoredIconType.Lucide,
@@ -128,7 +128,7 @@ public partial class CustomAssistantPageViewModel : ReactiveViewModelBase
         var duplicatedAssistant = JsonSerializer.Deserialize<CustomAssistant>(json, options).NotNull();
 
         duplicatedAssistant.Id = Guid.CreateVersion7();
-        duplicatedAssistant.Name += " - " + LocaleResolver.Common_Copy;
+        duplicatedAssistant.Name += " - " + LocaleKey.Common_Copy.I18N();
         _settings.Model.CustomAssistants.Insert(_settings.Model.CustomAssistants.IndexOf(customAssistant) + 1, duplicatedAssistant);
         SelectedCustomAssistant = duplicatedAssistant;
     }
@@ -145,7 +145,7 @@ public partial class CustomAssistantPageViewModel : ReactiveViewModelBase
             kernelMixin = _kernelMixinFactory.Create(customAssistant);
             await kernelMixin.CheckConnectivityAsync(cancellationToken);
             ToastHost
-                .CreateToast(LocaleResolver.CustomAssistantPageViewModel_CheckConnectivity_SuccessToast_Title)
+                .CreateToast(LocaleKey.CustomAssistantPageViewModel_CheckConnectivity_SuccessToast_Title.I18N())
                 .DismissOnClick()
                 .ShowSuccess();
         }
@@ -158,7 +158,7 @@ public partial class CustomAssistantPageViewModel : ReactiveViewModelBase
                 customAssistant.Configuration.Endpoint,
                 customAssistant.Configuration.ModelId);
             ToastHost
-                .CreateToast(LocaleResolver.CustomAssistantPageViewModel_CheckConnectivity_FailedToast_Title)
+                .CreateToast(LocaleKey.CustomAssistantPageViewModel_CheckConnectivity_FailedToast_Title.I18N())
                 .WithContent(ex.GetFriendlyMessage().ToTextBlock())
                 .DismissOnClick()
                 .ShowError();
@@ -174,10 +174,10 @@ public partial class CustomAssistantPageViewModel : ReactiveViewModelBase
     {
         if (SelectedCustomAssistant is not { } customAssistant) return;
         var result = await DialogHost.CreateDialog(
-                LocaleResolver.CustomAssistantPageViewModel_DeleteCustomAssistant_Dialog_Message.Format(customAssistant.Name),
-                LocaleResolver.Common_Warning)
-            .WithPrimaryButton(LocaleResolver.Common_Yes)
-            .WithCancelButton(LocaleResolver.Common_No)
+                LocaleKey.CustomAssistantPageViewModel_DeleteCustomAssistant_Dialog_Message.I18N().Format(customAssistant.Name),
+                LocaleKey.Common_Warning.I18N())
+            .WithPrimaryButton(LocaleKey.Common_Yes.I18N())
+            .WithCancelButton(LocaleKey.Common_No.I18N())
             .ShowAsync();
         if (result != DialogResult.Primary) return;
 

@@ -166,7 +166,7 @@ public sealed class ChatTurnNavigationIndex : IDisposable
         /// <summary>
         /// Gets the localized short month and day text.
         /// </summary>
-        public string Text => Date.ToString(Abstractions.I18N.LocaleResolver.Common_ShortMonthDayPattern, CultureInfo.CurrentUICulture);
+        public string Text => Date.ToString(Abstractions.I18N.LocaleKey.Common_ShortMonthDayPattern.I18N(), CultureInfo.CurrentUICulture);
 
         /// <summary>
         /// Gets the first turn in the date.

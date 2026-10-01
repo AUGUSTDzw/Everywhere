@@ -69,7 +69,7 @@ public sealed class NetworkInitializer : IAsyncInitializer, IDisposable
 
             if (notifyOnError)
             {
-                ToastManager.Error(LocaleResolver.Common_Error, ex.GetFriendlyMessage().ToTextBlock());
+                ToastManager.Error(LocaleKey.Common_Error.I18N(), ex.GetFriendlyMessage().ToTextBlock());
             }
         }
     }

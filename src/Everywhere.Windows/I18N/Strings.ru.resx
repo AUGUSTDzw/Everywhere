@@ -28,4 +28,7 @@
     <data name="Windows_BuiltInChatPlugin_Everything_SearchFiles_Description" xml:space="preserve">
         <value>Искать файлы с помощью Everything.</value>
     </data>
+    <data name="Windows_ElevatedMainWarning_Content" xml:space="preserve">
+        <value>Everywhere в данный момент работает с правами администратора. Перетаскивание из обычных приложений может быть недоступно, а действия помощника будут иметь более высокие системные права.</value>
+    </data>
 </root>

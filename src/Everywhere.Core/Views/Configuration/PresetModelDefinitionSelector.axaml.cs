@@ -129,6 +129,6 @@ public sealed partial class PresetModelDefinitionSelector(
 
     void IExceptionHandler.HandleException(Exception exception, string? message, object? source, int lineNumber)
     {
-        if (_isAttached) ToastManager.Error(message ?? LocaleResolver.Common_Error, exception.GetFriendlyMessage());
+        if (_isAttached) ToastManager.Error(message ?? LocaleKey.Common_Error.I18N(), exception.GetFriendlyMessage());
     }
 }

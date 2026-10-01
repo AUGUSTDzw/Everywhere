@@ -55,7 +55,7 @@ public sealed partial class WelcomeViewModel : BusyViewModelBase
         // Initialize a default custom assistant
         Assistant = new CustomAssistant
         {
-            Name = LocaleResolver.CustomAssistant_Name_Default,
+            Name = LocaleKey.CustomAssistant_Name_Default.I18N(),
             Configuration = new OfficialAssistantConfiguration()
         };
         Assistant.PropertyChanged += HandleAssistantPropertyChanged;
@@ -232,7 +232,7 @@ public sealed partial class WelcomeViewModelAssistantStep(WelcomeViewModel viewM
                     ex = HandledChatException.Handle(ex, kernelMixin);
                     _logger.LogError(ex, "Failed to validate assistant connectivity");
                     ToastHost
-                        .CreateToast(LocaleResolver.WelcomeViewModel_ValidateApiKey_FailedToast_Title)
+                        .CreateToast(LocaleKey.WelcomeViewModel_ValidateApiKey_FailedToast_Title.I18N())
                         .WithContent(ex.GetFriendlyMessage().ToTextBlock())
                         .DismissOnClick()
                         .ShowError();

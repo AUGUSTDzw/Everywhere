@@ -103,10 +103,7 @@
     </AvaloniaResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Remove="I18N\Strings*.resx"/>
-    <AdditionalFiles Include="I18N\Strings*.resx"/>
-  </ItemGroup>
+  <Import Project="..\Build.I18N.targets"/>
 
   <ItemGroup>
     <AvaloniaResource Include="..\..\CHANGELOG.md">

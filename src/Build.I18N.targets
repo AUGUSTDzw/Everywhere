@@ -1,0 +1,21 @@
+<Project>
+  <ItemGroup>
+    <!-- Translations remain standard embedded resources/satellites. Only neutral keys feed the generator. -->
+    <AdditionalFiles Include="I18N\Strings.resx"/>
+  </ItemGroup>
+
+  <!-- Canonical culture names are essential on case-sensitive filesystems. Existing RESX filenames
+       use mixed casing, so normalize both the satellite directory and its manifest resource name. -->
+  <Target Name="NormalizeLocaleResourceNames" AfterTargets="SplitResourcesByCulture" BeforeTargets="CreateManifestResourceNames">
+    <ItemGroup>
+      <EmbeddedResource Update="I18N\Strings.*.resx" Condition="'%(EmbeddedResource.Culture)' != ''">
+        <Culture>$([System.Globalization.CultureInfo]::GetCultureInfo('%(EmbeddedResource.Culture)').Name)</Culture>
+      </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="I18N\Strings.*.resx" Condition="'%(EmbeddedResource.Culture)' != ''">
+        <LogicalName>$(RootNamespace).I18N.Strings.%(EmbeddedResource.Culture).resources</LogicalName>
+      </EmbeddedResource>
+    </ItemGroup>
+  </Target>
+</Project>

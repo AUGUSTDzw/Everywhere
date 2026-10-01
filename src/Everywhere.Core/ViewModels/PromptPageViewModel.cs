@@ -132,7 +132,7 @@ public sealed partial class PromptPageViewModel(
             ClearSelectedPrompt();
             ToastHost
                 .CreateToast(
-                    LocaleResolver.PromptPage_NavigationWarning_Title,
+                    LocaleKey.PromptPage_NavigationWarning_Title.I18N(),
                     new FormattedDynamicLocaleKey(
                         LocaleKey.PromptPage_InvalidRoutePrompt_Content,
                         new DirectLocaleKey(promptIdText)))
@@ -193,9 +193,9 @@ public sealed partial class PromptPageViewModel(
         var references = assistantPromptReferenceService.ListReferences(prompt.Id);
         var result = await DialogHost.CreateDialog(
                 CreateDeletePromptDialogMessage(prompt, references.Count),
-                LocaleResolver.Common_Warning)
-            .WithPrimaryButton(LocaleResolver.Common_Delete, buttonStyle: ButtonStyle.Destructive)
-            .WithCancelButton(LocaleResolver.Common_Cancel)
+                LocaleKey.Common_Warning.I18N())
+            .WithPrimaryButton(LocaleKey.Common_Delete.I18N(), buttonStyle: ButtonStyle.Destructive)
+            .WithCancelButton(LocaleKey.Common_Cancel.I18N())
             .ShowAsync();
         if (result != DialogResult.Primary)
         {
@@ -225,9 +225,9 @@ public sealed partial class PromptPageViewModel(
     private static string CreateDeletePromptDialogMessage(PromptItem prompt, int referenceCount) =>
         referenceCount switch
         {
-            0 => LocaleResolver.PromptPage_DeletePrompt_Dialog_Message.Format(prompt.DisplayName),
-            1 => LocaleResolver.PromptPage_DeletePromptUsedByAssistant_Dialog_Message.Format(prompt.DisplayName),
-            _ => LocaleResolver.PromptPage_DeletePromptUsedByAssistants_Dialog_Message.Format(referenceCount, prompt.DisplayName)
+            0 => LocaleKey.PromptPage_DeletePrompt_Dialog_Message.I18N().Format(prompt.DisplayName),
+            1 => LocaleKey.PromptPage_DeletePromptUsedByAssistant_Dialog_Message.I18N().Format(prompt.DisplayName),
+            _ => LocaleKey.PromptPage_DeletePromptUsedByAssistants_Dialog_Message.I18N().Format(referenceCount, prompt.DisplayName)
         };
 
     [RelayCommand]
@@ -244,7 +244,7 @@ public sealed partial class PromptPageViewModel(
         {
             ToastHost
                 .CreateToast(
-                    LocaleResolver.PromptPage_CopyFailedToast_Title,
+                    LocaleKey.PromptPage_CopyFailedToast_Title.I18N(),
                     HandledSystemException.Handle(ex).GetFriendlyMessage())
                 .DismissOnClick()
                 .ShowError();
@@ -278,7 +278,7 @@ public sealed partial class PromptPageViewModel(
             {
                 ToastHost
                     .CreateToast(
-                        LocaleResolver.PromptPage_NavigationWarning_Title,
+                        LocaleKey.PromptPage_NavigationWarning_Title.I18N(),
                         new FormattedDynamicLocaleKey(
                             LocaleKey.PromptPage_MissingRoutePrompt_Content,
                             new DirectLocaleKey(promptId)))
@@ -449,7 +449,7 @@ public sealed partial class PromptPageViewModel(
     private void ShowCopiedToast()
     {
         ToastHost
-            .CreateToast(LocaleResolver.Common_Copied)
+            .CreateToast(LocaleKey.Common_Copied.I18N())
             .DismissOnClick()
             .ShowSuccess();
     }
@@ -485,8 +485,8 @@ public sealed partial class PromptPageViewModel(
             PromptDisplayNameProvider.GetDisplayName(prompt),
             prompt.Name ?? string.Empty,
             prompt.Template,
-            prompt.IsDefault ? LocaleResolver.PromptPage_DefaultPrompt_DisplayName : string.Empty,
-            prompt.IsDefault ? LocaleResolver.PromptPage_Source_BuiltInDefault : ResolveSourceLabelOrFallback(prompt.Source),
+            prompt.IsDefault ? LocaleKey.PromptPage_DefaultPrompt_DisplayName.I18N() : string.Empty,
+            prompt.IsDefault ? LocaleKey.PromptPage_Source_BuiltInDefault.I18N() : ResolveSourceLabelOrFallback(prompt.Source),
             prompt.Source.ToString()
         ];
 

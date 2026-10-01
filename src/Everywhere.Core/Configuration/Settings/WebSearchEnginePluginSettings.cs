@@ -197,7 +197,7 @@ public sealed partial class GoogleWebSearchEngineProvider(ObservableCollection<A
     {
         if (string.IsNullOrWhiteSpace(searchEngineId))
         {
-            return new ValidationResult(LocaleResolver.ValidationErrorMessage_Required);
+            return new ValidationResult(LocaleKey.ValidationErrorMessage_Required.I18N());
         }
 
         return ValidationResult.Success;

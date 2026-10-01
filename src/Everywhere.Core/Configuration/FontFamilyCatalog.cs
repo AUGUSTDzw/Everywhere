@@ -90,12 +90,12 @@ public sealed class FontFamilyCatalog
         {
             get
             {
-                if (IsMissing) return LocaleResolver.FontFamilyPicker_NotInstalled;
+                if (IsMissing) return LocaleKey.FontFamilyPicker_NotInstalled.I18N();
 
                 EnsureMetadata();
                 return _metadataState switch
                 {
-                    MetadataState.Failed => LocaleResolver.FontFamilyPicker_PreviewUnavailable,
+                    MetadataState.Failed => LocaleKey.FontFamilyPicker_PreviewUnavailable.I18N(),
                     MetadataState.Loaded when !string.Equals(
                         _typographicFamilyName,
                         DisplayName,

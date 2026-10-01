@@ -12,7 +12,6 @@ global using DynamicData.Binding;
 global using Everywhere.Extensions;
 global using Everywhere.I18N;
 global using LocaleKey = Everywhere.Core.I18N.LocaleKey;
-global using LocaleResolver = Everywhere.Core.I18N.LocaleResolver;
 global using Everywhere.ViewModels;
 global using ShadUI.Extensions;
 global using ZLinq;

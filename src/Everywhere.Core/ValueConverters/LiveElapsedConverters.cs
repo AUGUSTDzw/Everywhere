@@ -45,7 +45,7 @@ public static class LiveElapsedConverters
             // Truncation prevents 59.96 seconds from being rounded to the misleading "60.0s"
             // immediately before the converter switches to the minute-and-second representation.
             var truncatedTenths = Math.Truncate(totalSeconds * 10d) / 10d;
-            return string.Format(culture, LocaleResolver.LiveElapsedConverters_SecondsFormat, truncatedTenths);
+            return string.Format(culture, LocaleKey.LiveElapsedConverters_SecondsFormat.I18N(), truncatedTenths);
         }
 
         var wholeSeconds = (long)Math.Floor(totalSeconds);
@@ -53,18 +53,18 @@ public static class LiveElapsedConverters
         {
             var minutes = wholeSeconds / SecondsPerMinute;
             var seconds = wholeSeconds % SecondsPerMinute;
-            return string.Format(culture, LocaleResolver.LiveElapsedConverters_MinutesSecondsFormat, minutes, seconds);
+            return string.Format(culture, LocaleKey.LiveElapsedConverters_MinutesSecondsFormat.I18N(), minutes, seconds);
         }
 
         if (wholeSeconds < SecondsPerDay)
         {
             var hours = wholeSeconds / SecondsPerHour;
             var minutes = wholeSeconds % SecondsPerHour / SecondsPerMinute;
-            return string.Format(culture, LocaleResolver.LiveElapsedConverters_HoursMinutesFormat, hours, minutes);
+            return string.Format(culture, LocaleKey.LiveElapsedConverters_HoursMinutesFormat.I18N(), hours, minutes);
         }
 
         var days = wholeSeconds / SecondsPerDay;
         var remainingHours = wholeSeconds % SecondsPerDay / SecondsPerHour;
-        return string.Format(culture, LocaleResolver.LiveElapsedConverters_DaysHoursFormat, days, remainingHours);
+        return string.Format(culture, LocaleKey.LiveElapsedConverters_DaysHoursFormat.I18N(), days, remainingHours);
     }
 }

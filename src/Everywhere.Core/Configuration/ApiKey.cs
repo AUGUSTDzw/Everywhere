@@ -23,7 +23,7 @@ public partial class ApiKey : ObservableValidator
     public static ApiKey Empty { get; } = new()
     {
         Id = Guid.Empty,
-        Name = LocaleResolver.ApiKey_EmptyName
+        Name = LocaleKey.ApiKey_EmptyName.I18N()
     };
 
     /// <summary>
@@ -69,7 +69,7 @@ public partial class ApiKey : ObservableValidator
     {
         if (GetKey(apiKey).IsNullOrWhiteSpace())
         {
-            return new ValidationResult(LocaleResolver.ValidationErrorMessage_RequiredApiKey);
+            return new ValidationResult(LocaleKey.ValidationErrorMessage_RequiredApiKey.I18N());
         }
 
         return ValidationResult.Success;
@@ -84,12 +84,12 @@ public partial class ApiKey : ObservableValidator
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            return new ValidationResult(LocaleResolver.ValidationErrorMessage_Required);
+            return new ValidationResult(LocaleKey.ValidationErrorMessage_Required.I18N());
         }
 
         if (name.Length > 50)
         {
-            return new ValidationResult(string.Format(LocaleResolver.ValidationErrorMessage_MaxLength, 50));
+            return new ValidationResult(string.Format(LocaleKey.ValidationErrorMessage_MaxLength.I18N(), 50));
         }
 
         return ValidationResult.Success;
@@ -104,12 +104,12 @@ public partial class ApiKey : ObservableValidator
     {
         if (string.IsNullOrWhiteSpace(key))
         {
-            return new ValidationResult(LocaleResolver.ValidationErrorMessage_Required);
+            return new ValidationResult(LocaleKey.ValidationErrorMessage_Required.I18N());
         }
 
         if (key.Length > 65535)
         {
-            return new ValidationResult(string.Format(LocaleResolver.ValidationErrorMessage_MaxLength, 65535));
+            return new ValidationResult(string.Format(LocaleKey.ValidationErrorMessage_MaxLength.I18N(), 65535));
         }
 
         return ValidationResult.Success;

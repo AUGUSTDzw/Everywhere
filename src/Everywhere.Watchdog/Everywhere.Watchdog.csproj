@@ -30,4 +30,13 @@
     <AdditionalFiles Include="NativeMethods.txt" />
   </ItemGroup>
 
+  <!-- NativeAOT embeds satellites in the executable. Remove them before ILC builds its inputs,
+       while retaining normal key generation, provider registration, and neutral resources.
+       SatelliteResourceLanguages alone does not filter satellites from project references. -->
+  <Target Name="ExcludeWatchdogSatelliteResources" AfterTargets="_ComputeIlcCompileInputs">
+    <ItemGroup>
+      <IlcSatelliteAssembly Remove="@(IlcSatelliteAssembly)" />
+    </ItemGroup>
+  </Target>
+
 </Project>

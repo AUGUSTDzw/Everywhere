@@ -1,3 +1,4 @@
+using Avalonia.Headless.NUnit;
 using Everywhere.Chat;
 using Everywhere.Common.Notification;
 using Everywhere.Configuration;
@@ -14,7 +15,7 @@ namespace Everywhere.Core.Tests.Statistics;
 
 public sealed class StatisticsBackfillerTests
 {
-    [Test]
+    [AvaloniaTest]
     public async Task BackfillAsync_ImportsHistoricalToolCalls_AndDoesNotDuplicate()
     {
         using var chatDatabase = ChatTestDatabase.Create();

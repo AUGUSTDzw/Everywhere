@@ -4,7 +4,6 @@
     Defines common properties and targets for building the Watchdog project.
     The consuming project is expected to define:
     - $(RuntimeIdentifier)
-    - $(WatchdogExecutable)
   -->
   <PropertyGroup>
     <!-- Define the path to the Watchdog project. -->
@@ -16,15 +15,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- The published executable contains both projects, so source changes in
-         either project must invalidate the copied NativeAOT artifact. -->
-    <WatchdogBuildInput Include="$(WatchdogDir)**\*.cs;$(WatchdogDir)Everywhere.Watchdog.csproj;$(WatchdogDir)NativeMethods.txt"
-                        Exclude="$(WatchdogDir)bin\**;$(WatchdogDir)obj\**" />
-    <WatchdogBuildInput Include="$(MSBuildThisFileDirectory)Everywhere.ProcessIsolation\**\*.cs;$(MSBuildThisFileDirectory)Everywhere.ProcessIsolation\Everywhere.ProcessIsolation.csproj"
-                        Exclude="$(MSBuildThisFileDirectory)Everywhere.ProcessIsolation\bin\**;$(MSBuildThisFileDirectory)Everywhere.ProcessIsolation\obj\**" />
-    <WatchdogBuildInput Include="$(MSBuildThisFileDirectory)Everywhere.Abstractions\**\*.cs;$(MSBuildThisFileDirectory)Everywhere.Abstractions\Everywhere.Abstractions.csproj"
-                        Exclude="$(MSBuildThisFileDirectory)Everywhere.Abstractions\bin\**;$(MSBuildThisFileDirectory)Everywhere.Abstractions\obj\**" />
-    <WatchdogBuildInput Include="$(MSBuildThisFileDirectory)..\Directory.Build.props;$(MSBuildThisFileDirectory)..\Directory.Packages.props" />
+    <!-- Restore and build Watchdog through the normal dependency graph without referencing its assembly. -->
+    <ProjectReference Include="$(WatchdogProject)" ReferenceOutputAssembly="false" Private="false" />
   </ItemGroup>
 
   <PropertyGroup Condition="$([System.String]::Copy($(RuntimeIdentifier)).StartsWith('win')) OR $([MSBuild]::IsOSPlatform('Windows'))">
@@ -38,19 +30,15 @@
   </PropertyGroup>
 
   <!--
-    A target to build and publish the Watchdog project.
-    This target runs before the main build process. It checks if the Watchdog executable
-    is missing or out-of-date and rebuilds it if necessary.
+    Publish the already-built tool. The SDK tracks NativeAOT inputs and incremental outputs;
+    no separate list of transitive source files or nested restore is required.
   -->
   <Target Name="BuildWatchdog"
           Condition="'$(DesignTimeBuild)' != 'true'"
-          BeforeTargets="BeforeResolveReferences"
-          Inputs="@(WatchdogBuildInput)"
-          Outputs="$(WatchdogExecutable)">
-    <Message Text="Watchdog executable is out-of-date. Building..." Importance="high"/>
-
+          AfterTargets="ResolveProjectReferences">
     <MSBuild Projects="$(WatchdogProject)"
              Targets="Publish"
-             Properties="PublishDir=$(WatchdogOutDir);TargetFramework=$(TargetFrameworkPrefix);RuntimeIdentifier=$(RuntimeIdentifier);Configuration=$(Configuration)" />
+             RemoveProperties="TargetFramework"
+             Properties="NoBuild=true;PublishDir=$(WatchdogOutDir);RuntimeIdentifier=$(RuntimeIdentifier);Configuration=$(Configuration)" />
   </Target>
 </Project>

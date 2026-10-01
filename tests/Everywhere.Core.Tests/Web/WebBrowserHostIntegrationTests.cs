@@ -103,7 +103,6 @@ public sealed class WebBrowserHostIntegrationTests
 
     private static WebBrowserHost CreateHost()
     {
-        EnsureLocaleManager();
 
         var settings = new Settings(new ServiceCollection().BuildServiceProvider());
         settings.Plugin.WebBrowser.ShowBrowser = false;
@@ -120,18 +119,6 @@ public sealed class WebBrowserHostIntegrationTests
             watchdogManager,
             httpClientFactory,
             LoggerFactory.Create(_ => { }));
-    }
-
-    private static void EnsureLocaleManager()
-    {
-        try
-        {
-            _ = LocaleManager.Shared;
-        }
-        catch (InvalidOperationException)
-        {
-            _ = new LocaleManager();
-        }
     }
 
     private sealed class LocalHttpServer : IAsyncDisposable

@@ -20,7 +20,7 @@ public partial class OpenWebBrowserControl(IWebBrowserHost webBrowserHost, ILogg
         {
             ex = HandledSystemException.Handle(ex);
             logger.LogInformation(ex, "Failed to open web browser");
-            ToastManager.Error(LocaleResolver.Common_Error, ex.GetFriendlyMessage());
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), ex.GetFriendlyMessage());
         }
     }
 }

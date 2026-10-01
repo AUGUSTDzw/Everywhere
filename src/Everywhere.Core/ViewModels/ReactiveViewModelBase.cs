@@ -38,14 +38,14 @@ public abstract class ReactiveViewModelBase : ObservableValidator, IDisposable
     protected AnonymousExceptionHandler DialogExceptionHandler => new((exception, message, _, _) =>
         DialogHost
             .CreateDialog(
-                exception.GetFriendlyMessage().ToString() ?? LocaleResolver.Common_Unknown,
-                message ?? LocaleResolver.Common_Error)
+                exception.GetFriendlyMessage().ToString() ?? LocaleKey.Common_Unknown.I18N(),
+                message ?? LocaleKey.Common_Error.I18N())
             .ShowAsync()
             .Detach(IExceptionHandler.DangerouslyIgnoreAllException));
 
     protected AnonymousExceptionHandler ToastExceptionHandler => new((exception, message, _, _) =>
         ToastHost
-            .CreateToast(message ?? LocaleResolver.Common_Error)
+            .CreateToast(message ?? LocaleKey.Common_Error.I18N())
             .WithContent(exception.GetFriendlyMessage())
             .DismissOnClick()
             .ShowError());

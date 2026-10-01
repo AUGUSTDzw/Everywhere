@@ -689,9 +689,6 @@
     <data name="HostsStatusControl_ServiceModeRemovalFailed" xml:space="preserve">
         <value>Não foi possível desinstalar o serviço do Everywhere.</value>
     </data>
-    <data name="Windows_ElevatedMainWarning_Content" xml:space="preserve">
-        <value>O Everywhere está sendo executado como administrador. O arrastar e soltar de aplicativos comuns pode não funcionar, e as ações executadas pelo assistente terão permissões de sistema mais altas.</value>
-    </data>
     <data name="HostsStatusControl_Retry_Content" xml:space="preserve">
         <value>Tentar novamente</value>
     </data>

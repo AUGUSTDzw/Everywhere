@@ -19,39 +19,39 @@ internal static class NSAlertMessageBox
         {
             case NativeMessageBoxButtons.OkCancel:
             {
-                alert.AddButton(CoreLocaleResolver.Common_OK);
-                alert.AddButton(CoreLocaleResolver.Common_Cancel);
+                alert.AddButton(CoreLocaleKey.Common_OK.I18N());
+                alert.AddButton(CoreLocaleKey.Common_Cancel.I18N());
                 break;
             }
             case NativeMessageBoxButtons.YesNo:
             {
-                alert.AddButton(CoreLocaleResolver.Common_Yes);
-                alert.AddButton(CoreLocaleResolver.Common_No);
+                alert.AddButton(CoreLocaleKey.Common_Yes.I18N());
+                alert.AddButton(CoreLocaleKey.Common_No.I18N());
                 break;
             }
             case NativeMessageBoxButtons.YesNoCancel:
             {
-                alert.AddButton(CoreLocaleResolver.Common_Yes);
-                alert.AddButton(CoreLocaleResolver.Common_No);
-                alert.AddButton(CoreLocaleResolver.Common_Cancel);
+                alert.AddButton(CoreLocaleKey.Common_Yes.I18N());
+                alert.AddButton(CoreLocaleKey.Common_No.I18N());
+                alert.AddButton(CoreLocaleKey.Common_Cancel.I18N());
                 break;
             }
             case NativeMessageBoxButtons.RetryCancel:
             {
-                alert.AddButton(CoreLocaleResolver.Common_Retry);
-                alert.AddButton(CoreLocaleResolver.Common_Cancel);
+                alert.AddButton(CoreLocaleKey.Common_Retry.I18N());
+                alert.AddButton(CoreLocaleKey.Common_Cancel.I18N());
                 break;
             }
             case NativeMessageBoxButtons.AbortRetryIgnore:
             {
-                alert.AddButton(CoreLocaleResolver.Common_Abort);
-                alert.AddButton(CoreLocaleResolver.Common_Retry);
-                alert.AddButton(CoreLocaleResolver.Common_Ignore);
+                alert.AddButton(CoreLocaleKey.Common_Abort.I18N());
+                alert.AddButton(CoreLocaleKey.Common_Retry.I18N());
+                alert.AddButton(CoreLocaleKey.Common_Ignore.I18N());
                 break;
             }
             default:
             {
-                alert.AddButton(CoreLocaleResolver.Common_OK);
+                alert.AddButton(CoreLocaleKey.Common_OK.I18N());
                 break;
             }
         }

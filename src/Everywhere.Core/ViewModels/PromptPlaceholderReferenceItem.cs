@@ -38,12 +38,12 @@ public sealed record PromptPlaceholderReferenceItem(
         try
         {
             await App.Clipboard.SetTextAsync(PlaceholderText);
-            ToastManager.Success(LocaleResolver.Common_Copied);
+            ToastManager.Success(LocaleKey.Common_Copied.I18N());
         }
         catch (Exception ex)
         {
             ex = HandledSystemException.Handle(ex);
-            ToastManager.Error(LocaleResolver.Common_Error, ex.GetFriendlyMessage());
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), ex.GetFriendlyMessage());
         }
     }
 }

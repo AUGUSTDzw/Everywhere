@@ -110,7 +110,6 @@ public sealed class FileSystemSettingsTests
     [Test]
     public void ApprovalPath_InvalidPatternReportsValidationError()
     {
-        EnsureLocaleManager();
         var item = new FileSystemApprovalPath("relative/path");
 
         Assert.Multiple(() =>
@@ -152,18 +151,6 @@ public sealed class FileSystemSettingsTests
             Assert.That(settings.ApprovalPaths.Select(static item => item.Pattern),
                 Is.EqualTo(["D:/**/3rd", "F:/Source/Everywhere/*"]));
         });
-    }
-
-    private static void EnsureLocaleManager()
-    {
-        try
-        {
-            _ = LocaleManager.Shared;
-        }
-        catch (InvalidOperationException)
-        {
-            _ = new LocaleManager();
-        }
     }
 
     private static string CreateDirectoryPattern(string path) =>

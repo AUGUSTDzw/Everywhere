@@ -183,7 +183,7 @@ public sealed partial class FontFamilyPicker : TemplatedControl
         var item = _catalog.Find(fontFamilyName);
         if (item is null)
         {
-            var displayName = string.Format(CultureInfo.CurrentCulture, LocaleResolver.FontFamilyPicker_NotInstalledFormat, fontFamilyName);
+            var displayName = string.Format(CultureInfo.CurrentCulture, LocaleKey.FontFamilyPicker_NotInstalledFormat.I18N(), fontFamilyName);
             item = FontFamilyCatalog.CreateMissingItem(fontFamilyName, displayName);
             _missingItem = item;
             _items.Insert(0, item);

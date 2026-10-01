@@ -1,98 +1,153 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Avalonia.Controls;
-using Avalonia.Threading;
+using System.Reflection;
+using System.Runtime.Loader;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace Everywhere.I18N;
 
-public interface ILocaleResourceProvider
+/// <summary>
+/// Resolves localized strings without depending on application or UI initialization.
+/// </summary>
+public static class LocaleManager
 {
-    ResourceDictionary GetResources(LocaleName locale);
-}
-
-public sealed class LocaleManager : ResourceDictionary
-{
-    public static LocaleManager Shared => _shared ?? throw new InvalidOperationException("LocaleManager is not initialized.");
-
-    private static readonly List<Func<ILocaleResourceProvider>> ProviderFactories = [];
-    private static readonly List<ILocaleResourceProvider> Providers = [];
-    private static readonly Lock SyncRoot = new();
-
-    private static LocaleManager? _shared;
-    private static LocaleName? _currentLocale;
-
-    public LocaleManager()
-    {
-        if (_shared is not null) throw new InvalidOperationException("LocaleManager is already initialized.");
-
-        _shared = this;
-        CurrentLocale = GetCurrentCultureLocale();
-    }
-
+    /// <summary>
+    /// Gets or changes the language used for subsequent lookups. Only language changes send notifications.
+    /// Recipients that update UI objects must marshal notifications to their UI thread.
+    /// </summary>
     public static LocaleName CurrentLocale
     {
-        get => _currentLocale.GetValueOrDefault();
-        set => Dispatcher.UIThread.Invoke(() =>
+        get => (LocaleName)Volatile.Read(ref _currentLocale);
+        set
         {
-            if (_currentLocale == value) return;
-
-            var oldLocale = _currentLocale;
-            _currentLocale = value;
-            _shared?.ApplyLocale(value);
-
-            WeakReferenceMessenger.Default.Send(new LocaleChangedMessage(oldLocale, value));
-        });
+            var oldLocale = (LocaleName)Interlocked.Exchange(ref _currentLocale, (int)value);
+            if (oldLocale != value) WeakReferenceMessenger.Default.Send(new LocaleChangedMessage(oldLocale, value));
+        }
     }
 
-    public static void RegisterProvider(Func<ILocaleResourceProvider> providerFactory)
+    private static readonly Lock SyncRoot = new();
+    private static ProviderRegistration[] _registrations = [];
+    private static int _currentLocale = (int)GetCurrentCultureLocale();
+
+    /// <summary>
+    /// Registers a lazily constructed provider. Later registrations take precedence for matching keys.
+    /// Dispose the returned token to unregister and dispose the provider. Collectible assembly contexts
+    /// also unregister their providers when unloading.
+    /// </summary>
+    /// <remarks>
+    /// Safe to call from a module initializer: registration never invokes the factory, reads resources,
+    /// sends notifications, or waits for the UI thread. Factories must not resolve keys through themselves.
+    /// </remarks>
+    public static IDisposable RegisterProvider(Assembly owner, Func<ILocaleResourceProvider> providerFactory)
     {
-        LocaleManager? shared;
+        var registration = new ProviderRegistration(owner, providerFactory);
         lock (SyncRoot)
         {
-            ProviderFactories.Add(providerFactory);
-            shared = _shared;
+            if (!registration.IsDisposed) Volatile.Write(ref _registrations, [.. _registrations, registration]);
         }
-
-        shared?.ApplyLocale(CurrentLocale);
+        return registration;
     }
 
-    private void ApplyLocale(LocaleName locale)
+    /// <summary>
+    /// Looks up a key in the current language. A lookup captures the language and registration snapshot once.
+    /// </summary>
+    public static bool TryGetString(string key, [NotNullWhen(true)] out string? value) => TryGetString(key, CurrentLocale, out value);
+
+    /// <summary>
+    /// Looks up a key in a specified language, without changing the current language.
+    /// </summary>
+    public static bool TryGetString(string key, LocaleName locale, [NotNullWhen(true)] out string? value)
     {
-        var dispatcher = Dispatcher.UIThread;
-        if (!dispatcher.CheckAccess())
+        if (key.Length != 0)
         {
-            dispatcher.Invoke(() => ApplyLocale(locale));
-            return;
-        }
-
-        lock (SyncRoot)
-        {
-            while (Providers.Count < ProviderFactories.Count)
+            var registrations = Volatile.Read(ref _registrations);
+            for (var i = registrations.Length - 1; i >= 0; i--)
             {
-                Providers.Add(ProviderFactories[Providers.Count]());
-            }
-
-            MergedDictionaries.Clear();
-            foreach (var provider in Providers)
-            {
-                MergedDictionaries.Add(provider.GetResources(locale));
+                if (registrations[i].TryGetString(key, locale, out value)) return true;
             }
         }
+        value = null;
+        return false;
     }
 
     private static LocaleName GetCurrentCultureLocale()
     {
-        var cultureInfo = CultureInfo.CurrentUICulture;
-        while (!string.IsNullOrEmpty(cultureInfo.Name))
+        var culture = CultureInfo.CurrentUICulture;
+        while (!string.IsNullOrEmpty(culture.Name))
         {
-            if (Enum.TryParse<LocaleName>(cultureInfo.Name.Replace("-", ""), true, out var locale))
-            {
-                return locale;
-            }
+            if (Enum.TryParse<LocaleName>(culture.Name.Replace("-", ""), true, out var locale)) return locale;
+            culture = culture.Parent;
+        }
+        return LocaleName.En;
+    }
 
-            cultureInfo = cultureInfo.Parent;
+    private sealed class ProviderRegistration : IDisposable
+    {
+        public bool IsDisposed => Volatile.Read(ref _isDisposed);
+
+        private readonly Lock _syncRoot = new();
+        private Func<ILocaleResourceProvider>? _providerFactory;
+        private ILocaleResourceProvider? _provider;
+        private AssemblyLoadContext? _loadContext;
+        private bool _isDisposed;
+
+        public ProviderRegistration(Assembly owner, Func<ILocaleResourceProvider> providerFactory)
+        {
+            _providerFactory = providerFactory;
+            var loadContext = AssemblyLoadContext.GetLoadContext(owner);
+            if (loadContext is { IsCollectible: true })
+            {
+                _loadContext = loadContext;
+                loadContext.Unloading += HandleUnloading;
+            }
         }
 
-        return default;
+        // ReSharper disable once MemberHidesStaticFromOuterClass
+        public bool TryGetString(string key, LocaleName locale, [NotNullWhen(true)] out string? value)
+        {
+            // This lock coordinates construction, reads and disposal for this provider only.
+            // Plugin code is never called while holding the registry lock.
+            lock (_syncRoot)
+            {
+                if (_isDisposed)
+                {
+                    value = null;
+                    return false;
+                }
+                if (_provider is null && _providerFactory is { } factory)
+                {
+                    _provider = factory();
+                    _providerFactory = null;
+                }
+                if (_provider is { } provider) return provider.TryGetString(key, locale, out value);
+                value = null;
+                return false;
+            }
+        }
+
+        public void Dispose()
+        {
+            lock (SyncRoot)
+            {
+                Volatile.Write(ref _registrations, _registrations.Where(registration => registration != this).ToArray());
+            }
+
+            ILocaleResourceProvider? provider;
+            lock (_syncRoot)
+            {
+                if (_isDisposed) return;
+
+                _isDisposed = true;
+                provider = _provider;
+                _provider = null;
+                _providerFactory = null;
+                _loadContext?.Unloading -= HandleUnloading;
+                _loadContext = null;
+            }
+
+            if (provider is IDisposable disposable) disposable.Dispose();
+        }
+
+        private void HandleUnloading(AssemblyLoadContext context) => Dispose();
     }
 }

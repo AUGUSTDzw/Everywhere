@@ -43,6 +43,19 @@ public static class LocaleNameExtensions
 {
     extension(LocaleName localeName)
     {
+        /// <summary>
+        /// Gets the .NET culture used to locate satellite resources and apply culture fallback.
+        /// </summary>
+        public CultureInfo ToCultureInfo() => CultureInfo.GetCultureInfo(
+            localeName switch
+            {
+                LocaleName.ZhHans => "zh-Hans",
+                LocaleName.ZhHant => "zh-Hant",
+                LocaleName.ZhHantHk => "zh-Hant-HK",
+                LocaleName.PtBr => "pt-BR",
+                _ => localeName.ToString().ToLowerInvariant(),
+            });
+
         public string ToNativeName()
         {
             return localeName switch
@@ -85,5 +98,4 @@ public static class LocaleNameExtensions
             };
         }
     }
-
 }

@@ -543,8 +543,8 @@ public class ChatPluginManager : IChatPluginManager
             var progress = new Progress<double>();
             var cancellationTokenSource = new CancellationTokenSource();
             ToastManager
-                .Create(LocaleResolver.Common_Info)
-                .WithContent(LocaleResolver.RuntimeManager_InstallRuntime_Toast_Content.Format(dependency.DisplayName))
+                .Create(LocaleKey.Common_Info.I18N())
+                .WithContent(LocaleKey.RuntimeManager_InstallRuntime_Toast_Content.I18N().Format(dependency.DisplayName))
                 .WithProgress(progress)
                 .WithCancellationTokenSource(cancellationTokenSource)
                 .OnBottomRight()
@@ -553,7 +553,7 @@ public class ChatPluginManager : IChatPluginManager
             await _runtimeManager.InstallAsync(dependency.Kind, progress, cancellationTokenSource.Token);
             RefreshMcpRuntimeWarnings();
 
-            ToastManager.Success(LocaleResolver.RuntimeManager_InstallRuntime_SuccessToast_Title.Format(dependency.DisplayName));
+            ToastManager.Success(LocaleKey.RuntimeManager_InstallRuntime_SuccessToast_Title.I18N().Format(dependency.DisplayName));
         }
         catch (Exception e)
         {

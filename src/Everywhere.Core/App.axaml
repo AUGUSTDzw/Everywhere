@@ -15,7 +15,6 @@
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <LocaleManager/>
         <v:AppearanceManager/>
         <ResourceInclude Source="avares://Everywhere.Core/Assets/Resources.axaml"/>
         <ResourceInclude Source="avares://Everywhere.Core/Assets/DataTemplates.axaml"/>

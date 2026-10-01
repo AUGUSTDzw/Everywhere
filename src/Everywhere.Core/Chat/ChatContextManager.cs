@@ -560,7 +560,7 @@ public sealed partial class ChatContextManager :
             {
                 ToastManager
                     .Error(
-                        LocaleResolver.Common_Error,
+                        LocaleKey.Common_Error.I18N(),
                         new FormattedDynamicLocaleKey(
                             LocaleKey.ChatContextManager_LoadChatContextFailedToast_Content,
                             ex.GetFriendlyMessage()));
@@ -645,7 +645,7 @@ public sealed partial class ChatContextManager :
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to incrementally load chat context history");
-            ToastManager.Error(LocaleResolver.Common_Error, ex.GetFriendlyMessage());
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), ex.GetFriendlyMessage());
 
             return new IncrementalLoadResult(0, HasMoreItems);
         }

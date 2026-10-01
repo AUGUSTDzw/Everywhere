@@ -28,4 +28,7 @@
     <data name="Windows_BuiltInChatPlugin_Everything_SearchFiles_Description" xml:space="preserve">
         <value>Everything ile dosyaları arayın.</value>
     </data>
+    <data name="Windows_ElevatedMainWarning_Content" xml:space="preserve">
+        <value>Everywhere şu anda yönetici olarak çalışıyor. Normal uygulamalardan sürükleyip bırakma işlemleri kullanılamayabilir ve asistanın gerçekleştirdiği işlemler daha yüksek sistem izinlerine sahip olacaktır.</value>
+    </data>
 </root>

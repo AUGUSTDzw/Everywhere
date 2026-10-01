@@ -154,12 +154,12 @@ public sealed class FileSystemApprovalPath : ObservableValidator
     {
         if (string.IsNullOrWhiteSpace(pattern))
         {
-            return new ValidationResult(LocaleResolver.ValidationErrorMessage_Required);
+            return new ValidationResult(LocaleKey.ValidationErrorMessage_Required.I18N());
         }
 
         return FileSystemApprovalGlob.TryCreate(pattern, out _) ?
             ValidationResult.Success :
-            new ValidationResult(LocaleResolver.FileSystemSettings_InvalidApprovalPath_ErrorMessage);
+            new ValidationResult(LocaleKey.FileSystemSettings_InvalidApprovalPath_ErrorMessage.I18N());
     }
 }
 

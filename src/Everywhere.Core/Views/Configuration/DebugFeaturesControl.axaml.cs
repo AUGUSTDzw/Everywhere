@@ -27,7 +27,7 @@ public partial class DebugFeaturesControl(ILogger<DebugFeaturesControl> logger) 
         {
             ex = HandledSystemException.Handle(ex);
             logger.LogError(ex, "Failed to open settings file.");
-            ToastManager.Error(LocaleResolver.Common_Error, ex.GetFriendlyMessage());
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), ex.GetFriendlyMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public partial class DebugFeaturesControl(ILogger<DebugFeaturesControl> logger) 
         {
             ex = HandledSystemException.Handle(ex);
             logger.LogError(ex, "Failed to open logs folder.");
-            ToastManager.Error(LocaleResolver.Common_Error, ex.GetFriendlyMessage());
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), ex.GetFriendlyMessage());
         }
     }
 
@@ -74,7 +74,7 @@ public partial class DebugFeaturesControl(ILogger<DebugFeaturesControl> logger) 
             };
 
             // toast: Everywhere will freeze for a few seconds while the dump is being created.
-            ToastManager.Warning(LocaleResolver.Common_Warning, LocaleResolver.DebugFeaturesControl_CreateDumpToast_Content, durationSeconds: 3d);
+            ToastManager.Warning(LocaleKey.Common_Warning.I18N(), LocaleKey.DebugFeaturesControl_CreateDumpToast_Content.I18N(), durationSeconds: 3d);
             await Task.Delay(500); // Give the toast time to show before freezing the UI.
 
             var process = Process.Start(psi);
@@ -93,7 +93,7 @@ public partial class DebugFeaturesControl(ILogger<DebugFeaturesControl> logger) 
             if (process.ExitCode != 0)
             {
                 // The dump may still have been created despite the non-zero exit code.
-                ToastManager.Error(LocaleResolver.Common_Error, error.Trim());
+                ToastManager.Error(LocaleKey.Common_Error.I18N(), error.Trim());
 
                 if (!File.Exists(dumpPath))
                 {
@@ -108,7 +108,7 @@ public partial class DebugFeaturesControl(ILogger<DebugFeaturesControl> logger) 
         {
             ex = HandledSystemException.Handle(ex);
             logger.LogError(ex, "Failed to create dump.");
-            ToastManager.Error(LocaleResolver.Common_Error, ex.GetFriendlyMessage());
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), ex.GetFriendlyMessage());
         }
     }
 }

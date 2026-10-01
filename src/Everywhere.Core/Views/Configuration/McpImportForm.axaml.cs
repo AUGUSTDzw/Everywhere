@@ -63,11 +63,11 @@ public partial class McpImportForm : TemplatedControl
                 {
                     FileTypeFilter =
                     [
-                        new FilePickerFileType(LocaleResolver.FilePickerFileType_SupportedFiles)
+                        new FilePickerFileType(LocaleKey.FilePickerFileType_SupportedFiles.I18N())
                         {
                             Patterns = ["*.json"]
                         },
-                        new FilePickerFileType(LocaleResolver.FilePickerFileType_AllFiles)
+                        new FilePickerFileType(LocaleKey.FilePickerFileType_AllFiles.I18N())
                         {
                             Patterns = ["*"]
                         }
@@ -82,7 +82,7 @@ public partial class McpImportForm : TemplatedControl
         catch (Exception e)
         {
             e = HandledSystemException.Handle(e);
-            ToastManager.Error(LocaleResolver.Common_Error, e.GetFriendlyMessage());
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), e.GetFriendlyMessage());
             Log.ForContext<McpImportForm>().Error(e, "Failed to open MCP JSON file");
         }
     }

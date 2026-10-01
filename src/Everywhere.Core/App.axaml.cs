@@ -205,8 +205,8 @@ public class App(IServiceProvider serviceProvider) : Application, IRecipient<App
             {
                 var messageTemplate = e.Role switch
                 {
-                    ProcessRole.Input => LocaleResolver.ProcessIsolation_InputHostRecoveryStopped_NotificationMessage,
-                    ProcessRole.Automation => LocaleResolver.ProcessIsolation_AutomationHostRecoveryStopped_NotificationMessage,
+                    ProcessRole.Input => LocaleKey.ProcessIsolation_InputHostRecoveryStopped_NotificationMessage.I18N(),
+                    ProcessRole.Automation => LocaleKey.ProcessIsolation_AutomationHostRecoveryStopped_NotificationMessage.I18N(),
                     _ => null
                 };
 
@@ -217,7 +217,7 @@ public class App(IServiceProvider serviceProvider) : Application, IRecipient<App
                 }
 
                 var message = messageTemplate.Format(e.FailureCount, (int)e.FailureWindow.TotalMinutes);
-                _nativeHelper.ShowDesktopNotificationAsync(message, LocaleResolver.Common_Warning).Detach(Log.Logger.ToExceptionHandler());
+                _nativeHelper.ShowDesktopNotificationAsync(message, LocaleKey.Common_Warning.I18N()).Detach(Log.Logger.ToExceptionHandler());
             });
         };
     }

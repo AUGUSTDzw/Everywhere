@@ -393,7 +393,7 @@ public sealed partial class ChatWindowViewModel :
                         AllowMultiple = true,
                         FileTypeFilter =
                         [
-                            new FilePickerFileType(LocaleResolver.FilePickerFileType_SupportedFiles)
+                            new FilePickerFileType(LocaleKey.FilePickerFileType_SupportedFiles.I18N())
                             {
                                 Patterns = FileUtilities.GetFileExtensionsByCategory(FileTypeCategory.Image)
                                     .AsValueEnumerable()
@@ -402,14 +402,14 @@ public sealed partial class ChatWindowViewModel :
                                     .Select(x => '*' + x)
                                     .ToArray()
                             },
-                            new FilePickerFileType(LocaleResolver.ChatWindowViewModel_AddFile_FilePickerFileType_Images)
+                            new FilePickerFileType(LocaleKey.ChatWindowViewModel_AddFile_FilePickerFileType_Images.I18N())
                             {
                                 Patterns = FileUtilities.GetFileExtensionsByCategory(FileTypeCategory.Image)
                                     .AsValueEnumerable()
                                     .Select(x => '*' + x)
                                     .ToArray()
                             },
-                            new FilePickerFileType(LocaleResolver.ChatWindowViewModel_AddFile_FilePickerFileType_Documents)
+                            new FilePickerFileType(LocaleKey.ChatWindowViewModel_AddFile_FilePickerFileType_Documents.I18N())
                             {
                                 Patterns = FileUtilities.GetFileExtensionsByCategory(FileTypeCategory.Document)
                                     .AsValueEnumerable()
@@ -417,7 +417,7 @@ public sealed partial class ChatWindowViewModel :
                                     .Select(x => '*' + x)
                                     .ToArray()
                             },
-                            new FilePickerFileType(LocaleResolver.FilePickerFileType_AllFiles)
+                            new FilePickerFileType(LocaleKey.FilePickerFileType_AllFiles.I18N())
                             {
                                 Patterns = ["*"]
                             }
@@ -473,7 +473,7 @@ public sealed partial class ChatWindowViewModel :
             _logger.LogError(ex, "Failed to create file attachment for {FilePath}", filePath);
 
             ToastHost
-                .CreateToast(LocaleResolver.Common_Error)
+                .CreateToast(LocaleKey.Common_Error.I18N())
                 .WithContent(ex.GetFriendlyMessage().ToTextBlock())
                 .DismissOnClick()
                 .OnBottomRight()
@@ -711,8 +711,8 @@ public sealed partial class ChatWindowViewModel :
         if (chatContext is null)
         {
             ToastHost
-                .CreateToast(LocaleResolver.Common_Error)
-                .WithContent(LocaleResolver.ChatWindowViewModel_ExportMarkdown_FailedToLoadChatContext)
+                .CreateToast(LocaleKey.Common_Error.I18N())
+                .WithContent(LocaleKey.ChatWindowViewModel_ExportMarkdown_FailedToLoadChatContext.I18N())
                 .DismissOnClick()
                 .OnBottomRight()
                 .ShowError();
@@ -734,11 +734,11 @@ public sealed partial class ChatWindowViewModel :
                     SuggestedFileName = suggestedFileName,
                     FileTypeChoices =
                     [
-                        new FilePickerFileType(LocaleResolver.ChatWindowViewModel_ExportMarkdown_FilePickerFileType_Markdown)
+                        new FilePickerFileType(LocaleKey.ChatWindowViewModel_ExportMarkdown_FilePickerFileType_Markdown.I18N())
                         {
                             Patterns = ["*.md"]
                         },
-                        new FilePickerFileType(LocaleResolver.FilePickerFileType_AllFiles)
+                        new FilePickerFileType(LocaleKey.FilePickerFileType_AllFiles.I18N())
                         {
                             Patterns = ["*"]
                         }
@@ -766,7 +766,7 @@ public sealed partial class ChatWindowViewModel :
             _logger.LogError(e, "Failed to export chat context to markdown file.");
 
             ToastHost
-                .CreateToast(LocaleResolver.ChatWindowViewModel_ExportMarkdown_FailedToSaveFile)
+                .CreateToast(LocaleKey.ChatWindowViewModel_ExportMarkdown_FailedToSaveFile.I18N())
                 .WithContent(e.GetFriendlyMessage())
                 .DismissOnClick()
                 .OnBottomRight()
@@ -776,7 +776,7 @@ public sealed partial class ChatWindowViewModel :
 
         // Show success toast and open file
         ToastHost
-            .CreateToast(LocaleResolver.ChatWindowViewModel_ExportMarkdown_ExportSuccess)
+            .CreateToast(LocaleKey.ChatWindowViewModel_ExportMarkdown_ExportSuccess.I18N())
             .WithContent(exportPath)
             .DismissOnClick()
             .OnBottomRight()

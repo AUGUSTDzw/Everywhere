@@ -21,7 +21,7 @@ internal sealed class ElevatedMainNotificationInitializer(
         {
             notificationPublisher.Push(
                 NotificationId,
-                new DynamicLocaleKey(Core.I18N.LocaleKey.Windows_ElevatedMainWarning_Content),
+                new DynamicLocaleKey(LocaleKey.Windows_ElevatedMainWarning_Content),
                 NotificationType.Warning,
                 canDismiss: true,
                 forceShow: true);

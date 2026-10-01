@@ -169,8 +169,8 @@ public sealed partial class PromptEditorViewModel(
         {
             ToastHost
                 .CreateToast(
-                    LocaleResolver.PromptEditor_OpenFailedToast_Title,
-                    LocaleResolver.PromptEditor_OpenFailedToast_Content)
+                    LocaleKey.PromptEditor_OpenFailedToast_Title.I18N(),
+                    LocaleKey.PromptEditor_OpenFailedToast_Content.I18N())
                 .DismissOnClick()
                 .ShowWarning();
 
@@ -328,10 +328,10 @@ public sealed partial class PromptEditorViewModel(
         {
             var result = await DialogHost
                 .CreateDialog(
-                    LocaleResolver.PromptCreate_DiscardAdvanced_DialogMessage,
-                    LocaleResolver.PromptCreate_DiscardAdvanced_DialogTitle)
-                .WithPrimaryButton(LocaleResolver.PromptCreate_DiscardAdvanced_DialogPrimary)
-                .WithCancelButton(LocaleResolver.Common_Cancel)
+                    LocaleKey.PromptCreate_DiscardAdvanced_DialogMessage.I18N(),
+                    LocaleKey.PromptCreate_DiscardAdvanced_DialogTitle.I18N())
+                .WithPrimaryButton(LocaleKey.PromptCreate_DiscardAdvanced_DialogPrimary.I18N())
+                .WithCancelButton(LocaleKey.Common_Cancel.I18N())
                 .ShowAsync();
             if (result != DialogResult.Primary)
             {
@@ -377,7 +377,7 @@ public sealed partial class PromptEditorViewModel(
                 if (savedPrompt is null)
                 {
                     ToastHost
-                        .CreateToast(LocaleResolver.PromptEditor_SaveFailedToast_Title)
+                        .CreateToast(LocaleKey.PromptEditor_SaveFailedToast_Title.I18N())
                         .DismissOnClick()
                         .ShowWarning();
 
@@ -394,7 +394,7 @@ public sealed partial class PromptEditorViewModel(
                 logger.LogError(exception, "Failed to save prompt.");
 
                 ToastHost
-                    .CreateToast(LocaleResolver.PromptEditor_SaveFailedToast_Title)
+                    .CreateToast(LocaleKey.PromptEditor_SaveFailedToast_Title.I18N())
                     .WithContent(exception.GetFriendlyMessage())
                     .DismissOnClick()
                     .ShowError();

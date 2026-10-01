@@ -1639,7 +1639,7 @@ public sealed partial class ChatService : IChatService
                     headerKey = new FormattedDynamicLocaleKey(
                         LocaleKey.ChatPluginConsentRequest_Common_Header,
                         context.ChatFunction.HeaderKey,
-                        new DirectLocaleKey(context.ChatFunction.Permissions.I18N(LocaleResolver.Common_Comma, true)));
+                        new DirectLocaleKey(context.ChatFunction.Permissions.I18N(LocaleKey.Common_Comma.I18N(), true)));
                 }
             }
 

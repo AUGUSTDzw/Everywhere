@@ -689,9 +689,6 @@
     <data name="HostsStatusControl_ServiceModeRemovalFailed" xml:space="preserve">
         <value>Everywhere 서비스를 제거할 수 없습니다.</value>
     </data>
-    <data name="Windows_ElevatedMainWarning_Content" xml:space="preserve">
-        <value>Everywhere가 현재 관리자 권한으로 실행 중입니다. 일반 애플리케이션에서의 드래그 앤 드롭이 작동하지 않을 수 있으며, 도우미가 수행하는 작업은 더 높은 시스템 권한을 가집니다.</value>
-    </data>
     <data name="HostsStatusControl_Retry_Content" xml:space="preserve">
         <value>다시 연결</value>
     </data>

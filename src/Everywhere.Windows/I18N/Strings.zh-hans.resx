@@ -28,4 +28,7 @@
     <data name="Windows_BuiltInChatPlugin_Everything_SearchFiles_Description" xml:space="preserve">
         <value>使用 Everything 搜索文件。</value>
     </data>
+    <data name="Windows_ElevatedMainWarning_Content" xml:space="preserve">
+        <value>Everywhere 当前正以管理员身份运行。来自普通应用的拖放可能无法使用，助手执行的操作也会拥有更高的系统权限。</value>
+    </data>
 </root>

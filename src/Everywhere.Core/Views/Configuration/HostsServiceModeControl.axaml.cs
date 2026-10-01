@@ -40,14 +40,14 @@ public sealed partial class HostsServiceModeControl(
         catch (HostsServiceModeChangeException)
         {
             var message = shouldInstall ?
-                LocaleResolver.HostsStatusControl_ServiceModeConfigurationFailed :
-                LocaleResolver.HostsStatusControl_ServiceModeRemovalFailed;
-            ToastManager.Error(LocaleResolver.Common_Error, message);
+                LocaleKey.HostsStatusControl_ServiceModeConfigurationFailed.I18N() :
+                LocaleKey.HostsStatusControl_ServiceModeRemovalFailed.I18N();
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), message);
         }
         catch (Exception exception)
         {
             logger.LogWarning(exception, "Failed to change Hosts service-mode installation to {ShouldInstall}.", shouldInstall);
-            ToastManager.Error(LocaleResolver.Common_Error, HandledSystemException.Handle(exception).GetFriendlyMessage().ToString());
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), HandledSystemException.Handle(exception).GetFriendlyMessage().ToString());
         }
     }
 
@@ -56,7 +56,7 @@ public sealed partial class HostsServiceModeControl(
         if (status.State is HostsServiceModeConfigurationState.CurrentExecutable) return null;
         if (status.State is HostsServiceModeConfigurationState.Unavailable)
         {
-            ToastManager.Error(LocaleResolver.Common_Error, LocaleResolver.HostsStatusControl_ServiceModeConfigurationFailed);
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), LocaleKey.HostsStatusControl_ServiceModeConfigurationFailed.I18N());
             return null;
         }
 
@@ -82,11 +82,11 @@ public sealed partial class HostsServiceModeControl(
         {
             return value switch
             {
-                HostsServiceModeConfigurationState.NotConfigured => LocaleResolver.HostsStatusControl_ServiceModeNotConfigured,
-                HostsServiceModeConfigurationState.CurrentExecutable => LocaleResolver.HostsStatusControl_ServiceModeCurrentExecutable,
-                HostsServiceModeConfigurationState.OtherExecutable => LocaleResolver.HostsStatusControl_ServiceModeOtherExecutable,
-                HostsServiceModeConfigurationState.Invalid => LocaleResolver.HostsStatusControl_ServiceModeInvalid,
-                HostsServiceModeConfigurationState.Unavailable => LocaleResolver.HostsStatusControl_ServiceModeUnavailableStatus,
+                HostsServiceModeConfigurationState.NotConfigured => LocaleKey.HostsStatusControl_ServiceModeNotConfigured.I18N(),
+                HostsServiceModeConfigurationState.CurrentExecutable => LocaleKey.HostsStatusControl_ServiceModeCurrentExecutable.I18N(),
+                HostsServiceModeConfigurationState.OtherExecutable => LocaleKey.HostsStatusControl_ServiceModeOtherExecutable.I18N(),
+                HostsServiceModeConfigurationState.Invalid => LocaleKey.HostsStatusControl_ServiceModeInvalid.I18N(),
+                HostsServiceModeConfigurationState.Unavailable => LocaleKey.HostsStatusControl_ServiceModeUnavailableStatus.I18N(),
                 _ => null
             };
         }

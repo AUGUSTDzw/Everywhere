@@ -43,7 +43,7 @@ public class HandledException : Exception
                 message = exception?.Message;
             }
 
-            return message ?? LocaleResolver.Common_Unknown;
+            return message ?? LocaleKey.Common_Unknown.I18N();
         }
     }
 

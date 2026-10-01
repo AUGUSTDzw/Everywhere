@@ -14,19 +14,19 @@ public static class ChatContextExporter
 
         markdownBuilder
             .Append("# ")
-            .AppendLine(metadata.Topic ?? LocaleResolver.ChatContext_Metadata_Topic_Default)
+            .AppendLine(metadata.Topic ?? LocaleKey.ChatContext_Metadata_Topic_Default.I18N())
             .AppendLine();
 
         markdownBuilder
             .Append("**")
-            .Append(LocaleResolver.ChatWindowViewModel_ExportMarkdown_DateCreated)
+            .Append(LocaleKey.ChatWindowViewModel_ExportMarkdown_DateCreated.I18N())
             .Append(":** ")
             .AppendLine(metadata.DateCreated.ToString("F"))
             .AppendLine();
 
         markdownBuilder
             .Append("**")
-            .Append(LocaleResolver.ChatWindowViewModel_ExportMarkdown_DateModified)
+            .Append(LocaleKey.ChatWindowViewModel_ExportMarkdown_DateModified.I18N())
             .Append(":** ")
             .AppendLine(metadata.DateModified.ToString("F"))
             .AppendLine();
@@ -41,7 +41,7 @@ public static class ChatContextExporter
                 {
                     markdownBuilder
                         .Append("## 👤 ")
-                        .AppendLine(LocaleResolver.ChatWindowViewModel_ExportMarkdown_UserRole)
+                        .AppendLine(LocaleKey.ChatWindowViewModel_ExportMarkdown_UserRole.I18N())
                         .AppendLine()
                         .AppendLine(user.Content)
                         .AppendLine();
@@ -50,7 +50,7 @@ public static class ChatContextExporter
                     {
                         markdownBuilder
                             .Append("**")
-                            .Append(LocaleResolver.ChatWindowViewModel_ExportMarkdown_UserAttachments)
+                            .Append(LocaleKey.ChatWindowViewModel_ExportMarkdown_UserAttachments.I18N())
                             .AppendLine(":**")
                             .AppendLine();
                         foreach (var attachment in user.Attachments)
@@ -69,7 +69,7 @@ public static class ChatContextExporter
                 {
                     markdownBuilder
                         .Append("## 🤖 ")
-                        .AppendLine(LocaleResolver.ChatWindowViewModel_ExportMarkdown_AssistantRole)
+                        .AppendLine(LocaleKey.ChatWindowViewModel_ExportMarkdown_AssistantRole.I18N())
                         .AppendLine();
 
                     foreach (var span in assistant.Items.AsValueEnumerable())
@@ -87,7 +87,7 @@ public static class ChatContextExporter
                                 {
                                     markdownBuilder
                                         .Append("🛠️ **")
-                                        .Append(LocaleResolver.ChatWindowViewModel_ExportMarkdown_FunctionCall)
+                                        .Append(LocaleKey.ChatWindowViewModel_ExportMarkdown_FunctionCall.I18N())
                                         .Append(":** ")
                                         .AppendLine(functionCall.HeaderKey?.ToString())
                                         .AppendLine();
@@ -110,7 +110,7 @@ public static class ChatContextExporter
                                     {
                                         markdownBuilder
                                             .Append("**")
-                                            .Append(LocaleResolver.ChatWindowViewModel_ExportMarkdown_ErrorMessage)
+                                            .Append(LocaleKey.ChatWindowViewModel_ExportMarkdown_ErrorMessage.I18N())
                                             .Append(":** ")
                                             .AppendLine(errorMessage)
                                             .AppendLine();
@@ -124,7 +124,7 @@ public static class ChatContextExporter
                                     .AppendLine("<details open>")
                                     .Append("<summary><b>")
                                     .Append("🤔 ")
-                                    .Append(LocaleResolver.ChatWindowViewModel_ExportMarkdown_ReasoningOutput)
+                                    .Append(LocaleKey.ChatWindowViewModel_ExportMarkdown_ReasoningOutput.I18N())
                                     .AppendLine("</b></summary>")
                                     .AppendLine();
 

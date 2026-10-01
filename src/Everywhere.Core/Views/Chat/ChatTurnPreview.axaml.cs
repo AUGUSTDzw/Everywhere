@@ -187,25 +187,25 @@ public sealed partial class ChatTurnPreview : UserControl
         {
             var call = functions.Items.AsValueEnumerable().LastOrDefault();
             if (call?.ErrorMessageKey is { } callError) return (callError.ToString().TruncateUtf16(512), true);
-            var header = call?.HeaderKey?.ToString() ?? LocaleResolver.ChatTurnPreview_ToolActivity;
+            var header = call?.HeaderKey?.ToString() ?? LocaleKey.ChatTurnPreview_ToolActivity.I18N();
             return (FormatActivityStatus(header, assistant.IsBusy), false);
         }
 
         if (lastSpan is AssistantChatMessageReasoningSpan)
         {
-            return (FormatActivityStatus(LocaleResolver.ChatMessageControl_Assistant_Reasoning, assistant.IsBusy), false);
+            return (FormatActivityStatus(LocaleKey.ChatMessageControl_Assistant_Reasoning.I18N(), assistant.IsBusy), false);
         }
         if (lastSpan is AssistantChatMessageImageSpan)
-            return (LocaleResolver.Modalities_Image, false);
+            return (LocaleKey.Modalities_Image.I18N(), false);
         if (lastSpan is AssistantChatMessageTextSpan && hasAnswer) return (null, false);
         return (
-            assistant.IsBusy ? LocaleResolver.ChatTurnPreview_Waiting : LocaleResolver.ChatPresentationRowPresenter_NoResponse,
+            assistant.IsBusy ? LocaleKey.ChatTurnPreview_Waiting.I18N() : LocaleKey.ChatPresentationRowPresenter_NoResponse.I18N(),
             false);
     }
 
     private static string FormatActivityStatus(string header, bool isBusy) => isBusy ?
         header :
-        new StringBuilder(header).Append('\n').Append(LocaleResolver.ChatPresentationRowPresenter_NoResponse).ToString();
+        new StringBuilder(header).Append('\n').Append(LocaleKey.ChatPresentationRowPresenter_NoResponse.I18N()).ToString();
 
     private void HandleAssistantChanged(object? sender, PropertyChangedEventArgs e)
     {

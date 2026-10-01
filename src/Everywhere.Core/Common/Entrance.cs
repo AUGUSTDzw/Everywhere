@@ -37,8 +37,8 @@ public static class Entrance
         catch (Exception ex)
         {
             NativeMessageBox.Show(
-                LocaleResolver.Common_CriticalError,
-                string.Format(LocaleResolver.Entrance_FailedToInitializeRuntimeConstants, ex),
+                LocaleKey.Common_CriticalError.I18N(),
+                string.Format(LocaleKey.Entrance_FailedToInitializeRuntimeConstants.I18N(), ex),
                 NativeMessageBoxButtons.Ok,
                 NativeMessageBoxIcon.Error);
             throw new InvalidOperationException("Failed to initialize runtime constants.", ex);

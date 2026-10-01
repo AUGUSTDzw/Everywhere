@@ -43,8 +43,8 @@ public static class ApplicationActivationEntrance
         }
 
         NativeMessageBox.Show(
-            LocaleResolver.Common_Info,
-            LocaleResolver.Entrance_ActivationFailed,
+            LocaleKey.Common_Info.I18N(),
+            LocaleKey.Entrance_ActivationFailed.I18N(),
             NativeMessageBoxButtons.Ok,
             NativeMessageBoxIcon.Warning);
         return 1;

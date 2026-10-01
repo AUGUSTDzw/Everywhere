@@ -28,4 +28,7 @@
     <data name="Windows_BuiltInChatPlugin_Everything_SearchFiles_Description" xml:space="preserve">
         <value>Cerca file con Everything.</value>
     </data>
+    <data name="Windows_ElevatedMainWarning_Content" xml:space="preserve">
+        <value>Everywhere è attualmente in esecuzione con privilegi di amministratore. Il drag and drop da applicazioni normali potrebbe non funzionare e le azioni eseguite dall'assistente avranno maggiori privilegi di sistema.</value>
+    </data>
 </root>

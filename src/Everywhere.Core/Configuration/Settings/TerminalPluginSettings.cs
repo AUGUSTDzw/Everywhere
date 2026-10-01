@@ -26,8 +26,8 @@ public sealed partial class TerminalPluginSettings : ObservableObject
             if (value)
             {
                 ToastManager.Warning(
-                    LocaleResolver.Common_Warning,
-                    LocaleResolver.TerminalPluginSettings_BypassesApproval_WarningToast_Content);
+                    LocaleKey.Common_Warning.I18N(),
+                    LocaleKey.TerminalPluginSettings_BypassesApproval_WarningToast_Content.I18N());
             }
         }
     }

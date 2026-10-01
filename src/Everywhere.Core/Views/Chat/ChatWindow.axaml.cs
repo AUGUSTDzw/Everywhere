@@ -496,7 +496,7 @@ public sealed partial class ChatWindow :
 
                 e.DragEffects = DragDropEffects.Copy;
                 DragDropIcon.Kind = LucideIconKind.FileUp;
-                DragDropText.Text = LocaleResolver.ChatWindow_DragDrop_Overlay_DropFilesHere;
+                DragDropText.Text = LocaleKey.ChatWindow_DragDrop_Overlay_DropFilesHere.I18N();
                 DragDropOverlay.IsVisible = true;
                 return;
             }
@@ -507,7 +507,7 @@ public sealed partial class ChatWindow :
         {
             e.DragEffects = DragDropEffects.Copy;
             DragDropIcon.Kind = LucideIconKind.TextCursorInput;
-            DragDropText.Text = LocaleResolver.ChatWindow_DragDrop_Overlay_DropTextHere;
+            DragDropText.Text = LocaleKey.ChatWindow_DragDrop_Overlay_DropTextHere.I18N();
             DragDropOverlay.IsVisible = true;
             return;
         }

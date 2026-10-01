@@ -17,8 +17,8 @@ public static class PermissionHelper
         if (AccessibilityPermission.IsTrusted(prompt: true)) return;
 
         NativeMessageBox.Show(
-            CoreLocaleResolver.Common_Info,
-            LocaleResolver.MacOS_PermissionHelper_PleaseGrantAccessibilityPermission);
+            CoreLocaleKey.Common_Info.I18N(),
+            LocaleKey.MacOS_PermissionHelper_PleaseGrantAccessibilityPermission.I18N());
         Environment.Exit(0);
     }
 

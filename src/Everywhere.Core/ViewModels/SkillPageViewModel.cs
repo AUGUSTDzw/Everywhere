@@ -118,7 +118,7 @@ public sealed partial class SkillPageViewModel : BusyViewModelBase
                 await SkillManager.RefreshAsync(token);
                 SyncSkillsFromManager();
                 TrySelectSkill(selectedSkillId);
-                ToastManager.Success(LocaleResolver.SkillPage_RescanSuccessToast_Title);
+                ToastManager.Success(LocaleKey.SkillPage_RescanSuccessToast_Title.I18N());
             },
             ToastExceptionHandler,
             cancellationToken);
@@ -130,7 +130,7 @@ public sealed partial class SkillPageViewModel : BusyViewModelBase
         var launched = await Launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(folderPath));
         if (!launched)
         {
-            ToastManager.Error(LocaleResolver.Common_Error, LocaleResolver.SkillPage_OpenFileLocationFailedToast_Title);
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), LocaleKey.SkillPage_OpenFileLocationFailedToast_Title.I18N());
         }
     }
 
@@ -142,14 +142,14 @@ public sealed partial class SkillPageViewModel : BusyViewModelBase
         var directoryPath = Path.GetDirectoryName(SelectedSkillWrapper.Skill.FilePath);
         if (string.IsNullOrWhiteSpace(directoryPath) || !Directory.Exists(directoryPath))
         {
-            ToastManager.Error(LocaleResolver.Common_Error, LocaleResolver.SkillPage_OpenFileLocationFailedToast_Title);
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), LocaleKey.SkillPage_OpenFileLocationFailedToast_Title.I18N());
             return;
         }
 
         var launched = await Launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(directoryPath));
         if (!launched)
         {
-            ToastManager.Error(LocaleResolver.Common_Error, LocaleResolver.SkillPage_OpenFileLocationFailedToast_Title);
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), LocaleKey.SkillPage_OpenFileLocationFailedToast_Title.I18N());
         }
     }
 
@@ -189,7 +189,7 @@ public sealed partial class SkillPageViewModel : BusyViewModelBase
         }
         catch (Exception ex)
         {
-            ToastManager.Error(LocaleResolver.Common_Error, ex.GetFriendlyMessage());
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), ex.GetFriendlyMessage());
         }
     }
 

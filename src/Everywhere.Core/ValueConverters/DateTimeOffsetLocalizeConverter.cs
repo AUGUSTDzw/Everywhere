@@ -42,6 +42,6 @@ public static class DateTimeOffsetConverters
             return localValue.ToString("HH:mm", culture);
         }
 
-        return localValue.ToString(Abstractions.I18N.LocaleResolver.Common_ShortMonthDayPattern, culture);
+        return localValue.ToString(Abstractions.I18N.LocaleKey.Common_ShortMonthDayPattern.I18N(), culture);
     });
 }

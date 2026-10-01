@@ -689,9 +689,6 @@
     <data name="HostsStatusControl_ServiceModeRemovalFailed" xml:space="preserve">
         <value>Everywhere サービスをアンインストールできませんでした。</value>
     </data>
-    <data name="Windows_ElevatedMainWarning_Content" xml:space="preserve">
-        <value>Everywhere は現在管理者として実行されています。通常のアプリからのドラッグ＆ドロップは使用できない場合があり、アシスタントが実行する操作はより高いシステム権限を持ちます。</value>
-    </data>
     <data name="HostsStatusControl_Retry_Content" xml:space="preserve">
         <value>再接続</value>
     </data>

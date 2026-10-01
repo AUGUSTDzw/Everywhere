@@ -8,4 +8,3 @@ global using System.Runtime.InteropServices;
 global using Everywhere.Extensions;
 global using Everywhere.I18N;
 global using LocaleKey = Everywhere.Abstractions.I18N.LocaleKey;
-global using LocaleResolver = Everywhere.Abstractions.I18N.LocaleResolver;

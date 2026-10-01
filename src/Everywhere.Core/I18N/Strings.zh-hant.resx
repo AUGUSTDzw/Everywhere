@@ -689,9 +689,6 @@
     <data name="HostsStatusControl_ServiceModeRemovalFailed" xml:space="preserve">
         <value>無法卸載 Everywhere 服務。</value>
     </data>
-    <data name="Windows_ElevatedMainWarning_Content" xml:space="preserve">
-        <value>Everywhere 當前正以管理員身份運行。來自普通應用的拖放可能無法使用，助手執行的操作也會擁有更高的系統權限。</value>
-    </data>
     <data name="HostsStatusControl_Retry_Content" xml:space="preserve">
         <value>重新連接</value>
     </data>

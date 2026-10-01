@@ -28,4 +28,7 @@
     <data name="Windows_BuiltInChatPlugin_Everything_SearchFiles_Description" xml:space="preserve">
         <value>Usa Everything para buscar archivos.</value>
     </data>
+    <data name="Windows_ElevatedMainWarning_Content" xml:space="preserve">
+        <value>Everywhere se está ejecutando actualmente como administrador. El arrastre y la suelta desde aplicaciones normales pueden no funcionar, y las acciones realizadas por el asistente tendrán mayores permisos del sistema.</value>
+    </data>
 </root>

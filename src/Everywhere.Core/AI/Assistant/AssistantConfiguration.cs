@@ -160,11 +160,11 @@ public abstract partial class AssistantConfiguration : ObservableValidator, IMod
     {
         if (context.ObjectInstance is not AdvancedAssistantConfiguration) return ValidationResult.Success;
         if (string.IsNullOrWhiteSpace(endpoint))
-            return new ValidationResult(LocaleResolver.ValidationErrorMessage_Required);
+            return new ValidationResult(LocaleKey.ValidationErrorMessage_Required.I18N());
 
         if (!Uri.TryCreate(endpoint, UriKind.Absolute, out var uri) ||
             uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps)
-            return new ValidationResult(LocaleResolver.AdvancedAssistantConfigurator_InvalidEndpoint);
+            return new ValidationResult(LocaleKey.AdvancedAssistantConfigurator_InvalidEndpoint.I18N());
 
         return ValidationResult.Success;
     }

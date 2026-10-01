@@ -95,11 +95,11 @@ public partial class ChatPluginPageViewModel : BusyViewModelBase
     {
         var form = new McpTransportConfigurationForm();
         var result = await DialogHost
-            .CreateDialog(form, LocaleResolver.ChatPluginPageViewModel_AddMcpPlugin_DialogTitle)
+            .CreateDialog(form, LocaleKey.ChatPluginPageViewModel_AddMcpPlugin_DialogTitle.I18N())
             .WithPrimaryButton(
-                LocaleResolver.Common_OK,
+                LocaleKey.Common_OK.I18N(),
                 (_, e) => e.Cancel = !form.Configuration.Validate())
-            .WithCancelButton(LocaleResolver.Common_Cancel)
+            .WithCancelButton(LocaleKey.Common_Cancel.I18N())
             .ShowAsync(cancellationToken);
         if (result != DialogResult.Primary) return;
         if (form.Configuration.HasErrors) return;
@@ -123,9 +123,9 @@ public partial class ChatPluginPageViewModel : BusyViewModelBase
     {
         var form = new McpImportForm();
         var result = await DialogHost
-            .CreateDialog(form, LocaleResolver.ChatPluginPageViewModel_ImportMcpPlugin_DialogTitle)
-            .WithPrimaryButton(LocaleResolver.Common_OK)
-            .WithCancelButton(LocaleResolver.Common_Cancel)
+            .CreateDialog(form, LocaleKey.ChatPluginPageViewModel_ImportMcpPlugin_DialogTitle.I18N())
+            .WithPrimaryButton(LocaleKey.Common_OK.I18N())
+            .WithCancelButton(LocaleKey.Common_Cancel.I18N())
             .ShowAsync();
         if (result != DialogResult.Primary) return;
         if (string.IsNullOrWhiteSpace(form.McpJson)) return;
@@ -143,7 +143,7 @@ public partial class ChatPluginPageViewModel : BusyViewModelBase
             if (count == 0)
             {
                 ToastHost
-                    .CreateToast(LocaleResolver.ChatPluginPageViewModel_ImportMcpPlugin_NotFoundToast_Title)
+                    .CreateToast(LocaleKey.ChatPluginPageViewModel_ImportMcpPlugin_NotFoundToast_Title.I18N())
                     .OnBottomRight()
                     .ShowWarning();
             }
@@ -151,21 +151,21 @@ public partial class ChatPluginPageViewModel : BusyViewModelBase
             {
                 ToastHost
                     .CreateToast(
-                        LocaleResolver.ChatPluginPageViewModel_ImportMcpPlugin_PartialSuccessToast_Title.Format(count, configurations.Count - count))
+                        LocaleKey.ChatPluginPageViewModel_ImportMcpPlugin_PartialSuccessToast_Title.I18N().Format(count, configurations.Count - count))
                     .OnBottomRight()
                     .ShowWarning();
             }
             else
             {
                 ToastHost
-                    .CreateToast(LocaleResolver.ChatPluginPageViewModel_ImportMcpPlugin_SuccessToast_Title.Format(count))
+                    .CreateToast(LocaleKey.ChatPluginPageViewModel_ImportMcpPlugin_SuccessToast_Title.I18N().Format(count))
                     .OnBottomRight()
                     .ShowSuccess();
             }
         }
         catch (Exception e)
         {
-            ToastExceptionHandler.HandleException(e, LocaleResolver.ChatPluginPageViewModel_ImportMcpPlugin_FailedToast_Title);
+            ToastExceptionHandler.HandleException(e, LocaleKey.ChatPluginPageViewModel_ImportMcpPlugin_FailedToast_Title.I18N());
         }
     }
 
@@ -309,7 +309,7 @@ public partial class ChatPluginPageViewModel : BusyViewModelBase
             configuration = stdioConfiguration;
         }
 
-        configuration.Name = name ?? LocaleResolver.McpTransportConfiguration_DefaultName;
+        configuration.Name = name ?? LocaleKey.McpTransportConfiguration_DefaultName.I18N();
         return configuration;
     }
 
@@ -352,11 +352,11 @@ public partial class ChatPluginPageViewModel : BusyViewModelBase
                         McpTransportConfigurationJsonSerializerContext.Default.McpTransportConfiguration) ?? new StdioMcpTransportConfiguration()
                 };
                 var result = await DialogHost
-                    .CreateDialog(form, LocaleResolver.ChatPluginPageViewModel_EditMcpPlugin_DialogTitle)
+                    .CreateDialog(form, LocaleKey.ChatPluginPageViewModel_EditMcpPlugin_DialogTitle.I18N())
                     .WithPrimaryButton(
-                        LocaleResolver.Common_OK,
+                        LocaleKey.Common_OK.I18N(),
                         (_, e) => e.Cancel = !form.Configuration.Validate())
-                    .WithCancelButton(LocaleResolver.Common_Cancel)
+                    .WithCancelButton(LocaleKey.Common_Cancel.I18N())
                     .ShowAsync(token);
                 if (result != DialogResult.Primary) return;
                 if (form.Configuration.HasErrors) return;
@@ -376,9 +376,9 @@ public partial class ChatPluginPageViewModel : BusyViewModelBase
             async token =>
             {
                 var result = await DialogHost
-                    .CreateDialog(LocaleResolver.ChatPluginPageViewModel_RemoveMcpPlugin_ConfirmationMessage.Format(plugin.HeaderKey))
-                    .WithPrimaryButton(LocaleResolver.Common_Yes)
-                    .WithCancelButton(LocaleResolver.Common_No)
+                    .CreateDialog(LocaleKey.ChatPluginPageViewModel_RemoveMcpPlugin_ConfirmationMessage.I18N().Format(plugin.HeaderKey))
+                    .WithPrimaryButton(LocaleKey.Common_Yes.I18N())
+                    .WithCancelButton(LocaleKey.Common_No.I18N())
                     .ShowAsync(token);
                 if (result != DialogResult.Primary) return;
 

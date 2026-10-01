@@ -61,7 +61,7 @@ public partial class HostsStatusControl(HostProcessCoordinator coordinator, ILog
         {
             logger.LogWarning(exception, "Failed to restart the isolated Hosts.");
             exception = HandledSystemException.Handle(exception);
-            ToastManager.Error(LocaleResolver.Common_Error, exception.GetFriendlyMessage().ToString());
+            ToastManager.Error(LocaleKey.Common_Error.I18N(), exception.GetFriendlyMessage().ToString());
         }
     }
 

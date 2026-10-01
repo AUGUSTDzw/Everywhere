@@ -75,7 +75,7 @@ public sealed partial class ManageApiKeyForm : TemplatedControl, IDisposable
             if (SecretKey is not { Length: > 0 } secretKey) return;
 
             await App.Clipboard.SetTextAsync(secretKey);
-            ToastManager.Success(LocaleResolver.Common_Copied);
+            ToastManager.Success(LocaleKey.Common_Copied.I18N());
         }
     }
 
@@ -169,11 +169,11 @@ public sealed partial class ManageApiKeyForm : TemplatedControl, IDisposable
     {
         var form = new CreateApiKeyForm(_defaultName);
         var result = await DialogManager
-            .CreateDialog(form, LocaleResolver.ApiKeyComboBox_AddApiKey, TopLevel.GetTopLevel(this))
+            .CreateDialog(form, LocaleKey.ApiKeyComboBox_AddApiKey.I18N(), TopLevel.GetTopLevel(this))
             .WithPrimaryButton(
-                LocaleResolver.Common_OK,
+                LocaleKey.Common_OK.I18N(),
                 (_, e) => e.Cancel = !form.ApiKey.ValidateAndSave())
-            .WithCancelButton(LocaleResolver.Common_Cancel)
+            .WithCancelButton(LocaleKey.Common_Cancel.I18N())
             .ShowAsync(cancellationToken);
         if (result != DialogResult.Primary) return;
 
@@ -198,11 +198,11 @@ public sealed partial class ManageApiKeyForm : TemplatedControl, IDisposable
         if (keysToDelete.Length == 0) return;
 
         var result = await DialogManager.CreateDialog(
-                LocaleResolver.ManageApiKeyForm_DeleteApiKeys_Dialog_Message.Format(keysToDelete.Length),
-                LocaleResolver.Common_Warning,
+                LocaleKey.ManageApiKeyForm_DeleteApiKeys_Dialog_Message.I18N().Format(keysToDelete.Length),
+                LocaleKey.Common_Warning.I18N(),
                 TopLevel.GetTopLevel(this))
-            .WithPrimaryButton(LocaleResolver.Common_Yes)
-            .WithCancelButton(LocaleResolver.Common_No)
+            .WithPrimaryButton(LocaleKey.Common_Yes.I18N())
+            .WithCancelButton(LocaleKey.Common_No.I18N())
             .ShowAsync();
 
         if (result != DialogResult.Primary) return;

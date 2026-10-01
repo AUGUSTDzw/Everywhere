@@ -64,11 +64,11 @@ public sealed partial class ApiKeyComboBox : TemplatedControl
     {
         var form = new CreateApiKeyForm(DefaultName);
         var result = await DialogManager
-            .CreateDialog(form, LocaleResolver.ApiKeyComboBox_AddApiKey, TopLevel.GetTopLevel(this))
+            .CreateDialog(form, LocaleKey.ApiKeyComboBox_AddApiKey.I18N(), TopLevel.GetTopLevel(this))
             .WithPrimaryButton(
-                LocaleResolver.Common_OK,
+                LocaleKey.Common_OK.I18N(),
                 (_, e) => e.Cancel = !form.ApiKey.ValidateAndSave())
-            .WithCancelButton(LocaleResolver.Common_Cancel)
+            .WithCancelButton(LocaleKey.Common_Cancel.I18N())
             .ShowAsync(cancellationToken);
         if (result != DialogResult.Primary) return;
 
@@ -82,8 +82,8 @@ public sealed partial class ApiKeyComboBox : TemplatedControl
     {
         using var form = new ManageApiKeyForm(_itemsSource, DefaultName);
         await DialogManager
-            .CreateDialog(form, LocaleResolver.ApiKeyComboBox_ManageApiKey, TopLevel.GetTopLevel(this))
-            .WithPrimaryButton(LocaleResolver.Common_OK)
+            .CreateDialog(form, LocaleKey.ApiKeyComboBox_ManageApiKey.I18N(), TopLevel.GetTopLevel(this))
+            .WithPrimaryButton(LocaleKey.Common_OK.I18N())
             .ShowAsync(cancellationToken);
     }
 

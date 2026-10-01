@@ -44,16 +44,23 @@ public abstract partial class McpTransportConfiguration : ObservableValidator
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            return new ValidationResult(LocaleResolver.ValidationErrorMessage_Required);
+            return new ValidationResult(LocaleKey.ValidationErrorMessage_Required.I18N());
         }
 
         if (name.Length > 50)
         {
-            return new ValidationResult(string.Format(LocaleResolver.ValidationErrorMessage_MaxLength, 50));
+            return new ValidationResult(string.Format(LocaleKey.ValidationErrorMessage_MaxLength.I18N(), 50));
         }
 
         return ValidationResult.Success;
     }
+
+    /// <summary>
+    /// Validates a required value and resolves the error in the current language.
+    /// </summary>
+    public static ValidationResult? ValidateRequired(string? value) => new RequiredAttribute().IsValid(value)
+        ? ValidationResult.Success
+        : new ValidationResult(LocaleKey.ValidationErrorMessage_Required.I18N());
 }
 
 public sealed partial class StdioMcpTransportConfiguration : McpTransportConfiguration
@@ -66,7 +73,7 @@ public sealed partial class StdioMcpTransportConfiguration : McpTransportConfigu
 
     [ObservableProperty]
     [NotifyDataErrorInfo]
-    [Required(ErrorMessageResourceType = typeof(LocaleResolver), ErrorMessageResourceName = LocaleKey.ValidationErrorMessage_Required)]
+    [CustomValidation(typeof(McpTransportConfiguration), nameof(ValidateRequired))]
     public partial string Command { get; set; } = string.Empty;
 
     [JsonPropertyName("Arguments")]
@@ -145,7 +152,7 @@ public sealed partial class StdioMcpTransportConfiguration : McpTransportConfigu
 
     public static ValidationResult? ValidateArguments(ObservableCollection<BindingWrapper<string>>? input) =>
         input?.AsValueEnumerable().Any(bindingWrapper => bindingWrapper.Value.IsNullOrEmpty()) is true ?
-            new ValidationResult(LocaleResolver.ValidationErrorMessage_NullKey) :
+            new ValidationResult(LocaleKey.ValidationErrorMessage_NullKey.I18N()) :
             ValidationResult.Success;
 
     public static ValidationResult? ValidateEnvironmentVariables(ObservableCollection<ObservableKeyValuePair<string, string?>>? input)
@@ -157,12 +164,12 @@ public sealed partial class StdioMcpTransportConfiguration : McpTransportConfigu
         {
             if (kvp.Key.IsNullOrWhiteSpace())
             {
-                return new ValidationResult(LocaleResolver.ValidationErrorMessage_NullKey);
+                return new ValidationResult(LocaleKey.ValidationErrorMessage_NullKey.I18N());
             }
 
             if (!keys.Add(kvp.Key))
             {
-                return new ValidationResult(LocaleResolver.ValidationErrorMessage_DuplicateKey);
+                return new ValidationResult(LocaleKey.ValidationErrorMessage_DuplicateKey.I18N());
             }
         }
 
@@ -179,8 +186,8 @@ public sealed partial class HttpMcpTransportConfiguration : McpTransportConfigur
 
     [ObservableProperty]
     [NotifyDataErrorInfo]
-    [Url(ErrorMessageResourceType = typeof(LocaleResolver), ErrorMessageResourceName = LocaleKey.ValidationErrorMessage_Url)]
-    [Required(ErrorMessageResourceType = typeof(LocaleResolver), ErrorMessageResourceName = LocaleKey.ValidationErrorMessage_Required)]
+    [CustomValidation(typeof(HttpMcpTransportConfiguration), nameof(ValidateUrl))]
+    [CustomValidation(typeof(McpTransportConfiguration), nameof(ValidateRequired))]
     public partial string Endpoint { get; set; } = string.Empty;
 
     [JsonPropertyName("Headers")]
@@ -211,6 +218,13 @@ public sealed partial class HttpMcpTransportConfiguration : McpTransportConfigur
     [ObservableProperty]
     public partial HttpTransportMode TransportMode { get; set; }
 
+    /// <summary>
+    /// Validates an endpoint using the standard URL validator and a localized error message.
+    /// </summary>
+    public static ValidationResult? ValidateUrl(string? value) => new UrlAttribute().IsValid(value)
+        ? ValidationResult.Success
+        : new ValidationResult(LocaleKey.ValidationErrorMessage_Url.I18N());
+
     [RelayCommand]
     private void AddEmptyHeader() => Headers.Add(new ObservableKeyValuePair<string, string>(string.Empty, string.Empty));
 
@@ -226,17 +240,17 @@ public sealed partial class HttpMcpTransportConfiguration : McpTransportConfigur
         {
             if (string.IsNullOrWhiteSpace(kvp.Key))
             {
-                return new ValidationResult(LocaleResolver.ValidationErrorMessage_NullKey);
+                return new ValidationResult(LocaleKey.ValidationErrorMessage_NullKey.I18N());
             }
 
             if (string.IsNullOrWhiteSpace(kvp.Value))
             {
-                return new ValidationResult(LocaleResolver.ValidationErrorMessage_NullValue);
+                return new ValidationResult(LocaleKey.ValidationErrorMessage_NullValue.I18N());
             }
 
             if (!keys.Add(kvp.Key))
             {
-                return new ValidationResult(LocaleResolver.ValidationErrorMessage_DuplicateKey);
+                return new ValidationResult(LocaleKey.ValidationErrorMessage_DuplicateKey.I18N());
             }
         }
 

@@ -64,7 +64,7 @@ public sealed partial class CommonSettings(IServiceProvider serviceProvider) : S
             {
                 ex = HandledSystemException.Handle(ex); // maybe blocked by UAC or antivirus, handle it gracefully
                 Log.ForContext<CommonSettings>().Error(ex, "Failed to set user startup enabled.");
-                ToastManager.Error(LocaleResolver.Common_Error, ex.GetFriendlyMessage());
+                ToastManager.Error(LocaleKey.Common_Error.I18N(), ex.GetFriendlyMessage());
             }
         }
     }

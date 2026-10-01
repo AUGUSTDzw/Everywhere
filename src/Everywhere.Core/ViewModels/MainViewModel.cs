@@ -173,7 +173,7 @@ public sealed partial class MainViewModel : ReactiveViewModelBase, IRecipient<Ma
             {
                 NavigateTo(_serviceProvider.GetRequiredService<ChangeLogView>());
                 ToastHost
-                    .CreateToast(LocaleResolver.MainViewModel_UpgradeSuccessfulToast_Title)
+                    .CreateToast(LocaleKey.MainViewModel_UpgradeSuccessfulToast_Title.I18N())
                     .WithDurationSeconds(5)
                     .Show();
             }
@@ -295,7 +295,7 @@ public sealed partial class MainViewModel : ReactiveViewModelBase, IRecipient<Ma
     {
         if (PersistentState.IsHideToTrayIconNotificationShown) return;
 
-        _serviceProvider.GetRequiredService<INativeHelper>().ShowDesktopNotificationAsync(LocaleResolver.MainView_EverywhereHasMinimizedToTray);
+        _serviceProvider.GetRequiredService<INativeHelper>().ShowDesktopNotificationAsync(LocaleKey.MainView_EverywhereHasMinimizedToTray.I18N());
         PersistentState.IsHideToTrayIconNotificationShown = true;
     }
 

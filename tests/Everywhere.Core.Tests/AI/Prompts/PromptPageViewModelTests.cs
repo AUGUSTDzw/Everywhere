@@ -63,24 +63,11 @@ public sealed class PromptPageViewModelTests
         IAssistantPromptReferenceService? referenceService = null,
         ISkillPromptProvider? skillPromptProvider = null)
     {
-        EnsureLocaleManager();
         return new PromptPageViewModel(
             new TestPromptService(prompts),
             referenceService ?? new TestAssistantPromptReferenceService([]),
             skillPromptProvider ?? new TestSkillPromptProvider(string.Empty),
             new ServiceCollection().BuildServiceProvider());
-    }
-
-    private static void EnsureLocaleManager()
-    {
-        try
-        {
-            _ = LocaleManager.Shared;
-        }
-        catch (InvalidOperationException)
-        {
-            _ = new LocaleManager();
-        }
     }
 
     private static PromptDefinition UserPrompt(

@@ -72,13 +72,13 @@ public partial class DynamicLocaleKey(object? key) : IDynamicLocaleKey, IRecipie
     [return: NotNullIfNotNull(nameof(key))]
     public static implicit operator DynamicLocaleKey?(string? key) => key == null ? null : new DynamicLocaleKey(key);
 
-    public static bool Exists(object key) => LocaleManager.Shared.TryGetResource(key, null, out _);
+    public static bool Exists(object key) => key is string resourceKey && LocaleManager.TryGetString(resourceKey, out _);
 
     public static bool TryResolve(object key, [NotNullWhen(true)] out string? result)
     {
-        if (LocaleManager.Shared.TryGetResource(key, null, out var resource))
+        if (key is string resourceKey && LocaleManager.TryGetString(resourceKey, out var resource))
         {
-            result = resource?.ToString() ?? string.Empty;
+            result = resource;
             return true;
         }
 
@@ -88,9 +88,9 @@ public partial class DynamicLocaleKey(object? key) : IDynamicLocaleKey, IRecipie
 
     public static string Resolve(object? key)
     {
-        if (key is not null && LocaleManager.Shared.TryGetResource(key, null, out var resource))
+        if (key is string resourceKey && LocaleManager.TryGetString(resourceKey, out var resource))
         {
-            return resource?.ToString() ?? string.Empty;
+            return resource;
         }
 
         return key?.ToString() ?? string.Empty;
@@ -98,6 +98,13 @@ public partial class DynamicLocaleKey(object? key) : IDynamicLocaleKey, IRecipie
 
     public void Receive(LocaleChangedMessage message)
     {
+        // Language changes can originate outside the UI thread. Never synchronously wait for it.
+        if (!Dispatcher.UIThread.CheckAccess())
+        {
+            Dispatcher.UIThread.Post(() => Receive(message));
+            return;
+        }
+
         foreach (var observer in _observers.Values.AsValueEnumerable())
         {
             observer.OnNext(ToString());
@@ -365,6 +372,12 @@ public sealed partial class JsonDynamicLocaleKey : Dictionary<string, string>, I
 
     public void Receive(LocaleChangedMessage message)
     {
+        if (!Dispatcher.UIThread.CheckAccess())
+        {
+            Dispatcher.UIThread.Post(() => Receive(message));
+            return;
+        }
+
         foreach (var observer in _observers.Values.AsValueEnumerable())
         {
             observer.OnNext(ToString());

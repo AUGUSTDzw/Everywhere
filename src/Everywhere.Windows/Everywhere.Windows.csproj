@@ -45,10 +45,7 @@
     <ProjectReference Include="..\Everywhere.ProcessIsolation\Everywhere.ProcessIsolation.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Remove="I18N\Strings*.resx"/>
-    <AdditionalFiles Include="I18N\Strings*.resx"/>
-  </ItemGroup>
+  <Import Project="..\Build.I18N.targets"/>
 
   <ItemGroup>
     <None Include="..\..\img\Everywhere.ico">

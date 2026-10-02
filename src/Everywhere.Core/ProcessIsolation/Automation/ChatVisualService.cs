@@ -12,7 +12,9 @@ public sealed class ChatVisualService : IDisposable
 {
     /// <summary>Model-facing notice emitted after a visual Context reset.</summary>
     public const string ResetNotice =
-        "The visual Context was reset. IDs from earlier visual Contexts are invalid; re-observe before using them. Prior observations and completed actions remain part of the task history.";
+        "System: The visual Context was reset. " +
+        "IDs from earlier visual Contexts are invalid; re-observe before using them. " +
+        "Prior observations and completed actions remain part of the task history.";
 
     /// <summary>Gets the connection-restoring Context used by picker and text-selection acquisition.</summary>
     public IHostedVisualContext AcquisitionContext => _acquisitionContext;

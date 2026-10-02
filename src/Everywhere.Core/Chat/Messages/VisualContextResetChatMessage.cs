@@ -10,7 +10,7 @@ namespace Everywhere.Chat;
 public sealed partial class VisualContextResetChatMessage : ChatMessage
 {
     /// <inheritdoc />
-    public override AuthorRole Role => new("developer");
+    public override AuthorRole Role => new("user");
 
     /// <inheritdoc />
     public override bool IsHidden => true;

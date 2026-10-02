@@ -318,29 +318,25 @@ ul, ol { padding-left: 2em; }
                     DockPanel.Dock="Right" HorizontalAlignment="Right"
                     Orientation="Horizontal" Spacing="0">
                     <ToggleButton
-                      x:Name="PART_ToggleTextWrapButton" Classes="Compact Uniform"
+                      x:Name="PART_ToggleTextWrapButton" Classes="Minimal"
                       Width="{DynamicResource FontSize2Xl}"
                       Height="{DynamicResource FontSize2Xl}"
                       shadui:ButtonAssist.CheckedBackground="{DynamicResource TransparentColor}"
                       shadui:ButtonAssist.CheckedForeground="{DynamicResource PrimaryColor}"
+                      shadui:ButtonAssist.Icon="{LucideIconContent TextWrap}"
+                      shadui:ButtonAssist.IconSize="{DynamicResource FontSizeL}"
                       Background="{DynamicResource TransparentColor}"
                       BorderThickness="0" Focusable="False"
                       IsChecked="{TemplateBinding IsCodeWrapped, Mode=TwoWay}"
-                      ToolTip.Tip="{I18N {x:Static LocaleKey.CodeBlock_ToggleTextWrap_Tip}}">
-                      <LucideIcon
-                        Kind="TextWrap"
-                        Size="{DynamicResource FontSizeL}"/>
-                    </ToggleButton>
+                      ToolTip.Tip="{I18N {x:Static LocaleKey.CodeBlock_ToggleTextWrap_Tip}}"/>
                     <Button
-                      x:Name="PART_CopyButton" Classes="Ghost Compact Uniform"
+                      x:Name="PART_CopyButton" Classes="Ghost Minimal"
                       Width="{DynamicResource FontSize2Xl}"
                       Height="{DynamicResource FontSize2Xl}"
+                      shadui:ButtonAssist.Icon="{LucideIconContent Copy}"
+                      shadui:ButtonAssist.IconSize="{DynamicResource FontSizeL}"
                       Focusable="False"
-                      ToolTip.Tip="{I18N {x:Static LocaleKey.Common_Copy}}">
-                      <LucideIcon
-                        Kind="Copy"
-                        Size="{DynamicResource FontSizeL}"/>
-                    </Button>
+                      ToolTip.Tip="{I18N {x:Static LocaleKey.Common_Copy}}"/>
                   </StackPanel>
                 </DockPanel>
               </Border>

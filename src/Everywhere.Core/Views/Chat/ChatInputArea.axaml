@@ -111,7 +111,7 @@
               <v:ContextUsageRing.Flyout>
                 <Flyout Placement="Top">
                   <StackPanel
-                    Width="220" Margin="6"
+                    Width="220" Margin="12"
                     Spacing="8">
                     <TextBlock
                       FontSize="{DynamicResource FontSizeL}"
@@ -188,7 +188,8 @@
                       TextWrapping="Wrap"/>
 
                     <Button
-                      Classes="Secondary Compact" HorizontalAlignment="Stretch"
+                      Classes="Secondary Compact" Margin="-6,0,-6,-6"
+                      HorizontalAlignment="Stretch"
                       shadui:ButtonAssist.IconSize="{DynamicResource FontSizeM}"
                       shadui:ButtonAssist.ShowProgress="{Binding ContextCompaction?.IsRunning, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={x:False}}"
                       Command="{Binding CompactContextCommand, RelativeSource={RelativeSource TemplatedParent}}"

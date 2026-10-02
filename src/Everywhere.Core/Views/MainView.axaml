@@ -23,7 +23,7 @@
           <Style Selector="^:compact /template/ DockPanel#PART_PaneRoot">
             <Setter Property="Margin" Value="16,0"/>
           </Style>
-          <Style Selector="^:compact /template/ Border#PART_ContentRoot">
+          <Style Selector="^:compact /template/ shadui|SmoothBorder#PART_ContentRoot">
             <Setter Property="BorderThickness" Value="0,1"/>
             <Setter Property="CornerRadius" Value="0"/>
           </Style>

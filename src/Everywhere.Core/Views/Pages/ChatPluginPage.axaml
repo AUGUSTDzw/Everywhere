@@ -303,7 +303,7 @@
               <DataTemplate x:DataType="p:ChatPluginWarning">
                 <shadui:Toast
                   Title="{Binding MessageKey^, FallbackValue={x:Null}}"
-                  HorizontalAlignment="Stretch"
+                  Padding="12,6" HorizontalAlignment="Stretch"
                   ActionButtonContent="{Binding ActionButtonContentKey^, FallbackValue={x:Null}}"
                   CanDismiss="False" CanDismissByClicking="False"
                   Command="{Binding Command}"

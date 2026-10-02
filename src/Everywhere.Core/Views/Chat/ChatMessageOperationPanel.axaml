@@ -1,6 +1,6 @@
 ﻿<Styles
   xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:v="using:Everywhere.Views">
+  xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI" xmlns:v="using:Everywhere.Views">
   <Style Selector="v|ChatMessageOperationPanel">
     <Setter Property="Orientation" Value="Horizontal"/>
 
@@ -47,9 +47,10 @@
           <ControlTemplate>
             <Grid ColumnDefinitions="Auto,*,Auto">
               <Button
-                x:Name="PART_DecreaseButton" Classes="Ghost Compact Uniform"
+                x:Name="PART_DecreaseButton" Classes="Ghost Minimal"
                 Grid.Column="0"
-                Content="{LucideIconContent ChevronLeft, Size=18}"
+                shadui:ButtonAssist.Icon="{LucideIconContent ChevronLeft}"
+                shadui:ButtonAssist.IconSize="{DynamicResource FontSizeL}"
                 Focusable="False"
                 Foreground="{TemplateBinding Foreground}"/>
               <ContentPresenter
@@ -58,9 +59,10 @@
                 Content="{TemplateBinding Content}"
                 TabIndex="1"/>
               <Button
-                x:Name="PART_IncreaseButton" Classes="Ghost Compact"
+                x:Name="PART_IncreaseButton" Classes="Ghost Minimal"
                 Grid.Column="2"
-                Content="{LucideIconContent ChevronRight, Size=18}"
+                shadui:ButtonAssist.Icon="{LucideIconContent ChevronRight}"
+                shadui:ButtonAssist.IconSize="{DynamicResource FontSizeL}"
                 Focusable="False"
                 Foreground="{TemplateBinding Foreground}"/>
             </Grid>

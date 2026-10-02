@@ -696,13 +696,13 @@
                       Minimum="1"
                       Value="{Binding Parent?.ChoiceIndex, Converter={x:Static vc:Int32Converters.Plus}, ConverterParameter=1}"/>
                     <Button
-                      Classes="Ghost Compact"
+                      Classes="Ghost Minimal"
                       Command="{Binding $parent[v:ChatMessageItemsControl].RetryMessageNodeCommand}"
                       CommandParameter="{Binding Mode=OneTime}"
                       Content="{LucideIconContent RefreshCcw}"
                       ToolTip.Tip="{I18N {x:Static LocaleKey.ChatMessageControl_RetryButton_Content}}"/>
                     <Button
-                      Classes="Ghost Compact"
+                      Classes="Ghost Minimal"
                       Command="{Binding $parent[v:ChatMessageItemsControl].CopyMessageCommand}"
                       CommandParameter="{Binding Message, Mode=OneTime}"
                       Content="{LucideIconContent Copy}"
